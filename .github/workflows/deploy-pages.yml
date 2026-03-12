@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +39,11 @@ jobs:
           gem install jekyll
           npm install -g npm@10.8.1
           npm install -g fsh-sushi@3.17.0
+
+      - name: Download IG Publisher
+        run: |
+          mkdir -p ./input-cache
+          curl -L -o ./input-cache/publisher.jar https://github.com/HL7/fhir-ig-publisher/releases/latest/download/publisher.jar
 
       - name: Build IG
         run: bash ./_genonce.sh
