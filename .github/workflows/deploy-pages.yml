@@ -39,7 +39,7 @@ jobs:
           npm install -g fsh-sushi@3.17.0
 
       - name: Build IG
-        run: ./_genonce.sh
+        run: bash ./_genonce.sh
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
