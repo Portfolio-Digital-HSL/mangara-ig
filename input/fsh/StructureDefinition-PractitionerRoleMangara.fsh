@@ -1,5 +1,5 @@
 Profile: PractitionerRoleMangara
-Parent: br-core-practitionerrole
+Parent: PractitionerRole
 Id: practitioner-role-mangara
 Title: "PractitionerRole Mangara"
 Description: "Perfil de PractitionerRole com extensão de duração da consulta em minutos."
