@@ -1,0 +1,1062 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.F",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.F",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_F",
+  "title": "Mangará Agendamento - Capítulo F (Olhos)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo F. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto F.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "F.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo F. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "F01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F01.Question",
+          "code": "F01.Question",
+          "display": "Dor no olho"
+        }
+      ],
+      "text": "Dor no olho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F02.Question",
+          "code": "F02.Question",
+          "display": "Olho vermelho"
+        }
+      ],
+      "text": "Olho vermelho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F03.Question",
+          "code": "F03.Question",
+          "display": "Secreção ocular"
+        }
+      ],
+      "text": "Secreção ocular",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F04.Question",
+          "code": "F04.Question",
+          "display": "Moscas volantes/pontos luminosos/escotomas/ manchas"
+        }
+      ],
+      "text": "Moscas volantes/pontos luminosos/escotomas/ manchas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F05.Question",
+          "code": "F05.Question",
+          "display": "Outras perturbações visuais"
+        }
+      ],
+      "text": "Outras perturbações visuais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F05.QuestionA",
+          "code": "F05.QuestionA",
+          "display": "Apresenta diplopia ou defeito no campo visual (hemianopsia, quadrantopsia)?"
+        }
+      ],
+      "text": "Apresenta diplopia ou defeito no campo visual (hemianopsia, quadrantopsia)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/F05.Question",
+            "code": "F05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F13.Question",
+          "code": "F13.Question",
+          "display": "Sensações oculares anormais"
+        }
+      ],
+      "text": "Sensações oculares anormais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F14.Question",
+          "code": "F14.Question",
+          "display": "Movimentos oculares anormais"
+        }
+      ],
+      "text": "Movimentos oculares anormais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F14.QuestionA",
+          "code": "F14.QuestionA",
+          "display": "Apresenta nistagmo ao exame?"
+        }
+      ],
+      "text": "Apresenta nistagmo ao exame?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/F14.Question",
+            "code": "F14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F15.Question",
+          "code": "F15.Question",
+          "display": "Aparência anormal nos olhos"
+        }
+      ],
+      "text": "Aparência anormal nos olhos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F16.Question",
+          "code": "F16.Question",
+          "display": "Sinais/sintomas das pálpebras"
+        }
+      ],
+      "text": "Sinais/sintomas das pálpebras",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F16.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F16.QuestionA",
+          "code": "F16.QuestionA",
+          "display": "Apresenta ptose palpebral ao exame?"
+        }
+      ],
+      "text": "Apresenta ptose palpebral ao exame?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F16.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F16.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/F16.Question",
+            "code": "F16.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F17.Question",
+          "code": "F17.Question",
+          "display": "Sinais/sintomas relacionados a óculos"
+        }
+      ],
+      "text": "Sinais/sintomas relacionados a óculos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F18.Question",
+          "code": "F18.Question",
+          "display": "Sinais/sintomas relacionados a lentes de contato"
+        }
+      ],
+      "text": "Sinais/sintomas relacionados a lentes de contato",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F27.Question",
+          "code": "F27.Question",
+          "display": "Medo de doença ocular"
+        }
+      ],
+      "text": "Medo de doença ocular",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F29.Question",
+          "code": "F29.Question",
+          "display": "Outros sinais/sintomas oculares"
+        }
+      ],
+      "text": "Outros sinais/sintomas oculares",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F70.Question",
+          "code": "F70.Question",
+          "display": "Conjuntivite infecciosa"
+        }
+      ],
+      "text": "Conjuntivite infecciosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F71.Question",
+          "code": "F71.Question",
+          "display": "Conjuntivite alérgica"
+        }
+      ],
+      "text": "Conjuntivite alérgica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F72.Question",
+          "code": "F72.Question",
+          "display": "Blefarite/hordéolo/calázio"
+        }
+      ],
+      "text": "Blefarite/hordéolo/calázio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F73.Question",
+          "code": "F73.Question",
+          "display": "Outras infecções/inflamações oculares"
+        }
+      ],
+      "text": "Outras infecções/inflamações oculares",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F74.Question",
+          "code": "F74.Question",
+          "display": "Neoplasia do olho/anexos"
+        }
+      ],
+      "text": "Neoplasia do olho/anexos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F74.QuestionA",
+          "code": "F74.QuestionA",
+          "display": "Trata-se neoplasia maligna dos olhos/anexos para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna dos olhos/anexos para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/F74.Question",
+            "code": "F74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F80.Question",
+          "code": "F80.Question",
+          "display": "Obstrução canal lacrimal da criança"
+        }
+      ],
+      "text": "Obstrução canal lacrimal da criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F81.Question",
+          "code": "F81.Question",
+          "display": "Outras malformações congênitas do olho"
+        }
+      ],
+      "text": "Outras malformações congênitas do olho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F83.Question",
+          "code": "F83.Question",
+          "display": "Retinopatia"
+        }
+      ],
+      "text": "Retinopatia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F84.Question",
+          "code": "F84.Question",
+          "display": "Degeneração macular"
+        }
+      ],
+      "text": "Degeneração macular",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F85.Question",
+          "code": "F85.Question",
+          "display": "Ulcera da córnea"
+        }
+      ],
+      "text": "Ulcera da córnea",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F86.Question",
+          "code": "F86.Question",
+          "display": "Tracoma"
+        }
+      ],
+      "text": "Tracoma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F91.Question",
+          "code": "F91.Question",
+          "display": "Erro de refração"
+        }
+      ],
+      "text": "Erro de refração",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F92.Question",
+          "code": "F92.Question",
+          "display": "Catarata"
+        }
+      ],
+      "text": "Catarata",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F93.Question",
+          "code": "F93.Question",
+          "display": "Glaucoma"
+        }
+      ],
+      "text": "Glaucoma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F94.Question",
+          "code": "F94.Question",
+          "display": "Cegueira"
+        }
+      ],
+      "text": "Cegueira",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F95.Question",
+          "code": "F95.Question",
+          "display": "Estrabismo"
+        }
+      ],
+      "text": "Estrabismo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "F99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/F99.Question",
+          "code": "F99.Question",
+          "display": "Outra doenças oculares/anexos"
+        }
+      ],
+      "text": "Outra doenças oculares/anexos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/F99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "F.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "F99"
+          }
+        }
+      ]
+    }
+  ]
+}

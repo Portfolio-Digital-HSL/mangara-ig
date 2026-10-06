@@ -1,0 +1,1657 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.T",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.T",
+  "version": "0.1.0",
+  "name": "MG_AGENDA_T",
+  "title": "Mangará Agendamento - Capítulo T (Endócrino/Metabólico/Nutricional)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-02",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo T.",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "Lógica: a pergunta de triagem (TNN.Question) aparece conforme o CIAP informado. Se SIM, segue para TNN.QuestionA. Pergunta B só aparece se A = NÃO; C só se B = NÃO. Resposta SIM em uma pergunta complementar encerra a triagem do CIAP e define o profissional (CBO). Se todas as complementares forem NÃO, vale o DESFECHO FINAL descrito na designNote da pergunta de triagem. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "T.A1.CIAP.DE2",
+      "text": "Código CIAP do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Código CIAP-2 do motivo da solicitação (capítulo T). Define qual pergunta de triagem é exibida."
+        }
+      ]
+    },
+    {
+      "linkId": "T01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T01.Question",
+          "code": "T01.Question",
+          "display": "Sede excessiva"
+        }
+      ],
+      "text": "Sede excessiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T01.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T02.Question",
+          "code": "T02.Question",
+          "display": "Apetite excessivo"
+        }
+      ],
+      "text": "Apetite excessivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T02.SIM → segue para T02.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T02.QuestionA",
+          "code": "T02.QuestionA",
+          "display": "Sintoma de Apetite Excessivo já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Sintoma de Apetite Excessivo já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T02.Question = T02.SIM. Se T02.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T02. Se T02.A.NAO → desfecho final do T02. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T02.Question",
+            "code": "T02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T03.Question",
+          "code": "T03.Question",
+          "display": "Perda de apetite"
+        }
+      ],
+      "text": "Perda de apetite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T03.SIM → segue para T03.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T03.QuestionA",
+          "code": "T03.QuestionA",
+          "display": "Sintoma de Perda de Apetite já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Sintoma de Perda de Apetite já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T03.Question = T03.SIM. Se T03.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T03. Se T03.A.NAO → desfecho final do T03. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T03.Question",
+            "code": "T03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T04.Question",
+          "code": "T04.Question",
+          "display": "Problemas alimentares de lactente/criança"
+        }
+      ],
+      "text": "Problemas alimentares de lactente/criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: <16 CIAP específico para criança e/ou adolescente. Se T04.SIM → segue para T04.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) PEDIATRIA — CBO 225124 MEDICO PEDIATRA; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) PEDIATRIA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T04.QuestionA",
+          "code": "T04.QuestionA",
+          "display": "Problema Alimentar de lactente/criança já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Problema Alimentar de lactente/criança já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T04.Question = T04.SIM. Se T04.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T04. Se T04.A.NAO → desfecho final do T04. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T04.Question",
+            "code": "T04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T05.Question",
+          "code": "T05.Question",
+          "display": "Problemas alimentares do adulto"
+        }
+      ],
+      "text": "Problemas alimentares do adulto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T05.SIM → segue para T05.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T05.QuestionA",
+          "code": "T05.QuestionA",
+          "display": "Problema Alimentare do adulto já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Problema Alimentare do adulto já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T05.Question = T05.SIM. Se T05.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T05. Se T05.A.NAO → desfecho final do T05. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T05.Question",
+            "code": "T05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T07.Question",
+          "code": "T07.Question",
+          "display": "Aumento de peso"
+        }
+      ],
+      "text": "Aumento de peso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T07.SIM → segue para T07.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T07.QuestionA",
+          "code": "T07.QuestionA",
+          "display": "Aumento de peso já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Aumento de peso já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T07.Question = T07.SIM. Se T07.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T07. Se T07.A.NAO → desfecho final do T07. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T07.Question",
+            "code": "T07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T08.Question",
+          "code": "T08.Question",
+          "display": "Perda de peso"
+        }
+      ],
+      "text": "Perda de peso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T08.SIM → segue para T08.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T08.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T08.QuestionA",
+          "code": "T08.QuestionA",
+          "display": "Perda involuntária de > 5% do peso corporal total em um período de 6 a 12 meses (ou perda superior a 10% em qualquer intervalo de tempo)?"
+        }
+      ],
+      "text": "Perda involuntária de > 5% do peso corporal total em um período de 6 a 12 meses (ou perda superior a 10% em qualquer intervalo de tempo)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T08.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T08.Question = T08.SIM. Se T08.A.SIM → agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Encerra a triagem do T08. Se T08.A.NAO → segue para T08.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T08.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T08.Question",
+            "code": "T08.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T08.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T08.QuestionB",
+          "code": "T08.QuestionB",
+          "display": "Perda de peso aparenta ter relação com quadro de saúde mental/transtorno alimentar, síndrome demencial ou alguma questão clínica ainda não avaliada?"
+        }
+      ],
+      "text": "Perda de peso aparenta ter relação com quadro de saúde mental/transtorno alimentar, síndrome demencial ou alguma questão clínica ainda não avaliada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T08.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T08.QuestionA = T08.A.NAO. Se T08.B.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T08. Se T08.B.NAO → desfecho final do T08. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T08.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T08.QuestionA",
+            "code": "T08.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T10.Question",
+          "code": "T10.Question",
+          "display": "Atraso do crescimento"
+        }
+      ],
+      "text": "Atraso do crescimento",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: <16 CIAP específico para criança e/ou adolescente. Se T10.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) PEDIATRIA — CBO 225124 MEDICO PEDIATRA; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T11.Question",
+          "code": "T11.Question",
+          "display": "Desidratação"
+        }
+      ],
+      "text": "Desidratação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T11.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T26.Question",
+          "code": "T26.Question",
+          "display": "Medo de câncer do sistema endócrino"
+        }
+      ],
+      "text": "Medo de câncer do sistema endócrino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T26.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T27.Question",
+          "code": "T27.Question",
+          "display": "Medo de outra doença endócrina/metabólica"
+        }
+      ],
+      "text": "Medo de outra doença endócrina/metabólica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T27.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T70.Question",
+          "code": "T70.Question",
+          "display": "Infecção endócrina"
+        }
+      ],
+      "text": "Infecção endócrina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T70.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) INFECTOLOGIA — CBO 225103 MEDICO INFECTOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T71.Question",
+          "code": "T71.Question",
+          "display": "Neoplasia maligna da tiróide"
+        }
+      ],
+      "text": "Neoplasia maligna da tiróide",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T71.SIM → segue para T71.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Observação: MFC - DUANE RODRIGUES BATISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionA",
+          "code": "T71.QuestionA",
+          "display": "Trata-se neoplasia maligna da tireoide já avaliada e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna da tireoide já avaliada e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T71.Question = T71.SIM. Se T71.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T71. Se T71.A.NAO → segue para T71.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T71.Question",
+            "code": "T71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T71.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionB",
+          "code": "T71.QuestionB",
+          "display": "Trata-se neoplasia maligna da tireoide já avaliada com necessidade principal de reabilitação de fala ou deglutição?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna da tireoide já avaliada com necessidade principal de reabilitação de fala ou deglutição?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T71.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T71.QuestionA = T71.A.NAO. Se T71.B.SIM → agendar com (1) FONOAUDIOLOGIA — CBO 223810 FONOAUDIOLOGO. Encerra a triagem do T71. Se T71.B.NAO → segue para T71.QuestionC. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T71.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionA",
+            "code": "T71.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T71.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionC",
+          "code": "T71.QuestionC",
+          "display": "Trata-se neoplasia maligna da tireoide sem proposta curativa para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna da tireoide sem proposta curativa para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T71.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T71.QuestionB = T71.B.NAO. Se T71.C.SIM → agendar com (1) CUIDADOS PALIATIVOS — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Profissional indicado (Observações): MFC - DUANE RODRIGUES BATISTA. Encerra a triagem do T71. Se T71.C.NAO → desfecho final do T71. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T71.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionB",
+            "code": "T71.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T72.Question",
+          "code": "T72.Question",
+          "display": "Neoplasia benigna da tiróide"
+        }
+      ],
+      "text": "Neoplasia benigna da tiróide",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T72.SIM → segue para T72.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T72.QuestionA",
+          "code": "T72.QuestionA",
+          "display": "Apoio na avaliação inicial de nódulo tireoideano (por exame físico ou exame de imagem), ainda sem confirmação histológica de subtipo (sem biópsia)?"
+        }
+      ],
+      "text": "Apoio na avaliação inicial de nódulo tireoideano (por exame físico ou exame de imagem), ainda sem confirmação histológica de subtipo (sem biópsia)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T72.Question = T72.SIM. Se T72.A.SIM → agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T72. Se T72.A.NAO → desfecho final do T72. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T72.Question",
+            "code": "T72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T73.Question",
+          "code": "T73.Question",
+          "display": "Outra neoplasia endócrina NE"
+        }
+      ],
+      "text": "Outra neoplasia endócrina NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T73.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T78.Question",
+          "code": "T78.Question",
+          "display": "Cisto do canal tiroglosso"
+        }
+      ],
+      "text": "Cisto do canal tiroglosso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T78.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T80.Question",
+          "code": "T80.Question",
+          "display": "Malformação congénita endócrina/metabólica"
+        }
+      ],
+      "text": "Malformação congénita endócrina/metabólica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T80.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T81.Question",
+          "code": "T81.Question",
+          "display": "Bócio"
+        }
+      ],
+      "text": "Bócio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T81.SIM → segue para T81.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T81.QuestionA",
+          "code": "T81.QuestionA",
+          "display": "Alguma das características: (i)TSH suprimido; (ii) Classificação TIRADS 4 ou 5; (iii) Bócio grande, sintomas compressivos ou crescimento progressivo?"
+        }
+      ],
+      "text": "Alguma das características: (i)TSH suprimido; (ii) Classificação TIRADS 4 ou 5; (iii) Bócio grande, sintomas compressivos ou crescimento progressivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T81.Question = T81.SIM. Se T81.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T81. Se T81.A.NAO → desfecho final do T81. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T81.Question",
+            "code": "T81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T82.Question",
+          "code": "T82.Question",
+          "display": "Obesidade"
+        }
+      ],
+      "text": "Obesidade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T82.SIM → segue para T82.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Observação: Se: (1) ENDOCRINOLOGIA ou (2) MEDICINA INTERNA ou (3) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO; (2) FISIOTERAPIA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T82.QuestionA",
+          "code": "T82.QuestionA",
+          "display": "Obesidade já avaliada e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Obesidade já avaliada e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T82.Question = T82.SIM. Se T82.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T82. Se T82.A.NAO → segue para T82.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T82.Question",
+            "code": "T82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T82.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T82.QuestionB",
+          "code": "T82.QuestionB",
+          "display": "Obesidade grau I (IMC 30 - 34,9) ou grau II (IMC 35 - 39,9) sem comorbidades graves para início de acompanhamento?"
+        }
+      ],
+      "text": "Obesidade grau I (IMC 30 - 34,9) ou grau II (IMC 35 - 39,9) sem comorbidades graves para início de acompanhamento?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T82.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T82.QuestionA = T82.A.NAO. Se T82.B.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Encerra a triagem do T82. Se T82.B.NAO → desfecho final do T82. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T82.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T82.QuestionA",
+            "code": "T82.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T83.Question",
+          "code": "T83.Question",
+          "display": "Excesso de peso"
+        }
+      ],
+      "text": "Excesso de peso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T83.SIM → segue para T83.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO; (2) FISIOTERAPIA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T83.QuestionA",
+          "code": "T83.QuestionA",
+          "display": "Excesso de peso com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Excesso de peso com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T83.Question = T83.SIM. Se T83.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T83. Se T83.A.NAO → desfecho final do T83. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T83.Question",
+            "code": "T83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T85.Question",
+          "code": "T85.Question",
+          "display": "Hipertiroidismo/tireotoxicose"
+        }
+      ],
+      "text": "Hipertiroidismo/tireotoxicose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T85.SIM → segue para T85.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T85.QuestionA",
+          "code": "T85.QuestionA",
+          "display": "Paciente assintomático com TSH baixo e T3/T4 livre normais?"
+        }
+      ],
+      "text": "Paciente assintomático com TSH baixo e T3/T4 livre normais?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T85.Question = T85.SIM. Se T85.A.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T85. Se T85.A.NAO → desfecho final do T85. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T85.Question",
+            "code": "T85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T86.Question",
+          "code": "T86.Question",
+          "display": "Hipotiroidismo/mixedema"
+        }
+      ],
+      "text": "Hipotiroidismo/mixedema",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T86.SIM → segue para T86.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T86.QuestionA",
+          "code": "T86.QuestionA",
+          "display": "Suspeita de hipotireoidismo central (TSH normal ou baixo e T4 livre ou total baixo) ou hipotireoidismo usando mais de 2,5 mcg/kg/dia de levotiroxina?"
+        }
+      ],
+      "text": "Suspeita de hipotireoidismo central (TSH normal ou baixo e T4 livre ou total baixo) ou hipotireoidismo usando mais de 2,5 mcg/kg/dia de levotiroxina?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T86.Question = T86.SIM. Se T86.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T86. Se T86.A.NAO → desfecho final do T86. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T86.Question",
+            "code": "T86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T87.Question",
+          "code": "T87.Question",
+          "display": "Hipoglicemia"
+        }
+      ],
+      "text": "Hipoglicemia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T87.SIM → segue para T87.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T87.QuestionA",
+          "code": "T87.QuestionA",
+          "display": "Suspeita de hiperinsulinismo endógeno (tumor produtor de insulina, pós-cirúrgico, causa autoimune)?"
+        }
+      ],
+      "text": "Suspeita de hiperinsulinismo endógeno (tumor produtor de insulina, pós-cirúrgico, causa autoimune)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T87.Question = T87.SIM. Se T87.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T87. Se T87.A.NAO → segue para T87.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T87.Question",
+            "code": "T87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T87.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T87.QuestionB",
+          "code": "T87.QuestionB",
+          "display": "Hipoglicemia avaliada que ocorre por erro de ingesta com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Hipoglicemia avaliada que ocorre por erro de ingesta com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T87.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T87.QuestionA = T87.A.NAO. Se T87.B.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T87. Se T87.B.NAO → desfecho final do T87. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T87.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T87.QuestionA",
+            "code": "T87.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T89.Question",
+          "code": "T89.Question",
+          "display": "Diabetes insulino-dependente"
+        }
+      ],
+      "text": "Diabetes insulino-dependente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T89.SIM → segue para T89.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) ENDOCRINOLOGIA ou (2) MEDICINA INTERNA ou (3) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T89.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T89.QuestionA",
+          "code": "T89.QuestionA",
+          "display": "Diabetes tipo 1 (ou incerteza do tipo), controle glicêmico alterado usando mais de 1U/Kg/dia de insulina (p.ex. 70kg usando 70U), doença renal com TFG <30?"
+        }
+      ],
+      "text": "Diabetes tipo 1 (ou incerteza do tipo), controle glicêmico alterado usando mais de 1U/Kg/dia de insulina (p.ex. 70kg usando 70U), doença renal com TFG <30?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T89.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T89.Question = T89.SIM. Se T89.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T89. Se T89.A.NAO → segue para T89.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T89.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T89.Question",
+            "code": "T89.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T89.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T89.QuestionB",
+          "code": "T89.QuestionB",
+          "display": "Trata-se de Diabetes insulino-dependente com tratamento otimizado e necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Diabetes insulino-dependente com tratamento otimizado e necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T89.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T89.QuestionA = T89.A.NAO. Se T89.B.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T89. Se T89.B.NAO → desfecho final do T89. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T89.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T89.QuestionA",
+            "code": "T89.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T90.Question",
+          "code": "T90.Question",
+          "display": "Diabetes não insulino-dependente"
+        }
+      ],
+      "text": "Diabetes não insulino-dependente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T90.SIM → segue para T90.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T90.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T90.QuestionA",
+          "code": "T90.QuestionA",
+          "display": "Trata-se de Diabetes não insulino-dependente com tratamento otimizado e necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Diabetes não insulino-dependente com tratamento otimizado e necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T90.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T90.Question = T90.SIM. Se T90.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T90. Se T90.A.NAO → desfecho final do T90. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T90.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T90.Question",
+            "code": "T90.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T91.Question",
+          "code": "T91.Question",
+          "display": "Deficiência vitamínica/nutricional"
+        }
+      ],
+      "text": "Deficiência vitamínica/nutricional",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T91.SIM → segue para T91.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T91.QuestionA",
+          "code": "T91.QuestionA",
+          "display": "Trata-se de Deficiência vitamínica/nutricional avaliada clinicamente, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Deficiência vitamínica/nutricional avaliada clinicamente, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T91.Question = T91.SIM. Se T91.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T91. Se T91.A.NAO → segue para T91.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T91.Question",
+            "code": "T91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T91.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T91.QuestionB",
+          "code": "T91.QuestionB",
+          "display": "Alguma das características: (i) pós-operatório de bariátrica ou cirurgia intestinal; (ii) doença gastrointesinal crônica (celíaca, Chron); (iii) sintomas neurológicos, cognitivos, visuais, ósseos?"
+        }
+      ],
+      "text": "Alguma das características: (i) pós-operatório de bariátrica ou cirurgia intestinal; (ii) doença gastrointesinal crônica (celíaca, Chron); (iii) sintomas neurológicos, cognitivos, visuais, ósseos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T91.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T91.QuestionA = T91.A.NAO. Se T91.B.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T91. Se T91.B.NAO → desfecho final do T91. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T91.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T91.QuestionA",
+            "code": "T91.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T92.Question",
+          "code": "T92.Question",
+          "display": "Gota"
+        }
+      ],
+      "text": "Gota",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T92.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T93.Question",
+          "code": "T93.Question",
+          "display": "Alteração no metabolismo dos lípidos"
+        }
+      ],
+      "text": "Alteração no metabolismo dos lípidos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T93.SIM → segue para T93.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T93.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T93.QuestionA",
+          "code": "T93.QuestionA",
+          "display": "Trata-se de Dislipidemia avaliada clinicamente, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Dislipidemia avaliada clinicamente, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T93.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Exibir se T93.Question = T93.SIM. Se T93.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T93. Se T93.A.NAO → desfecho final do T93. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T93.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/T93.Question",
+            "code": "T93.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "T99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/T99.Question",
+          "code": "T99.Question",
+          "display": "Outras doenças endocrinológica/metabólica/nutricionais"
+        }
+      ],
+      "text": "Outras doenças endocrinológica/metabólica/nutricionais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Idade: >16. Se T99.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "T.A1.CIAP.DE2",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "T99"
+          }
+        }
+      ]
+    }
+  ]
+}

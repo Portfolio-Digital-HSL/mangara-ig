@@ -1,0 +1,1812 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.N",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.N",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_N",
+  "title": "Mangará Agendamento - Capítulo N (Neurológico)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo N. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto N.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "N.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo N. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "N01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N01.Question",
+          "code": "N01.Question",
+          "display": "Cefaléia"
+        }
+      ],
+      "text": "Cefaléia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N01.QuestionA",
+          "code": "N01.QuestionA",
+          "display": "Trata-se de cefaleia crônica refratária ao tratamento ou alteração/piora recente no padrão habitual da dor?"
+        }
+      ],
+      "text": "Trata-se de cefaleia crônica refratária ao tratamento ou alteração/piora recente no padrão habitual da dor?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N01.Question",
+            "code": "N01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N01.QuestionB",
+          "code": "N01.QuestionB",
+          "display": "Trata-se de cefaleia com componentes mecânicos cervicais ou associada à disfunção temporomandibular (DTM/bruxismo)?"
+        }
+      ],
+      "text": "Trata-se de cefaleia com componentes mecânicos cervicais ou associada à disfunção temporomandibular (DTM/bruxismo)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N01.QuestionA",
+            "code": "N01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N03.Question",
+          "code": "N03.Question",
+          "display": "Dores da face"
+        }
+      ],
+      "text": "Dores da face",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N04.Question",
+          "code": "N04.Question",
+          "display": "Síndrome das pernas inquietas"
+        }
+      ],
+      "text": "Síndrome das pernas inquietas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N05.Question",
+          "code": "N05.Question",
+          "display": "Formigamento/ parestesia nos dedos das mãos/pés"
+        }
+      ],
+      "text": "Formigamento/ parestesia nos dedos das mãos/pés",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N06.Question",
+          "code": "N06.Question",
+          "display": "Outras alterações da sensibilidade"
+        }
+      ],
+      "text": "Outras alterações da sensibilidade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N07.Question",
+          "code": "N07.Question",
+          "display": "Convulsões/ataques"
+        }
+      ],
+      "text": "Convulsões/ataques",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N07.QuestionA",
+          "code": "N07.QuestionA",
+          "display": "Paciente estável, quadro crônico, em uso de medicação ou acompanhamento de rotina/rastreio metabólico?"
+        }
+      ],
+      "text": "Paciente estável, quadro crônico, em uso de medicação ou acompanhamento de rotina/rastreio metabólico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N07.Question",
+            "code": "N07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N08.Question",
+          "code": "N08.Question",
+          "display": "Movimentos involuntários anormais"
+        }
+      ],
+      "text": "Movimentos involuntários anormais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N08.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N08.QuestionA",
+          "code": "N08.QuestionA",
+          "display": "Com suspeita de tiques complexos, Síndrome de Tourette ou tremores/discinesias induzidos por psicotrópicos (efeitos extrapiramidais)?"
+        }
+      ],
+      "text": "Com suspeita de tiques complexos, Síndrome de Tourette ou tremores/discinesias induzidos por psicotrópicos (efeitos extrapiramidais)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N08.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N08.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N08.Question",
+            "code": "N08.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N16.Question",
+          "code": "N16.Question",
+          "display": "Alterações do olfato/gosto"
+        }
+      ],
+      "text": "Alterações do olfato/gosto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N16.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N16.QuestionA",
+          "code": "N16.QuestionA",
+          "display": "Apresenta perda ponderal involuntária, inapetência significativa ou necessidade de adequação do aporte nutricional ou plano alimentar devido à alteração de paladar?"
+        }
+      ],
+      "text": "Apresenta perda ponderal involuntária, inapetência significativa ou necessidade de adequação do aporte nutricional ou plano alimentar devido à alteração de paladar?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N16.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N16.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N16.Question",
+            "code": "N16.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N17.Question",
+          "code": "N17.Question",
+          "display": "Vertigens/tonturas"
+        }
+      ],
+      "text": "Vertigens/tonturas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N17.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N17.QuestionA",
+          "code": "N17.QuestionA",
+          "display": "Quadro inicial, sem diagnóstico estabelecido e sem tratamentos iniciais realizados na unidade de saúde?"
+        }
+      ],
+      "text": "Quadro inicial, sem diagnóstico estabelecido e sem tratamentos iniciais realizados na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N17.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N17.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N17.Question",
+            "code": "N17.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N18.Question",
+          "code": "N18.Question",
+          "display": "Paralisia/fraqueza"
+        }
+      ],
+      "text": "Paralisia/fraqueza",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N18.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N18.QuestionA",
+          "code": "N18.QuestionA",
+          "display": "Paralisia/fraqueza não recente, sem diagnóstico definido (suspeita de polineuropatia progressiva, esclerose múltipla ou sequela neurológica a esclarecer?"
+        }
+      ],
+      "text": "Paralisia/fraqueza não recente, sem diagnóstico definido (suspeita de polineuropatia progressiva, esclerose múltipla ou sequela neurológica a esclarecer?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N18.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N18.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N18.Question",
+            "code": "N18.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N18.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N18.QuestionB",
+          "code": "N18.QuestionB",
+          "display": "Trata-se de paralisia/fraqueza já avaliada com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de paralisia/fraqueza já avaliada com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N18.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N18.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N18.QuestionA",
+            "code": "N18.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N19.Question",
+          "code": "N19.Question",
+          "display": "Perturbações da fala"
+        }
+      ],
+      "text": "Perturbações da fala",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N19.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N19.QuestionA",
+          "code": "N19.QuestionA",
+          "display": "A alteração de fala já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?"
+        }
+      ],
+      "text": "A alteração de fala já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N19.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N19.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N19.Question",
+            "code": "N19.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N19.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N19.QuestionB",
+          "code": "N19.QuestionB",
+          "display": "A alteração de fala em adulto sem diagnóstico estabelecido?"
+        }
+      ],
+      "text": "A alteração de fala em adulto sem diagnóstico estabelecido?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N19.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N19.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N19.QuestionA",
+            "code": "N19.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N26.Question",
+          "code": "N26.Question",
+          "display": "Medo de câncer do sistema neurológico"
+        }
+      ],
+      "text": "Medo de câncer do sistema neurológico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N70.Question",
+          "code": "N70.Question",
+          "display": "Poliomielite"
+        }
+      ],
+      "text": "Poliomielite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N70.QuestionA",
+          "code": "N70.QuestionA",
+          "display": "Trata-se de sequela de poliomielite já avaliada com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de poliomielite já avaliada com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N70.Question",
+            "code": "N70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N71.Question",
+          "code": "N71.Question",
+          "display": "Meningite/encefalite"
+        }
+      ],
+      "text": "Meningite/encefalite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N71.QuestionA",
+          "code": "N71.QuestionA",
+          "display": "Trata-se de sequela de meningite/encefalite já avaliada com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de meningite/encefalite já avaliada com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N71.Question",
+            "code": "N71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N72.Question",
+          "code": "N72.Question",
+          "display": "Tétano"
+        }
+      ],
+      "text": "Tétano",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N73.Question",
+          "code": "N73.Question",
+          "display": "Outra infecção neurológica"
+        }
+      ],
+      "text": "Outra infecção neurológica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N74.Question",
+          "code": "N74.Question",
+          "display": "Neoplasia maligna do sistema neurológico"
+        }
+      ],
+      "text": "Neoplasia maligna do sistema neurológico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N74.QuestionA",
+          "code": "N74.QuestionA",
+          "display": "Trata-se neoplasia maligna no sistema para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna no sistema para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N74.Question",
+            "code": "N74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N75.Question",
+          "code": "N75.Question",
+          "display": "Neoplasia benigna do sistema neurológico"
+        }
+      ],
+      "text": "Neoplasia benigna do sistema neurológico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N75.QuestionA",
+          "code": "N75.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N75.Question",
+            "code": "N75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N79.Question",
+          "code": "N79.Question",
+          "display": "Concussão"
+        }
+      ],
+      "text": "Concussão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N79.QuestionA",
+          "code": "N79.QuestionA",
+          "display": "Trata-se de sequela de concussão já avaliada, sem sinais de alarme, com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de concussão já avaliada, sem sinais de alarme, com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N79.Question",
+            "code": "N79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N81.Question",
+          "code": "N81.Question",
+          "display": "Outra lesão do sistema neurológico"
+        }
+      ],
+      "text": "Outra lesão do sistema neurológico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N81.QuestionA",
+          "code": "N81.QuestionA",
+          "display": "Trata-se de lesão neurológica já avaliada, sem sinais de alarme, com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de lesão neurológica já avaliada, sem sinais de alarme, com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N81.Question",
+            "code": "N81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N85.Question",
+          "code": "N85.Question",
+          "display": "Malformações congênitas"
+        }
+      ],
+      "text": "Malformações congênitas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N86.Question",
+          "code": "N86.Question",
+          "display": "Esclerose múltipla"
+        }
+      ],
+      "text": "Esclerose múltipla",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N86.QuestionA",
+          "code": "N86.QuestionA",
+          "display": "Apresenta limitação motora, espasticidade, alteração do equilíbrio/marcha ou fadiga neuromuscular com necessidade de reabilitação física?"
+        }
+      ],
+      "text": "Apresenta limitação motora, espasticidade, alteração do equilíbrio/marcha ou fadiga neuromuscular com necessidade de reabilitação física?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N86.Question",
+            "code": "N86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N86.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N86.QuestionB",
+          "code": "N86.QuestionB",
+          "display": "Apresenta episódios de broncoaspiração, disartria ou disfagia/dificuldade de deglutição associada à progressão da doença?"
+        }
+      ],
+      "text": "Apresenta episódios de broncoaspiração, disartria ou disfagia/dificuldade de deglutição associada à progressão da doença?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N86.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N86.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N86.QuestionA",
+            "code": "N86.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N87.Question",
+          "code": "N87.Question",
+          "display": "Parkinsonismo"
+        }
+      ],
+      "text": "Parkinsonismo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N87.QuestionA",
+          "code": "N87.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N87.Question",
+            "code": "N87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N87.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N87.QuestionB",
+          "code": "N87.QuestionB",
+          "display": "Apresenta episódios de broncoaspiração, disartria ou disfagia/dificuldade de deglutição associada à progressão da doença?"
+        }
+      ],
+      "text": "Apresenta episódios de broncoaspiração, disartria ou disfagia/dificuldade de deglutição associada à progressão da doença?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N87.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N87.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N87.QuestionA",
+            "code": "N87.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N87.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N87.QuestionC",
+          "code": "N87.QuestionC",
+          "display": "Apresenta limitação motora, espasticidade, alteração do equilíbrio/marcha ou rigidez muscular com necessidade de reabilitação física?"
+        }
+      ],
+      "text": "Apresenta limitação motora, espasticidade, alteração do equilíbrio/marcha ou rigidez muscular com necessidade de reabilitação física?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N87.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N87.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N87.QuestionB",
+            "code": "N87.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N88.Question",
+          "code": "N88.Question",
+          "display": "Epilepsia"
+        }
+      ],
+      "text": "Epilepsia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N88.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N88.QuestionA",
+          "code": "N88.QuestionA",
+          "display": "O paciente busca acompanhamento de rotina de epilepsia já controlada, renovação de receita de anticonvulsivante ou investigação inicial de primeira crise sem sinais de gravidade imediata?"
+        }
+      ],
+      "text": "O paciente busca acompanhamento de rotina de epilepsia já controlada, renovação de receita de anticonvulsivante ou investigação inicial de primeira crise sem sinais de gravidade imediata?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N88.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N88.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N88.Question",
+            "code": "N88.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N89.Question",
+          "code": "N89.Question",
+          "display": "Enxaqueca"
+        }
+      ],
+      "text": "Enxaqueca",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N89.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N89.QuestionA",
+          "code": "N89.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha ou mudança do estilo de vida?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha ou mudança do estilo de vida?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N89.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N89.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N89.Question",
+            "code": "N89.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N91.Question",
+          "code": "N91.Question",
+          "display": "Paralisia facial/paralisia de Bell"
+        }
+      ],
+      "text": "Paralisia facial/paralisia de Bell",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N91.QuestionA",
+          "code": "N91.QuestionA",
+          "display": "Apresenta paralisia facial atípica, acometimento bilateral ou suspeita de lesão central/neoplásica?"
+        }
+      ],
+      "text": "Apresenta paralisia facial atípica, acometimento bilateral ou suspeita de lesão central/neoplásica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N91.Question",
+            "code": "N91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N92.Question",
+          "code": "N92.Question",
+          "display": "Nevralgia do trigémio"
+        }
+      ],
+      "text": "Nevralgia do trigémio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N92.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N92.QuestionA",
+          "code": "N92.QuestionA",
+          "display": "Apresenta dor refratária ao tratamento farmacológico, suspeita de neuralgia secundária ou perda de sensibilidade no local?"
+        }
+      ],
+      "text": "Apresenta dor refratária ao tratamento farmacológico, suspeita de neuralgia secundária ou perda de sensibilidade no local?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N92.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N92.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N92.Question",
+            "code": "N92.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N93.Question",
+          "code": "N93.Question",
+          "display": "Síndrome do túnel do carpo/ Síndrome do canal cárpico"
+        }
+      ],
+      "text": "Síndrome do túnel do carpo/ Síndrome do canal cárpico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N93.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N93.QuestionA",
+          "code": "N93.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N93.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N93.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N93.Question",
+            "code": "N93.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N93.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N93.QuestionB",
+          "code": "N93.QuestionB",
+          "display": "Trata-se de Síndrome do Túnel do Carpo já avaliada com necessidade principal de alívio de sintomas e reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Síndrome do Túnel do Carpo já avaliada com necessidade principal de alívio de sintomas e reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N93.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N93.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N93.QuestionA",
+            "code": "N93.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N94.Question",
+          "code": "N94.Question",
+          "display": "Neurite/ Nevrite/neuropatia periférica"
+        }
+      ],
+      "text": "Neurite/ Nevrite/neuropatia periférica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N94.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N94.QuestionA",
+          "code": "N94.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha ou mudança do estilo de vida?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica ou manejo de primeira linha ou mudança do estilo de vida?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N94.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N94.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N94.Question",
+            "code": "N94.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N94.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N94.QuestionB",
+          "code": "N94.QuestionB",
+          "display": "Trata-se de Neurite/neuropatia já avaliada com necessidade principal de alívio de sintomas e reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Neurite/neuropatia já avaliada com necessidade principal de alívio de sintomas e reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N94.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N94.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/N94.QuestionA",
+            "code": "N94.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "N99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/N99.Question",
+          "code": "N99.Question",
+          "display": "Outras doenças do sistema neurológico"
+        }
+      ],
+      "text": "Outras doenças do sistema neurológico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "N.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "N99"
+          }
+        }
+      ]
+    }
+  ]
+}

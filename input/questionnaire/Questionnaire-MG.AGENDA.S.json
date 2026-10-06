@@ -1,0 +1,2892 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.S",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.S",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_S",
+  "title": "Mangará Agendamento - Capítulo S (Pele)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo S. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto S.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "S.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo S. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "S01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S01.Question",
+          "code": "S01.Question",
+          "display": "Dor/sensibilidade dolorosa da pele"
+        }
+      ],
+      "text": "Dor/sensibilidade dolorosa da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S01.QuestionA",
+          "code": "S01.QuestionA",
+          "display": "A dor cutânea é de caráter neuropático (queimação, choque ou alodinia), dura há mais de 3 meses ou é refratária ao tratamento inicial da APS?"
+        }
+      ],
+      "text": "A dor cutânea é de caráter neuropático (queimação, choque ou alodinia), dura há mais de 3 meses ou é refratária ao tratamento inicial da APS?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S01.Question",
+            "code": "S01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S02.Question",
+          "code": "S02.Question",
+          "display": "Prurido"
+        }
+      ],
+      "text": "Prurido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S02.QuestionA",
+          "code": "S02.QuestionA",
+          "display": "O prurido é generalizado sem causa definida, dura há mais de 6 semanas ou é acompanhado de lesões cutâneas atípicas/bolhosas de difícil diagnóstico?"
+        }
+      ],
+      "text": "O prurido é generalizado sem causa definida, dura há mais de 6 semanas ou é acompanhado de lesões cutâneas atípicas/bolhosas de difícil diagnóstico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S02.Question",
+            "code": "S02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S03.Question",
+          "code": "S03.Question",
+          "display": "Verrugas"
+        }
+      ],
+      "text": "Verrugas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S03.QuestionA",
+          "code": "S03.QuestionA",
+          "display": "A lesão verrucosa apresenta sangramento, rápido crescimento, suspeita de malignidade (borda/cor atípica) ou persiste após tentativa de tratamento na APS?"
+        }
+      ],
+      "text": "A lesão verrucosa apresenta sangramento, rápido crescimento, suspeita de malignidade (borda/cor atípica) ou persiste após tentativa de tratamento na APS?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S03.Question",
+            "code": "S03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S03.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S03.QuestionB",
+          "code": "S03.QuestionB",
+          "display": "(2) GINECOLOGIA (se sexo biológico feminino); Lesões verrucosas anogenitais extensas, atípicas ou refratárias ao tratamento ambulatorial inicial?"
+        }
+      ],
+      "text": "(2) GINECOLOGIA (se sexo biológico feminino); Lesões verrucosas anogenitais extensas, atípicas ou refratárias ao tratamento ambulatorial inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S03.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S03.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S03.QuestionA",
+            "code": "S03.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S04.Question",
+          "code": "S04.Question",
+          "display": "Tumor/inchaço localizado"
+        }
+      ],
+      "text": "Tumor/inchaço localizado",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S04.QuestionA",
+          "code": "S04.QuestionA",
+          "display": "Pápula/tumor de pele de crescimento rápido ou sinais de malignidade?"
+        }
+      ],
+      "text": "Pápula/tumor de pele de crescimento rápido ou sinais de malignidade?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S04.Question",
+            "code": "S04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S05.Question",
+          "code": "S05.Question",
+          "display": "Tumores/inchaços generalizados"
+        }
+      ],
+      "text": "Tumores/inchaços generalizados",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S05.QuestionA",
+          "code": "S05.QuestionA",
+          "display": "Pápulas/tumores de pele de crescimento rápido ou sinais de malignidade?"
+        }
+      ],
+      "text": "Pápulas/tumores de pele de crescimento rápido ou sinais de malignidade?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S05.Question",
+            "code": "S05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S06.Question",
+          "code": "S06.Question",
+          "display": "Erupção cutânea localizada"
+        }
+      ],
+      "text": "Erupção cutânea localizada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S06.QuestionA",
+          "code": "S06.QuestionA",
+          "display": "Mácula, eritema ou vermelhidão tem aspecto atípico, evolução rápida ou sintomas sistêmicos?"
+        }
+      ],
+      "text": "Mácula, eritema ou vermelhidão tem aspecto atípico, evolução rápida ou sintomas sistêmicos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S06.Question",
+            "code": "S06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S07.Question",
+          "code": "S07.Question",
+          "display": "Erupção cutânea generalizada"
+        }
+      ],
+      "text": "Erupção cutânea generalizada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S07.QuestionA",
+          "code": "S07.QuestionA",
+          "display": "Mácula, eritema ou vermelhidão tem aspecto atípico, evolução rápida ou sintomas sistêmicos?"
+        }
+      ],
+      "text": "Mácula, eritema ou vermelhidão tem aspecto atípico, evolução rápida ou sintomas sistêmicos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S07.Question",
+            "code": "S07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S08.Question",
+          "code": "S08.Question",
+          "display": "Alterações da cor da pele"
+        }
+      ],
+      "text": "Alterações da cor da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S09.Question",
+          "code": "S09.Question",
+          "display": "Infecção dos dedos das mãos/pés"
+        }
+      ],
+      "text": "Infecção dos dedos das mãos/pés",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S09.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S09.QuestionA",
+          "code": "S09.QuestionA",
+          "display": "Trata-se de lesão infecciosa secundária a dermatose crônica de difícil controle ou abscesso profundo sem causa infecciosa óbvia?"
+        }
+      ],
+      "text": "Trata-se de lesão infecciosa secundária a dermatose crônica de difícil controle ou abscesso profundo sem causa infecciosa óbvia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S09.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S09.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S09.Question",
+            "code": "S09.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S09.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S09.QuestionB",
+          "code": "S09.QuestionB",
+          "display": "Trata-se de infecção cutânea bacteriana recorrente/crônica, infecção por germes multirresistentes ou lesão infectada?"
+        }
+      ],
+      "text": "Trata-se de infecção cutânea bacteriana recorrente/crônica, infecção por germes multirresistentes ou lesão infectada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S09.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S09.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S09.QuestionA",
+            "code": "S09.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S10.Question",
+          "code": "S10.Question",
+          "display": "Furúnculo/carbúnculo"
+        }
+      ],
+      "text": "Furúnculo/carbúnculo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S10.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S10.QuestionA",
+          "code": "S10.QuestionA",
+          "display": "Trata-se de  abscesso de repetição em dobras axilares/inguinais  ou foliculite crônica refratária à antibioticoterapia convencional?"
+        }
+      ],
+      "text": "Trata-se de  abscesso de repetição em dobras axilares/inguinais  ou foliculite crônica refratária à antibioticoterapia convencional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S10.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S10.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S10.Question",
+            "code": "S10.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S11.Question",
+          "code": "S11.Question",
+          "display": "Infecção pós-traumática da pele"
+        }
+      ],
+      "text": "Infecção pós-traumática da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S11.QuestionA",
+          "code": "S11.QuestionA",
+          "display": "Trata-se de mordedura humana/animal de alto risco com necessidade de conduta profilática complexa para Raiva/HIV/Hepatites, infecção pós-traumática por micro-organismos atípicos/multirresistentes ?"
+        }
+      ],
+      "text": "Trata-se de mordedura humana/animal de alto risco com necessidade de conduta profilática complexa para Raiva/HIV/Hepatites, infecção pós-traumática por micro-organismos atípicos/multirresistentes ?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S11.Question",
+            "code": "S11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S12.Question",
+          "code": "S12.Question",
+          "display": "Picada ou mordedura de inseto"
+        }
+      ],
+      "text": "Picada ou mordedura de inseto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S13.Question",
+          "code": "S13.Question",
+          "display": "Mordedura animal/humana"
+        }
+      ],
+      "text": "Mordedura animal/humana",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S13.QuestionA",
+          "code": "S13.QuestionA",
+          "display": "Trata-se de mordedura humana/animal de alto risco com necessidade de conduta profilática complexa para Raiva/HIV/Hepatites, infecção pós-traumática por micro-organismos atípicos/multirresistentes ?"
+        }
+      ],
+      "text": "Trata-se de mordedura humana/animal de alto risco com necessidade de conduta profilática complexa para Raiva/HIV/Hepatites, infecção pós-traumática por micro-organismos atípicos/multirresistentes ?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S13.Question",
+            "code": "S13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S14.Question",
+          "code": "S14.Question",
+          "display": "Queimadura/escaldão"
+        }
+      ],
+      "text": "Queimadura/escaldão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S14.QuestionA",
+          "code": "S14.QuestionA",
+          "display": "Trata-se de queimadura de 2º grau extensa (>10% da superfície corporal), que não necessite internação ou serviço de emergência?"
+        }
+      ],
+      "text": "Trata-se de queimadura de 2º grau extensa (>10% da superfície corporal), que não necessite internação ou serviço de emergência?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S14.Question",
+            "code": "S14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S14.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S14.QuestionB",
+          "code": "S14.QuestionB",
+          "display": "Trata-se de sequela tardia de queimadura apresentando cicatrização patológica (cicatriz hipertrófica ou queloide), prurido refratário ou necessidade de prescrição de terapias dermatológicas tópicas/injetáveis especializadas?"
+        }
+      ],
+      "text": "Trata-se de sequela tardia de queimadura apresentando cicatrização patológica (cicatriz hipertrófica ou queloide), prurido refratário ou necessidade de prescrição de terapias dermatológicas tópicas/injetáveis especializadas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S14.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S14.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S14.QuestionA",
+            "code": "S14.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S15.Question",
+          "code": "S15.Question",
+          "display": "Corpo estranho na pele"
+        }
+      ],
+      "text": "Corpo estranho na pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S17.Question",
+          "code": "S17.Question",
+          "display": "Abrasão/arranhão/bolhas"
+        }
+      ],
+      "text": "Abrasão/arranhão/bolhas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S17.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S17.QuestionA",
+          "code": "S17.QuestionA",
+          "display": "Trata-se de bolhas de repetição sem trauma mecânico proporcional (suspeita de dermatose bolhosa)?"
+        }
+      ],
+      "text": "Trata-se de bolhas de repetição sem trauma mecânico proporcional (suspeita de dermatose bolhosa)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S17.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S17.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S17.Question",
+            "code": "S17.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S18.Question",
+          "code": "S18.Question",
+          "display": "Laceração/corte"
+        }
+      ],
+      "text": "Laceração/corte",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S19.Question",
+          "code": "S19.Question",
+          "display": "Outra lesão cutânea"
+        }
+      ],
+      "text": "Outra lesão cutânea",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S20.Question",
+          "code": "S20.Question",
+          "display": "Calos/calosidades"
+        }
+      ],
+      "text": "Calos/calosidades",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S20.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S20.QuestionA",
+          "code": "S20.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S20.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S20.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S20.Question",
+            "code": "S20.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S21.Question",
+          "code": "S21.Question",
+          "display": "Sinais/sintomas da textura da pele"
+        }
+      ],
+      "text": "Sinais/sintomas da textura da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S22.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S22.Question",
+          "code": "S22.Question",
+          "display": "Sinais/sintomas das unhas"
+        }
+      ],
+      "text": "Sinais/sintomas das unhas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S22.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S22"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S23.Question",
+          "code": "S23.Question",
+          "display": "Queda de cabelo/calvície"
+        }
+      ],
+      "text": "Queda de cabelo/calvície",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S23.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S23.QuestionA",
+          "code": "S23.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S23.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S23.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S23.Question",
+            "code": "S23.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S24.Question",
+          "code": "S24.Question",
+          "display": "Sinais/sintomas do cabelo/couro cabeludo"
+        }
+      ],
+      "text": "Sinais/sintomas do cabelo/couro cabeludo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S24.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S24.QuestionA",
+          "code": "S24.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S24.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S24.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S24.Question",
+            "code": "S24.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S26.Question",
+          "code": "S26.Question",
+          "display": "Medo de câncer de pele"
+        }
+      ],
+      "text": "Medo de câncer de pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S27.Question",
+          "code": "S27.Question",
+          "display": "Medo de outra doença da pele"
+        }
+      ],
+      "text": "Medo de outra doença da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S70.Question",
+          "code": "S70.Question",
+          "display": "Herpes zoster"
+        }
+      ],
+      "text": "Herpes zoster",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S70.QuestionA",
+          "code": "S70.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S70.Question",
+            "code": "S70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S71.Question",
+          "code": "S71.Question",
+          "display": "Herpes simples"
+        }
+      ],
+      "text": "Herpes simples",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S71.QuestionA",
+          "code": "S71.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda investigação inicial e sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S71.Question",
+            "code": "S71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S72.Question",
+          "code": "S72.Question",
+          "display": "Escabiose/outras acaríases"
+        }
+      ],
+      "text": "Escabiose/outras acaríases",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S72.QuestionA",
+          "code": "S72.QuestionA",
+          "display": "Trata-se de feridas com crostas grossas (sarna crostosa/norueguesa) ou a coceira/lesões continuam ativas mesmo após tratamento com medicação?"
+        }
+      ],
+      "text": "Trata-se de feridas com crostas grossas (sarna crostosa/norueguesa) ou a coceira/lesões continuam ativas mesmo após tratamento com medicação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S72.Question",
+            "code": "S72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S73.Question",
+          "code": "S73.Question",
+          "display": "Pediculose/outras infecções da pele"
+        }
+      ],
+      "text": "Pediculose/outras infecções da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S74.Question",
+          "code": "S74.Question",
+          "display": "Dermatofitose"
+        }
+      ],
+      "text": "Dermatofitose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S74.QuestionA",
+          "code": "S74.QuestionA",
+          "display": "Trata-se de micose grave localizada/unhas ou ferida de pele que não sarou mesmo após o uso de medicações orais ou em pomadas?"
+        }
+      ],
+      "text": "Trata-se de micose grave localizada/unhas ou ferida de pele que não sarou mesmo após o uso de medicações orais ou em pomadas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S74.Question",
+            "code": "S74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S74.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S74.QuestionB",
+          "code": "S74.QuestionB",
+          "display": "Trata-se de micose fúngica profunda/invasiva, lesões vegetantes/ulceradas graves ou micose de repetição/resistente em paciente imunossuprimido?"
+        }
+      ],
+      "text": "Trata-se de micose fúngica profunda/invasiva, lesões vegetantes/ulceradas graves ou micose de repetição/resistente em paciente imunossuprimido?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S74.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S74.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S74.QuestionA",
+            "code": "S74.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S75.Question",
+          "code": "S75.Question",
+          "display": "Monilíase oral/candidíase na pele"
+        }
+      ],
+      "text": "Monilíase oral/candidíase na pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S75.QuestionA",
+          "code": "S75.QuestionA",
+          "display": "Trata-se de candidíase crônica refratária ao tratamento antifúngico tópico ou necessidade de confirmação diagnóstica ?"
+        }
+      ],
+      "text": "Trata-se de candidíase crônica refratária ao tratamento antifúngico tópico ou necessidade de confirmação diagnóstica ?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S75.Question",
+            "code": "S75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S76.Question",
+          "code": "S76.Question",
+          "display": "Outras infecções da pele"
+        }
+      ],
+      "text": "Outras infecções da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S77.Question",
+          "code": "S77.Question",
+          "display": "Neoplasias malignas da pele"
+        }
+      ],
+      "text": "Neoplasias malignas da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S77.QuestionA",
+          "code": "S77.QuestionA",
+          "display": "Trata-se neoplasia maligna (melanoma) para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna (melanoma) para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S77.Question",
+            "code": "S77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S78.Question",
+          "code": "S78.Question",
+          "display": "Lipoma"
+        }
+      ],
+      "text": "Lipoma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S78.QuestionA",
+          "code": "S78.QuestionA",
+          "display": "Apoio na avaliação inicial da lesão  (por exame físico ou exame de imagem), ainda sem confirmação histológica de subtipo (sem biópsia)?"
+        }
+      ],
+      "text": "Apoio na avaliação inicial da lesão  (por exame físico ou exame de imagem), ainda sem confirmação histológica de subtipo (sem biópsia)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S78.Question",
+            "code": "S78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S79.Question",
+          "code": "S79.Question",
+          "display": "Neoplasia cutânea benigna/incerta"
+        }
+      ],
+      "text": "Neoplasia cutânea benigna/incerta",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S79.QuestionA",
+          "code": "S79.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S79.Question",
+            "code": "S79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S80.Question",
+          "code": "S80.Question",
+          "display": "Ceratose/ Queratose solar/queimadura solar"
+        }
+      ],
+      "text": "Ceratose/ Queratose solar/queimadura solar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S81.Question",
+          "code": "S81.Question",
+          "display": "Hemangioma/linfangioma"
+        }
+      ],
+      "text": "Hemangioma/linfangioma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S82.Question",
+          "code": "S82.Question",
+          "display": "Nevos/sinais da pele"
+        }
+      ],
+      "text": "Nevos/sinais da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S83.Question",
+          "code": "S83.Question",
+          "display": "Lesões da pele congênitas, outras"
+        }
+      ],
+      "text": "Lesões da pele congênitas, outras",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S84.Question",
+          "code": "S84.Question",
+          "display": "Impetigo"
+        }
+      ],
+      "text": "Impetigo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S84.QuestionA",
+          "code": "S84.QuestionA",
+          "display": "Trata-se de impetigo extenso/bolhoso, recorrente ou secundário a dermatose de base (como eczema ou escabiose)?"
+        }
+      ],
+      "text": "Trata-se de impetigo extenso/bolhoso, recorrente ou secundário a dermatose de base (como eczema ou escabiose)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S84.Question",
+            "code": "S84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S84.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S84.QuestionB",
+          "code": "S84.QuestionB",
+          "display": "O paciente apresenta sinais de complicação sistêmica pós-infecciosa, como urina escura (hematúria), inchaço no rosto/pernas (edema) ou pressão alta surgindo semanas após o impetigo?"
+        }
+      ],
+      "text": "O paciente apresenta sinais de complicação sistêmica pós-infecciosa, como urina escura (hematúria), inchaço no rosto/pernas (edema) ou pressão alta surgindo semanas após o impetigo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S84.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S84.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S84.QuestionA",
+            "code": "S84.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S85.Question",
+          "code": "S85.Question",
+          "display": "Cisto pilonidal/fistula"
+        }
+      ],
+      "text": "Cisto pilonidal/fistula",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S86.Question",
+          "code": "S86.Question",
+          "display": "Dermatite seborreica"
+        }
+      ],
+      "text": "Dermatite seborreica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S86.QuestionA",
+          "code": "S86.QuestionA",
+          "display": "As placas descamativas e a vermelhidão cobrem grande parte do corpo, causam feridas graves ou não melhoraram após o uso dos xampus e cremes indicados?"
+        }
+      ],
+      "text": "As placas descamativas e a vermelhidão cobrem grande parte do corpo, causam feridas graves ou não melhoraram após o uso dos xampus e cremes indicados?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S86.Question",
+            "code": "S86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S87.Question",
+          "code": "S87.Question",
+          "display": "Dermatite/eczema atópico"
+        }
+      ],
+      "text": "Dermatite/eczema atópico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S87.QuestionA",
+          "code": "S87.QuestionA",
+          "display": "A alergia na pele tem tempo maior que 3 meses ou não melhorou após identificar o causador ou necessitando de teste de contato ?"
+        }
+      ],
+      "text": "A alergia na pele tem tempo maior que 3 meses ou não melhorou após identificar o causador ou necessitando de teste de contato ?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S87.Question",
+            "code": "S87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S88.Question",
+          "code": "S88.Question",
+          "display": "Dermatite de contato/alérgica"
+        }
+      ],
+      "text": "Dermatite de contato/alérgica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S88.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S88.QuestionA",
+          "code": "S88.QuestionA",
+          "display": "O paciente apresenta lesão de umbigo (ex.: granuloma umbilical), ferida atípica de causa não esclarecida ou lesão sangrante localizada com indicação de dermatoscopia/biópsia?"
+        }
+      ],
+      "text": "O paciente apresenta lesão de umbigo (ex.: granuloma umbilical), ferida atípica de causa não esclarecida ou lesão sangrante localizada com indicação de dermatoscopia/biópsia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S88.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S88.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S88.Question",
+            "code": "S88.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S88.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S88.QuestionB",
+          "code": "S88.QuestionB",
+          "display": "Trata-se de lesões purpúricas/petéquias sem trauma, sangramento espontâneo de pele ou celulite extensa com suspeita de comprometimento sistêmico, necessitando de investigação clínica/hematológica?"
+        }
+      ],
+      "text": "Trata-se de lesões purpúricas/petéquias sem trauma, sangramento espontâneo de pele ou celulite extensa com suspeita de comprometimento sistêmico, necessitando de investigação clínica/hematológica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S88.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S88.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S88.QuestionA",
+            "code": "S88.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S89.Question",
+          "code": "S89.Question",
+          "display": "Dermatite das fraldas"
+        }
+      ],
+      "text": "Dermatite das fraldas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S90.Question",
+          "code": "S90.Question",
+          "display": "Pitiríase rosada"
+        }
+      ],
+      "text": "Pitiríase rosada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S91.Question",
+          "code": "S91.Question",
+          "display": "Psoríase"
+        }
+      ],
+      "text": "Psoríase",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S91.QuestionA",
+          "code": "S91.QuestionA",
+          "display": "Trata-se de psoríase moderada a grave (afetando mais de 10% do corpo), com lesões no rosto/genitais, forma eritrodérmica/pustulosa?"
+        }
+      ],
+      "text": "Trata-se de psoríase moderada a grave (afetando mais de 10% do corpo), com lesões no rosto/genitais, forma eritrodérmica/pustulosa?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S91.Question",
+            "code": "S91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S91.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S91.QuestionB",
+          "code": "S91.QuestionB",
+          "display": "O paciente com lesões na pele ou nas unhas (picotado ungueal) apresenta dor, inchaço ou rigidez matinal nas articulações (suspeita de artrite psoriásica)?"
+        }
+      ],
+      "text": "O paciente com lesões na pele ou nas unhas (picotado ungueal) apresenta dor, inchaço ou rigidez matinal nas articulações (suspeita de artrite psoriásica)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S91.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S91.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S91.QuestionA",
+            "code": "S91.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S92.Question",
+          "code": "S92.Question",
+          "display": "Doença das glândulas sudoríparas"
+        }
+      ],
+      "text": "Doença das glândulas sudoríparas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S93.Question",
+          "code": "S93.Question",
+          "display": "Cisto sebáceo"
+        }
+      ],
+      "text": "Cisto sebáceo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S94.Question",
+          "code": "S94.Question",
+          "display": "Unha encravada"
+        }
+      ],
+      "text": "Unha encravada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S95.Question",
+          "code": "S95.Question",
+          "display": "Molusco contagioso"
+        }
+      ],
+      "text": "Molusco contagioso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S96.Question",
+          "code": "S96.Question",
+          "display": "Acne"
+        }
+      ],
+      "text": "Acne",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S97.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S97.Question",
+          "code": "S97.Question",
+          "display": "Úlcera crónica da pele"
+        }
+      ],
+      "text": "Úlcera crónica da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S97.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S97"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S97.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S97.QuestionA",
+          "code": "S97.QuestionA",
+          "display": "A ferida é extensa, infectada, de difícil cicatrização ou está associada a complicações do diabetes e varizes graves, necessitando de reavaliação médica?"
+        }
+      ],
+      "text": "A ferida é extensa, infectada, de difícil cicatrização ou está associada a complicações do diabetes e varizes graves, necessitando de reavaliação médica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S97.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S97.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S97.Question",
+            "code": "S97.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S97.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S97.QuestionB",
+          "code": "S97.QuestionB",
+          "display": "O paciente está desnutrito, perdeu muito peso ou a ferida não cicatriza por falta de nutrientes, necessitando de plano alimentar e suplementação especial?"
+        }
+      ],
+      "text": "O paciente está desnutrito, perdeu muito peso ou a ferida não cicatriza por falta de nutrientes, necessitando de plano alimentar e suplementação especial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S97.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S97.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S97.QuestionA",
+            "code": "S97.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S98.Question",
+          "code": "S98.Question",
+          "display": "Urticária"
+        }
+      ],
+      "text": "Urticária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S99.Question",
+          "code": "S99.Question",
+          "display": "Outras doenças da pele"
+        }
+      ],
+      "text": "Outras doenças da pele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "S99"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S99.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S99.QuestionA",
+          "code": "S99.QuestionA",
+          "display": "Trata-se de lesão cutânea específica (como rosácea, rinofima, vitiligo, queloide, líquen plano ou suspeita de queratoacantoma) com indicação de biópsia, procedimento cirúrgico/intralesional ou tratamento dermatológico especializado?"
+        }
+      ],
+      "text": "Trata-se de lesão cutânea específica (como rosácea, rinofima, vitiligo, queloide, líquen plano ou suspeita de queratoacantoma) com indicação de biópsia, procedimento cirúrgico/intralesional ou tratamento dermatológico especializado?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S99.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225135 MEDICO DERMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S99.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S99.Question",
+            "code": "S99.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "S99.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/S99.QuestionB",
+          "code": "S99.QuestionB",
+          "display": "A lesão na pele vem acompanhada de suspeita ou diagnóstico de doença autoimune sistêmica com manifestação articular ou inflamatória difusa (como lúpus eritematoso discoide/sistêmico ou eritema nodoso)?"
+        }
+      ],
+      "text": "A lesão na pele vem acompanhada de suspeita ou diagnóstico de doença autoimune sistêmica com manifestação articular ou inflamatória difusa (como lúpus eritematoso discoide/sistêmico ou eritema nodoso)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S99.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "S99.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/S99.QuestionA",
+            "code": "S99.A.NAO"
+          }
+        }
+      ]
+    }
+  ]
+}

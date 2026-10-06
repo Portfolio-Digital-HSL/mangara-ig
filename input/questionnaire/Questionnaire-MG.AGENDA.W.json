@@ -1,0 +1,1572 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.W",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.W",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_W",
+  "title": "Mangará Agendamento - Capítulo W (Gravidez e Planejamento Familiar)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo W. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto W.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "W.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo W. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "W01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W01.Question",
+          "code": "W01.Question",
+          "display": "Questão sobre gravidez"
+        }
+      ],
+      "text": "Questão sobre gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W02.Question",
+          "code": "W02.Question",
+          "display": "Medo de estar grávida"
+        }
+      ],
+      "text": "Medo de estar grávida",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W02.QuestionA",
+          "code": "W02.QuestionA",
+          "display": "Trata-se de possibilidade de negação da gestação, gestação decorrente de violência sexual, estresse psicológico agudo, ansiedade intensa relacionada à maternidade"
+        }
+      ],
+      "text": "Trata-se de possibilidade de negação da gestação, gestação decorrente de violência sexual, estresse psicológico agudo, ansiedade intensa relacionada à maternidade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W02.Question",
+            "code": "W02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W03.Question",
+          "code": "W03.Question",
+          "display": "Hemorragia antes do parto"
+        }
+      ],
+      "text": "Hemorragia antes do parto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W03.QuestionA",
+          "code": "W03.QuestionA",
+          "display": "Trata-se de sangramento em qualquer trimeste da gestação já avaliado em urgência/emergência obstétrica, para apoio no seguimento ambulatorial?"
+        }
+      ],
+      "text": "Trata-se de sangramento em qualquer trimeste da gestação já avaliado em urgência/emergência obstétrica, para apoio no seguimento ambulatorial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W03.Question",
+            "code": "W03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W05.Question",
+          "code": "W05.Question",
+          "display": "Vómitos/náuseas durante a gravidez"
+        }
+      ],
+      "text": "Vómitos/náuseas durante a gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W05.QuestionA",
+          "code": "W05.QuestionA",
+          "display": "Trata-se de vômitos/náuseas durante a gravidez já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de vômitos/náuseas durante a gravidez já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W05.Question",
+            "code": "W05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W10.Question",
+          "code": "W10.Question",
+          "display": "Contracepção pós-coital"
+        }
+      ],
+      "text": "Contracepção pós-coital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W11.Question",
+          "code": "W11.Question",
+          "display": "Contracepção oral"
+        }
+      ],
+      "text": "Contracepção oral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W11.QuestionA",
+          "code": "W11.QuestionA",
+          "display": "A paciente apresenta comorbidades graves (ex.: histórico de trombose, enxaqueca com aura, hipertensão não controlada) ou falha do método/efeitos colaterais refratários?"
+        }
+      ],
+      "text": "A paciente apresenta comorbidades graves (ex.: histórico de trombose, enxaqueca com aura, hipertensão não controlada) ou falha do método/efeitos colaterais refratários?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W11.Question",
+            "code": "W11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W12.Question",
+          "code": "W12.Question",
+          "display": "Contracepção intra-uterina/ Dispositivo Intrauterino/ DIU"
+        }
+      ],
+      "text": "Contracepção intra-uterina/ Dispositivo Intrauterino/ DIU",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W12.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W12.QuestionA",
+          "code": "W12.QuestionA",
+          "display": "Trata-se de uma discussão sobre intecorrência durante o uso do DIU ou indicação do dispositivo em caso de malformação uterina?"
+        }
+      ],
+      "text": "Trata-se de uma discussão sobre intecorrência durante o uso do DIU ou indicação do dispositivo em caso de malformação uterina?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W12.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W12.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W12.Question",
+            "code": "W12.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W13.Question",
+          "code": "W13.Question",
+          "display": "Esterilização"
+        }
+      ],
+      "text": "Esterilização",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W13.QuestionA",
+          "code": "W13.QuestionA",
+          "display": "Trata-se de uma discussão sobre complicação pós-laqueadura, falha do procedimento (gravidez pós-laqueadura) ou indicação de reversão tubária?"
+        }
+      ],
+      "text": "Trata-se de uma discussão sobre complicação pós-laqueadura, falha do procedimento (gravidez pós-laqueadura) ou indicação de reversão tubária?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W13.Question",
+            "code": "W13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W14.Question",
+          "code": "W14.Question",
+          "display": "Contracepção/outros"
+        }
+      ],
+      "text": "Contracepção/outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W14.QuestionA",
+          "code": "W14.QuestionA",
+          "display": "Trata-se de discussão sobre paciente com contraindicação aos métodos habituais por condição médica complexa (neoplasia, uso de anticonvulsivantes, endocrinopatias severas, alto risco cardiovascular)?"
+        }
+      ],
+      "text": "Trata-se de discussão sobre paciente com contraindicação aos métodos habituais por condição médica complexa (neoplasia, uso de anticonvulsivantes, endocrinopatias severas, alto risco cardiovascular)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W14.Question",
+            "code": "W14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W15.Question",
+          "code": "W15.Question",
+          "display": "Infertilidade/subfertildade"
+        }
+      ],
+      "text": "Infertilidade/subfertildade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W15.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W15.QuestionA",
+          "code": "W15.QuestionA",
+          "display": "A paciente apresenta alteração estrutural/anatomia pélvica conhecida (como endometriose, miomas uterinos submucoso grande, obstrução tubária), histórico de falha em indução de ovulação/tratamentos prévios, ou idade igual/superior a 35 anos com investigação inicial alterada?"
+        }
+      ],
+      "text": "A paciente apresenta alteração estrutural/anatomia pélvica conhecida (como endometriose, miomas uterinos submucoso grande, obstrução tubária), histórico de falha em indução de ovulação/tratamentos prévios, ou idade igual/superior a 35 anos com investigação inicial alterada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W15.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W15.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W15.Question",
+            "code": "W15.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W18.Question",
+          "code": "W18.Question",
+          "display": "Sinais/sintomas pós-parto"
+        }
+      ],
+      "text": "Sinais/sintomas pós-parto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W19.Question",
+          "code": "W19.Question",
+          "display": "Sinais/sintomas da mama/lactação"
+        }
+      ],
+      "text": "Sinais/sintomas da mama/lactação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W19.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W19.QuestionA",
+          "code": "W19.QuestionA",
+          "display": "Trata-se de discussão a respeito de interrupção medicamentosa de lactação ou indução à lactação em mães adotivas?"
+        }
+      ],
+      "text": "Trata-se de discussão a respeito de interrupção medicamentosa de lactação ou indução à lactação em mães adotivas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W19.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W19.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W19.Question",
+            "code": "W19.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W19.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W19.QuestionB",
+          "code": "W19.QuestionB",
+          "display": "Apresenta sofrimento psíquico relacionado à dificuldade de amamentação, com necessidade principal de acolhimento com psicologia?"
+        }
+      ],
+      "text": "Apresenta sofrimento psíquico relacionado à dificuldade de amamentação, com necessidade principal de acolhimento com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W19.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W19.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W19.QuestionA",
+            "code": "W19.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W21.Question",
+          "code": "W21.Question",
+          "display": "Preocupação com imagem corporal durante a gravidez"
+        }
+      ],
+      "text": "Preocupação com imagem corporal durante a gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W27.Question",
+          "code": "W27.Question",
+          "display": "Medo de complicações na gravidez"
+        }
+      ],
+      "text": "Medo de complicações na gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W29.Question",
+          "code": "W29.Question",
+          "display": "Sinais/sintomas da gravidez, outros"
+        }
+      ],
+      "text": "Sinais/sintomas da gravidez, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W71.Question",
+          "code": "W71.Question",
+          "display": "Infecções que complicam a gravidez"
+        }
+      ],
+      "text": "Infecções que complicam a gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W71.QuestionA",
+          "code": "W71.QuestionA",
+          "display": "Trata-se de infecção em ferida operatória (sem critério de urgência), infecção urinária ou mastite puerperal (sem critério de urgência)?"
+        }
+      ],
+      "text": "Trata-se de infecção em ferida operatória (sem critério de urgência), infecção urinária ou mastite puerperal (sem critério de urgência)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W71.Question",
+            "code": "W71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W72.Question",
+          "code": "W72.Question",
+          "display": "Neoplasia maligna relacionada com gravidez"
+        }
+      ],
+      "text": "Neoplasia maligna relacionada com gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W72.QuestionA",
+          "code": "W72.QuestionA",
+          "display": "Trata-se neoplasia maligna na gravidez para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna na gravidez para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W72.Question",
+            "code": "W72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W73.Question",
+          "code": "W73.Question",
+          "display": "Neoplasia benigna/incerta relacionada com a gravidez"
+        }
+      ],
+      "text": "Neoplasia benigna/incerta relacionada com a gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W76.Question",
+          "code": "W76.Question",
+          "display": "Malformação congénita que complica a gravidez"
+        }
+      ],
+      "text": "Malformação congénita que complica a gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W78.Question",
+          "code": "W78.Question",
+          "display": "Gravidez"
+        }
+      ],
+      "text": "Gravidez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W78.QuestionA",
+          "code": "W78.QuestionA",
+          "display": "Trata-se de gestação de alto risco?"
+        }
+      ],
+      "text": "Trata-se de gestação de alto risco?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W78.Question",
+            "code": "W78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W79.Question",
+          "code": "W79.Question",
+          "display": "Gravidez não desejada"
+        }
+      ],
+      "text": "Gravidez não desejada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W79.QuestionA",
+          "code": "W79.QuestionA",
+          "display": "Trata-se de sofrimento psíquico relacionado a gestação indesejada cuja prioridade é o acolhimento psicológico?"
+        }
+      ],
+      "text": "Trata-se de sofrimento psíquico relacionado a gestação indesejada cuja prioridade é o acolhimento psicológico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W79.Question",
+            "code": "W79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W81.Question",
+          "code": "W81.Question",
+          "display": "Toxemia gravídica/ DHEG"
+        }
+      ],
+      "text": "Toxemia gravídica/ DHEG",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W81.QuestionA",
+          "code": "W81.QuestionA",
+          "display": "Trata-se de Síndrome Hipertensiva da Gravidez já avaliada com necessidade principal de plano nutricional/adequação de dieta?"
+        }
+      ],
+      "text": "Trata-se de Síndrome Hipertensiva da Gravidez já avaliada com necessidade principal de plano nutricional/adequação de dieta?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W81.Question",
+            "code": "W81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W82.Question",
+          "code": "W82.Question",
+          "display": "Aborto espontâneo"
+        }
+      ],
+      "text": "Aborto espontâneo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W82.QuestionA",
+          "code": "W82.QuestionA",
+          "display": "Trata-se de sofrimento psíquico relacionado ao aborto espontâneo cuja prioridade é o acolhimento psicológico?"
+        }
+      ],
+      "text": "Trata-se de sofrimento psíquico relacionado ao aborto espontâneo cuja prioridade é o acolhimento psicológico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W82.Question",
+            "code": "W82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W83.Question",
+          "code": "W83.Question",
+          "display": "Aborto provocado"
+        }
+      ],
+      "text": "Aborto provocado",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W83.QuestionA",
+          "code": "W83.QuestionA",
+          "display": "Trata-se de sofrimento psíquico relacionado ao aborto provocado cuja prioridade é o acolhimento psicológico?"
+        }
+      ],
+      "text": "Trata-se de sofrimento psíquico relacionado ao aborto provocado cuja prioridade é o acolhimento psicológico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W83.Question",
+            "code": "W83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W84.Question",
+          "code": "W84.Question",
+          "display": "Gravidez de alto risco"
+        }
+      ],
+      "text": "Gravidez de alto risco",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W85.Question",
+          "code": "W85.Question",
+          "display": "Diabetes gestacional"
+        }
+      ],
+      "text": "Diabetes gestacional",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W85.QuestionA",
+          "code": "W85.QuestionA",
+          "display": "Trata-se de apoio da intepretação de exame do pré-natal para definição do diagnóstico de diabetes gestacional?"
+        }
+      ],
+      "text": "Trata-se de apoio da intepretação de exame do pré-natal para definição do diagnóstico de diabetes gestacional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W85.Question",
+            "code": "W85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W85.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W85.QuestionB",
+          "code": "W85.QuestionB",
+          "display": "Trata-se de Diabetes Mellitus pré-gestacional (Tipo 1 ou Tipo 2 de longa data/descompensado), DMG refratário ao tratamento inicial, variabilidade glicêmica extrema, episódios frequentes de hipoglicemia grave ou cetoacidose diabética/estado hiperosmolar na gestação?"
+        }
+      ],
+      "text": "Trata-se de Diabetes Mellitus pré-gestacional (Tipo 1 ou Tipo 2 de longa data/descompensado), DMG refratário ao tratamento inicial, variabilidade glicêmica extrema, episódios frequentes de hipoglicemia grave ou cetoacidose diabética/estado hiperosmolar na gestação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W85.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W85.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W85.QuestionA",
+            "code": "W85.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W85.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W85.QuestionC",
+          "code": "W85.QuestionC",
+          "display": "Trata-se de Diabetes Gestacional já avaliada com necessidade principal de plano nutricional/adequação de dieta?"
+        }
+      ],
+      "text": "Trata-se de Diabetes Gestacional já avaliada com necessidade principal de plano nutricional/adequação de dieta?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W85.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W85.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W85.QuestionB",
+            "code": "W85.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W94.Question",
+          "code": "W94.Question",
+          "display": "Mastite puerperal"
+        }
+      ],
+      "text": "Mastite puerperal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W94.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W94.QuestionA",
+          "code": "W94.QuestionA",
+          "display": "Apresenta mastite puerperal não complicada (sem critério de urgência), para definição de diagnóstico e início de tratamento da unidade de saúde?"
+        }
+      ],
+      "text": "Apresenta mastite puerperal não complicada (sem critério de urgência), para definição de diagnóstico e início de tratamento da unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W94.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W94.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/W94.Question",
+            "code": "W94.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W95.Question",
+          "code": "W95.Question",
+          "display": "Outros problemas da mama durante gravidez/puerpério"
+        }
+      ],
+      "text": "Outros problemas da mama durante gravidez/puerpério",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W96.Question",
+          "code": "W96.Question",
+          "display": "Outras complicações do puerpério"
+        }
+      ],
+      "text": "Outras complicações do puerpério",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "W99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/W99.Question",
+          "code": "W99.Question",
+          "display": "Outros problemas da gravidez/parto"
+        }
+      ],
+      "text": "Outros problemas da gravidez/parto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/W99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "W.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "W99"
+          }
+        }
+      ]
+    }
+  ]
+}

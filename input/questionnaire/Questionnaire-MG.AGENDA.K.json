@@ -1,0 +1,2622 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.K",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.K",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_K",
+  "title": "Mangará Agendamento - Capítulo K (Circulatório)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo K. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto K.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "K.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo K. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "K01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K01.Question",
+          "code": "K01.Question",
+          "display": "Dor atribuída ao coração"
+        }
+      ],
+      "text": "Dor atribuída ao coração",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K01.QuestionA",
+          "code": "K01.QuestionA",
+          "display": "A dor atribuída ao coração surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?"
+        }
+      ],
+      "text": "A dor atribuída ao coração surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225120 MEDICO CARDIOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K01.Question",
+            "code": "K01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K02.Question",
+          "code": "K02.Question",
+          "display": "Sensação de pressão/aperto atribuída ao coração"
+        }
+      ],
+      "text": "Sensação de pressão/aperto atribuída ao coração",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K02.QuestionA",
+          "code": "K02.QuestionA",
+          "display": "A sensação de pressão/aperto surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?"
+        }
+      ],
+      "text": "A sensação de pressão/aperto surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225120 MEDICO CARDIOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K02.Question",
+            "code": "K02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K03.Question",
+          "code": "K03.Question",
+          "display": "Dores atribuídas ao aparelho circulatório NE"
+        }
+      ],
+      "text": "Dores atribuídas ao aparelho circulatório NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K03.QuestionA",
+          "code": "K03.QuestionA",
+          "display": "A dor nas pernas surge ao caminhar curtas distâncias, ocorre mesmo em repouso ou vem acompanhada de feridas, alteração de cor ou pé frio?"
+        }
+      ],
+      "text": "A dor nas pernas surge ao caminhar curtas distâncias, ocorre mesmo em repouso ou vem acompanhada de feridas, alteração de cor ou pé frio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K03.Question",
+            "code": "K03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K04.Question",
+          "code": "K04.Question",
+          "display": "Palpitações/percepção dos batimentos cardíacos"
+        }
+      ],
+      "text": "Palpitações/percepção dos batimentos cardíacos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K04.QuestionA",
+          "code": "K04.QuestionA",
+          "display": "As palpitações vêm acompanhadas de desmaio, tontura forte, dor no peito ou começam e param de forma repentina com o coração muito acelerado?"
+        }
+      ],
+      "text": "As palpitações vêm acompanhadas de desmaio, tontura forte, dor no peito ou começam e param de forma repentina com o coração muito acelerado?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225120 MEDICO CARDIOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K04.Question",
+            "code": "K04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K05.Question",
+          "code": "K05.Question",
+          "display": "Outras irregularidades dos batimentos cardíacos"
+        }
+      ],
+      "text": "Outras irregularidades dos batimentos cardíacos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K05.QuestionA",
+          "code": "K05.QuestionA",
+          "display": "A irregularidade nos batimentos vem acompanhada de desmaio, tontura ao se levantar, falta de ar para fazer tarefas simples ou inchaço nas pernas?"
+        }
+      ],
+      "text": "A irregularidade nos batimentos vem acompanhada de desmaio, tontura ao se levantar, falta de ar para fazer tarefas simples ou inchaço nas pernas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K05.Question",
+            "code": "K05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K06.Question",
+          "code": "K06.Question",
+          "display": "Veias proeminentes"
+        }
+      ],
+      "text": "Veias proeminentes",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K06.QuestionA",
+          "code": "K06.QuestionA",
+          "display": "Você busca ajuda apenas para medidas de fisioterapia para manejo das varizes/veias proeminentes"
+        }
+      ],
+      "text": "Você busca ajuda apenas para medidas de fisioterapia para manejo das varizes/veias proeminentes",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K06.Question",
+            "code": "K06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K06.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K06.QuestionB",
+          "code": "K06.QuestionB",
+          "display": "Há feridas abertas nas pernas, varizes graves para avaliação cirúrgica ou inchaço e dor repentinos e vermelhos em apenas uma das pernas?"
+        }
+      ],
+      "text": "Há feridas abertas nas pernas, varizes graves para avaliação cirúrgica ou inchaço e dor repentinos e vermelhos em apenas uma das pernas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K06.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K06.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K06.QuestionA",
+            "code": "K06.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K07.Question",
+          "code": "K07.Question",
+          "display": "Tornozelos inchados/edema"
+        }
+      ],
+      "text": "Tornozelos inchados/edema",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K07.QuestionA",
+          "code": "K07.QuestionA",
+          "display": "O inchaço nos tornozelos surgiu de forma rápida em apenas uma das pernas, ou vem acompanhado de falta de ar ao se deitar e inchaço na barriga?"
+        }
+      ],
+      "text": "O inchaço nos tornozelos surgiu de forma rápida em apenas uma das pernas, ou vem acompanhado de falta de ar ao se deitar e inchaço na barriga?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K07.Question",
+            "code": "K07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K07.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K07.QuestionB",
+          "code": "K07.QuestionB",
+          "display": "Você busca ajuda apenas para medidas de fisioterapia para manejo do edema de membros inferiores?"
+        }
+      ],
+      "text": "Você busca ajuda apenas para medidas de fisioterapia para manejo do edema de membros inferiores?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K07.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K07.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K07.QuestionA",
+            "code": "K07.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K22.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K22.Question",
+          "code": "K22.Question",
+          "display": "Fator de risco para doença cardiovascular"
+        }
+      ],
+      "text": "Fator de risco para doença cardiovascular",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K22.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K22"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K22.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K22.QuestionA",
+          "code": "K22.QuestionA",
+          "display": "Há múltiplos fatores de risco (como pressão alta difícil de controlar ou colesterol muito alto), histórico de infarto/AVC na família em idade jovem, ou já tem alteração em exames do coração e rins?"
+        }
+      ],
+      "text": "Há múltiplos fatores de risco (como pressão alta difícil de controlar ou colesterol muito alto), histórico de infarto/AVC na família em idade jovem, ou já tem alteração em exames do coração e rins?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K22.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K22.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K22.Question",
+            "code": "K22.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K24.Question",
+          "code": "K24.Question",
+          "display": "Medo de doença cardíaca"
+        }
+      ],
+      "text": "Medo de doença cardíaca",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K25.Question",
+          "code": "K25.Question",
+          "display": "Medo de hipertensão"
+        }
+      ],
+      "text": "Medo de hipertensão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K27.Question",
+          "code": "K27.Question",
+          "display": "Medo de outra doença cardiovascular"
+        }
+      ],
+      "text": "Medo de outra doença cardiovascular",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K70.Question",
+          "code": "K70.Question",
+          "display": "Doença infecciosa do aparelho circulatório"
+        }
+      ],
+      "text": "Doença infecciosa do aparelho circulatório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K70.QuestionA",
+          "code": "K70.QuestionA",
+          "display": "Trata-se de suspeita ou confirmação de endocardite aguda e subaguda; endocardite bacteriana; miocardite; pericardite?"
+        }
+      ],
+      "text": "Trata-se de suspeita ou confirmação de endocardite aguda e subaguda; endocardite bacteriana; miocardite; pericardite?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K70.Question",
+            "code": "K70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K71.Question",
+          "code": "K71.Question",
+          "display": "Febre reumática/cardiopatia"
+        }
+      ],
+      "text": "Febre reumática/cardiopatia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K71.QuestionA",
+          "code": "K71.QuestionA",
+          "display": "Trata-se de sequela de cardiopatia reumática já avaliada e com necessidade de reabilitação cardiopulmonar ?"
+        }
+      ],
+      "text": "Trata-se de sequela de cardiopatia reumática já avaliada e com necessidade de reabilitação cardiopulmonar ?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K71.Question",
+            "code": "K71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K72.Question",
+          "code": "K72.Question",
+          "display": "Neoplasia do aparelho circulatório"
+        }
+      ],
+      "text": "Neoplasia do aparelho circulatório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K72.QuestionA",
+          "code": "K72.QuestionA",
+          "display": "Trata-se de sequela de cardiopatia oncológica já avaliada e com necessidade de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de cardiopatia oncológica já avaliada e com necessidade de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K72.Question",
+            "code": "K72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K73.Question",
+          "code": "K73.Question",
+          "display": "Malformações congênitas do aparelho circulatório"
+        }
+      ],
+      "text": "Malformações congênitas do aparelho circulatório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K73.QuestionA",
+          "code": "K73.QuestionA",
+          "display": "Trata-se de sequela de malformação cardíaca congênita já avaliada e com necessidade de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de malformação cardíaca congênita já avaliada e com necessidade de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K73.Question",
+            "code": "K73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K73.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K73.QuestionB",
+          "code": "K73.QuestionB",
+          "display": "Trata-se de malformação cardíaca congênita já avaliada e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de malformação cardíaca congênita já avaliada e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K73.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K73.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K73.QuestionA",
+            "code": "K73.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K74.Question",
+          "code": "K74.Question",
+          "display": "Doença cardíaca isquémica com angina"
+        }
+      ],
+      "text": "Doença cardíaca isquémica com angina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K74.QuestionA",
+          "code": "K74.QuestionA",
+          "display": "Trata-se de sequela de cardiopatia isquêmica já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de cardiopatia isquêmica já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K74.Question",
+            "code": "K74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K74.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K74.QuestionB",
+          "code": "K74.QuestionB",
+          "display": "Trata-se de cardiopatia isquêmica já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de cardiopatia isquêmica já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K74.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K74.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K74.QuestionA",
+            "code": "K74.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K75.Question",
+          "code": "K75.Question",
+          "display": "Infarto ou Enfarte agudo miocárdio"
+        }
+      ],
+      "text": "Infarto ou Enfarte agudo miocárdio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K75.QuestionA",
+          "code": "K75.QuestionA",
+          "display": "Trata-se de sequela de IAM prévio já avaliado com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de IAM prévio já avaliado com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K75.Question",
+            "code": "K75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K75.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K75.QuestionB",
+          "code": "K75.QuestionB",
+          "display": "Trata-se de IAM prévio já avaliado com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de IAM prévio já avaliado com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K75.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K75.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K75.QuestionA",
+            "code": "K75.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K76.Question",
+          "code": "K76.Question",
+          "display": "Doença cardíaca isquémica sem angina"
+        }
+      ],
+      "text": "Doença cardíaca isquémica sem angina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K76.QuestionA",
+          "code": "K76.QuestionA",
+          "display": "Trata-se de sequela de cardiopatia isquêmica já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de sequela de cardiopatia isquêmica já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K76.Question",
+            "code": "K76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K76.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K76.QuestionB",
+          "code": "K76.QuestionB",
+          "display": "Trata-se de cardiopatia isquêmica já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de cardiopatia isquêmica já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K76.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K76.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K76.QuestionA",
+            "code": "K76.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K77.Question",
+          "code": "K77.Question",
+          "display": "Insuficiência cardíaca"
+        }
+      ],
+      "text": "Insuficiência cardíaca",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K77.QuestionA",
+          "code": "K77.QuestionA",
+          "display": "Trata-se de Insuficiência Cardíaca já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Insuficiência Cardíaca já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K77.Question",
+            "code": "K77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K77.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K77.QuestionB",
+          "code": "K77.QuestionB",
+          "display": "Trata-se de Insuficiência Cardíaca já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Insuficiência Cardíaca já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K77.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K77.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K77.QuestionA",
+            "code": "K77.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K78.Question",
+          "code": "K78.Question",
+          "display": "Fibrilação/flutter auricular/ atrial"
+        }
+      ],
+      "text": "Fibrilação/flutter auricular/ atrial",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K78.QuestionA",
+          "code": "K78.QuestionA",
+          "display": "Trata-se de Fibrilação Atrial já avaliada com necessidade principal de orientação nutricional por conta do uso de anticoagulante?"
+        }
+      ],
+      "text": "Trata-se de Fibrilação Atrial já avaliada com necessidade principal de orientação nutricional por conta do uso de anticoagulante?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K78.Question",
+            "code": "K78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K79.Question",
+          "code": "K79.Question",
+          "display": "Taquicardia Paroxística"
+        }
+      ],
+      "text": "Taquicardia Paroxística",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K80.Question",
+          "code": "K80.Question",
+          "display": "Arritmia cardíaca NE"
+        }
+      ],
+      "text": "Arritmia cardíaca NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K80.QuestionA",
+          "code": "K80.QuestionA",
+          "display": "Trata-se de suspeita de Arritmia Cardíaca (avaliação de sintomas e ECG, por exemplo) ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Trata-se de suspeita de Arritmia Cardíaca (avaliação de sintomas e ECG, por exemplo) ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K80.Question",
+            "code": "K80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K81.Question",
+          "code": "K81.Question",
+          "display": "Sopro cardíaco/arterial NE"
+        }
+      ],
+      "text": "Sopro cardíaco/arterial NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K81.QuestionA",
+          "code": "K81.QuestionA",
+          "display": "Trata-se de um achado de Sopro Cardíaco ao exame físico ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Trata-se de um achado de Sopro Cardíaco ao exame físico ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K81.Question",
+            "code": "K81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K82.Question",
+          "code": "K82.Question",
+          "display": "Doença cardiopulmonar"
+        }
+      ],
+      "text": "Doença cardiopulmonar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K82.QuestionA",
+          "code": "K82.QuestionA",
+          "display": "Trata-se de Doença Cardiopulmonar já avaliada e com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Doença Cardiopulmonar já avaliada e com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K82.Question",
+            "code": "K82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K83.Question",
+          "code": "K83.Question",
+          "display": "Doença valvular cardíaca NE"
+        }
+      ],
+      "text": "Doença valvular cardíaca NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K83.QuestionA",
+          "code": "K83.QuestionA",
+          "display": "Trata-se de Doença Valvular já avaliada com necessidade principal de orientação nutricional por conta do uso de anticoagulante?"
+        }
+      ],
+      "text": "Trata-se de Doença Valvular já avaliada com necessidade principal de orientação nutricional por conta do uso de anticoagulante?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K83.Question",
+            "code": "K83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K84.Question",
+          "code": "K84.Question",
+          "display": "Outras doenças cardíacas"
+        }
+      ],
+      "text": "Outras doenças cardíacas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K84.QuestionA",
+          "code": "K84.QuestionA",
+          "display": "Trata-se de Doença Cardíaca já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Doença Cardíaca já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K84.Question",
+            "code": "K84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K84.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K84.QuestionB",
+          "code": "K84.QuestionB",
+          "display": "Trata-se de Doença Cardíaca já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Doença Cardíaca já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K84.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K84.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K84.QuestionA",
+            "code": "K84.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K85.Question",
+          "code": "K85.Question",
+          "display": "Pressão arterial elevada"
+        }
+      ],
+      "text": "Pressão arterial elevada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K85.QuestionA",
+          "code": "K85.QuestionA",
+          "display": "Trata-se de Pressão Arterial Elevada já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Pressão Arterial Elevada já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K85.Question",
+            "code": "K85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K86.Question",
+          "code": "K86.Question",
+          "display": "Hipertensão sem complicações"
+        }
+      ],
+      "text": "Hipertensão sem complicações",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K86.QuestionA",
+          "code": "K86.QuestionA",
+          "display": "Trata-se de Hipertensão Arterial já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Hipertensão Arterial já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K86.Question",
+            "code": "K86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K86.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K86.QuestionB",
+          "code": "K86.QuestionB",
+          "display": "A pressão arterial continua alta mesmo usando 3 ou mais medicamentos para hipertensão ou existe suspeita de Hipertensão Secundária"
+        }
+      ],
+      "text": "A pressão arterial continua alta mesmo usando 3 ou mais medicamentos para hipertensão ou existe suspeita de Hipertensão Secundária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K86.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K86.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K86.QuestionA",
+            "code": "K86.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K87.Question",
+          "code": "K87.Question",
+          "display": "Hipertensão com complicações"
+        }
+      ],
+      "text": "Hipertensão com complicações",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K87.QuestionA",
+          "code": "K87.QuestionA",
+          "display": "Trata-se de Hipertensão Arterial já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Hipertensão Arterial já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K87.Question",
+            "code": "K87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K88.Question",
+          "code": "K88.Question",
+          "display": "Hipotensão postural"
+        }
+      ],
+      "text": "Hipotensão postural",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K88.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K88.QuestionA",
+          "code": "K88.QuestionA",
+          "display": "A tontura ao se levantar é acompanhada de desmaios (perda de consciência), quedas ou foi identificada após o diagnóstico de uma doença cardíaca?"
+        }
+      ],
+      "text": "A tontura ao se levantar é acompanhada de desmaios (perda de consciência), quedas ou foi identificada após o diagnóstico de uma doença cardíaca?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K88.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K88.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K88.Question",
+            "code": "K88.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K89.Question",
+          "code": "K89.Question",
+          "display": "Isquêmia/ acidente cerebral transitória(o)"
+        }
+      ],
+      "text": "Isquêmia/ acidente cerebral transitória(o)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K89.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K89.QuestionA",
+          "code": "K89.QuestionA",
+          "display": "Trata-se de AIT já avaliado com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de AIT já avaliado com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K89.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K89.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K89.Question",
+            "code": "K89.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K90.Question",
+          "code": "K90.Question",
+          "display": "Trombose/acidente vascular cerebral"
+        }
+      ],
+      "text": "Trombose/acidente vascular cerebral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225112 MEDICO NEUROLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K90.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K90.QuestionA",
+          "code": "K90.QuestionA",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K90.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K90.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K90.Question",
+            "code": "K90.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K90.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K90.QuestionB",
+          "code": "K90.QuestionB",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de reabilitação de fala ou deglutição?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de reabilitação de fala ou deglutição?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K90.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K90.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K90.QuestionA",
+            "code": "K90.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K90.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K90.QuestionC",
+          "code": "K90.QuestionC",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K90.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K90.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K90.QuestionB",
+            "code": "K90.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K91.Question",
+          "code": "K91.Question",
+          "display": "Doença vascular cerebral"
+        }
+      ],
+      "text": "Doença vascular cerebral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K91.QuestionA",
+          "code": "K91.QuestionA",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de reabilitação motora com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de reabilitação motora com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K91.Question",
+            "code": "K91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K91.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K91.QuestionB",
+          "code": "K91.QuestionB",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de reabilitação de fala ou deglutição?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de reabilitação de fala ou deglutição?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K91.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K91.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K91.QuestionA",
+            "code": "K91.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K91.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K91.QuestionC",
+          "code": "K91.QuestionC",
+          "display": "Trata-se de AVC já avaliado com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de AVC já avaliado com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K91.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K91.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K91.QuestionB",
+            "code": "K91.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K92.Question",
+          "code": "K92.Question",
+          "display": "Aterosclerose/doença vascular periférica"
+        }
+      ],
+      "text": "Aterosclerose/doença vascular periférica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K92.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K92.QuestionA",
+          "code": "K92.QuestionA",
+          "display": "Trata-se de Doença Vascular Periférica já avaliada com necessidade principal de reabilitação física com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Doença Vascular Periférica já avaliada com necessidade principal de reabilitação física com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K92.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K92.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K92.Question",
+            "code": "K92.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K92.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K92.QuestionB",
+          "code": "K92.QuestionB",
+          "display": "Trata-se de  Doença Vascular Periférica já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de  Doença Vascular Periférica já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K92.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K92.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K92.QuestionA",
+            "code": "K92.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K93.Question",
+          "code": "K93.Question",
+          "display": "Embolia pulmonar"
+        }
+      ],
+      "text": "Embolia pulmonar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K93.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K93.QuestionA",
+          "code": "K93.QuestionA",
+          "display": "Trata-se de Embolia Pulmonar prévia já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Embolia Pulmonar prévia já avaliada com necessidade principal de reabilitação cardiopulmonar com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K93.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K93.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K93.Question",
+            "code": "K93.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K93.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K93.QuestionB",
+          "code": "K93.QuestionB",
+          "display": "Trata-se de Embolia Pulmonar prévia já avaliada com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Embolia Pulmonar prévia já avaliada com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K93.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K93.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K93.QuestionA",
+            "code": "K93.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K94.Question",
+          "code": "K94.Question",
+          "display": "Flebite/tromboflebite"
+        }
+      ],
+      "text": "Flebite/tromboflebite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K95.Question",
+          "code": "K95.Question",
+          "display": "Veias varicosas da perna"
+        }
+      ],
+      "text": "Veias varicosas da perna",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K95.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K95.QuestionA",
+          "code": "K95.QuestionA",
+          "display": "Trata-se de Veias Varicosas da perna já avaliada com necessidade principal de reabilitação física com fisioterapia?"
+        }
+      ],
+      "text": "Trata-se de Veias Varicosas da perna já avaliada com necessidade principal de reabilitação física com fisioterapia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K95.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K95.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/K95.Question",
+            "code": "K95.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K96.Question",
+          "code": "K96.Question",
+          "display": "Hemorróidas"
+        }
+      ],
+      "text": "Hemorróidas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "K99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/K99.Question",
+          "code": "K99.Question",
+          "display": "Outras doenças do aparelho circulatório"
+        }
+      ],
+      "text": "Outras doenças do aparelho circulatório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/K99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "K.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "K99"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2472 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.P",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.P",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_P",
+  "title": "Mangará Agendamento - Capítulo P (Psicológico)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo P. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto P.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "P.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo P. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "P01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P01.Question",
+          "code": "P01.Question",
+          "display": "Sensação de ansiedade/nervosismo/tensão"
+        }
+      ],
+      "text": "Sensação de ansiedade/nervosismo/tensão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P01.QuestionA",
+          "code": "P01.QuestionA",
+          "display": "Sensação de ansiedade/nervosismo/tensão ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Sensação de ansiedade/nervosismo/tensão ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P01.Question",
+            "code": "P01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P01.QuestionB",
+          "code": "P01.QuestionB",
+          "display": "Sensação de ansiedade/nervosismo/tensão já avaliada com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Sensação de ansiedade/nervosismo/tensão já avaliada com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P01.QuestionA",
+            "code": "P01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P02.Question",
+          "code": "P02.Question",
+          "display": "Reação aguda ao estresse"
+        }
+      ],
+      "text": "Reação aguda ao estresse",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P02.QuestionA",
+          "code": "P02.QuestionA",
+          "display": "Reação aguda ao estresse ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Reação aguda ao estresse ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P02.Question",
+            "code": "P02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P02.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P02.QuestionB",
+          "code": "P02.QuestionB",
+          "display": "Reação aguda ao estresse já avaliada com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Reação aguda ao estresse já avaliada com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P02.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P02.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P02.QuestionA",
+            "code": "P02.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P03.Question",
+          "code": "P03.Question",
+          "display": "Tristeza/ Sensação de depressão"
+        }
+      ],
+      "text": "Tristeza/ Sensação de depressão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P03.QuestionA",
+          "code": "P03.QuestionA",
+          "display": "Tristeza/ Sensação de depressão ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Tristeza/ Sensação de depressão ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P03.Question",
+            "code": "P03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P03.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P03.QuestionB",
+          "code": "P03.QuestionB",
+          "display": "Tristeza/ Sensação de depressão já avaliada com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Tristeza/ Sensação de depressão já avaliada com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P03.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P03.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P03.QuestionA",
+            "code": "P03.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P04.Question",
+          "code": "P04.Question",
+          "display": "Sentir/comportar-se de forma irritável/zangada"
+        }
+      ],
+      "text": "Sentir/comportar-se de forma irritável/zangada",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P04.QuestionA",
+          "code": "P04.QuestionA",
+          "display": "Tristeza/ Sensação de depressão ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Tristeza/ Sensação de depressão ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P04.Question",
+            "code": "P04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P04.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P04.QuestionB",
+          "code": "P04.QuestionB",
+          "display": "Tristeza/ Sensação de depressão já avaliada com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Tristeza/ Sensação de depressão já avaliada com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P04.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P04.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P04.QuestionA",
+            "code": "P04.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P05.Question",
+          "code": "P05.Question",
+          "display": "Sensação/comportamento senil"
+        }
+      ],
+      "text": "Sensação/comportamento senil",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P06.Question",
+          "code": "P06.Question",
+          "display": "Perturbação do sono"
+        }
+      ],
+      "text": "Perturbação do sono",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P06.QuestionA",
+          "code": "P06.QuestionA",
+          "display": "Perturbação do sono ainda sem diagnóstico definitivo e sem tratamento específico?"
+        }
+      ],
+      "text": "Perturbação do sono ainda sem diagnóstico definitivo e sem tratamento específico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P06.Question",
+            "code": "P06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P07.Question",
+          "code": "P07.Question",
+          "display": "Diminuição do desejo sexual"
+        }
+      ],
+      "text": "Diminuição do desejo sexual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P08.Question",
+          "code": "P08.Question",
+          "display": "Diminuição da satisfação sexual"
+        }
+      ],
+      "text": "Diminuição da satisfação sexual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P09.Question",
+          "code": "P09.Question",
+          "display": "Preocupação com a preferência sexual"
+        }
+      ],
+      "text": "Preocupação com a preferência sexual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P10.Question",
+          "code": "P10.Question",
+          "display": "Gaguejar/balbuciar/tiques"
+        }
+      ],
+      "text": "Gaguejar/balbuciar/tiques",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P10.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P10.QuestionA",
+          "code": "P10.QuestionA",
+          "display": "Gaguejar, balbuciar, tique já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?"
+        }
+      ],
+      "text": "Gaguejar, balbuciar, tique já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P10.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P10.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P10.Question",
+            "code": "P10.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P11.Question",
+          "code": "P11.Question",
+          "display": "Problemas de alimentação da criança"
+        }
+      ],
+      "text": "Problemas de alimentação da criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P11.QuestionA",
+          "code": "P11.QuestionA",
+          "display": "Problema de alimentação da criança já avaliado e com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Problema de alimentação da criança já avaliado e com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P11.Question",
+            "code": "P11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P12.Question",
+          "code": "P12.Question",
+          "display": "Molhar a cama/enurese"
+        }
+      ],
+      "text": "Molhar a cama/enurese",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P13.Question",
+          "code": "P13.Question",
+          "display": "Encoprese/outros problemas de incontinência fecal"
+        }
+      ],
+      "text": "Encoprese/outros problemas de incontinência fecal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P15.Question",
+          "code": "P15.Question",
+          "display": "Abuso crônico de álcool"
+        }
+      ],
+      "text": "Abuso crônico de álcool",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P15.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P15.QuestionA",
+          "code": "P15.QuestionA",
+          "display": "Apresenta sintomas intensos (como alterações graves do humor, ansiedade incapacitante, insônia grave ou perda de contato com a realidade) que necessitem de possível tratamento farmacológico específico?"
+        }
+      ],
+      "text": "Apresenta sintomas intensos (como alterações graves do humor, ansiedade incapacitante, insônia grave ou perda de contato com a realidade) que necessitem de possível tratamento farmacológico específico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P15.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P15.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P15.Question",
+            "code": "P15.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P15.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P15.QuestionB",
+          "code": "P15.QuestionB",
+          "display": "Transtorno por Uso de Álcool já avaliado com necessidade de avaliação de psicologia?"
+        }
+      ],
+      "text": "Transtorno por Uso de Álcool já avaliado com necessidade de avaliação de psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P15.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P15.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P15.QuestionA",
+            "code": "P15.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P17.Question",
+          "code": "P17.Question",
+          "display": "Abuso do tabaco"
+        }
+      ],
+      "text": "Abuso do tabaco",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P17.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P17.QuestionA",
+          "code": "P17.QuestionA",
+          "display": "Tabagismo sem melhora após intervenções na unidade de saúde (grupos e terapia farmacológica com adesivo, goma e medicação)?"
+        }
+      ],
+      "text": "Tabagismo sem melhora após intervenções na unidade de saúde (grupos e terapia farmacológica com adesivo, goma e medicação)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P17.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P17.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P17.Question",
+            "code": "P17.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P17.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P17.QuestionB",
+          "code": "P17.QuestionB",
+          "display": "Tabagismo já avaliado com necessidade principal de avaliação de psicologia?"
+        }
+      ],
+      "text": "Tabagismo já avaliado com necessidade principal de avaliação de psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P17.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P17.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P17.QuestionA",
+            "code": "P17.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P18.Question",
+          "code": "P18.Question",
+          "display": "Abuso de medicação"
+        }
+      ],
+      "text": "Abuso de medicação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P18.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P18.QuestionA",
+          "code": "P18.QuestionA",
+          "display": "Existem sinais de dependência severa, sintomas psicóticos, síndrome de abstinência grave, risco de auto ou heteroagressividade, ou falha no manejo farmacológico inicial?"
+        }
+      ],
+      "text": "Existem sinais de dependência severa, sintomas psicóticos, síndrome de abstinência grave, risco de auto ou heteroagressividade, ou falha no manejo farmacológico inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P18.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P18.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P18.Question",
+            "code": "P18.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P18.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P18.QuestionB",
+          "code": "P18.QuestionB",
+          "display": "A motivação do uso/abuso está fortemente ligada a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?"
+        }
+      ],
+      "text": "A motivação do uso/abuso está fortemente ligada a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P18.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P18.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P18.QuestionA",
+            "code": "P18.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P19.Question",
+          "code": "P19.Question",
+          "display": "Abuso de drogas"
+        }
+      ],
+      "text": "Abuso de drogas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P19.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P19.QuestionA",
+          "code": "P19.QuestionA",
+          "display": "Existem sinais de dependência severa, sintomas psicóticos, síndrome de abstinência grave, risco de auto ou heteroagressividade, ou falha no manejo farmacológico inicial?"
+        }
+      ],
+      "text": "Existem sinais de dependência severa, sintomas psicóticos, síndrome de abstinência grave, risco de auto ou heteroagressividade, ou falha no manejo farmacológico inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P19.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P19.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P19.Question",
+            "code": "P19.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P19.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P19.QuestionB",
+          "code": "P19.QuestionB",
+          "display": "A motivação do uso/abuso está fortemente ligada a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?"
+        }
+      ],
+      "text": "A motivação do uso/abuso está fortemente ligada a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P19.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P19.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P19.QuestionA",
+            "code": "P19.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P20.Question",
+          "code": "P20.Question",
+          "display": "Alterações da memória"
+        }
+      ],
+      "text": "Alterações da memória",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P20.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P20.QuestionA",
+          "code": "P20.QuestionA",
+          "display": "Paciente já tem diagnóstico de Demência/Síndrome Demencial?"
+        }
+      ],
+      "text": "Paciente já tem diagnóstico de Demência/Síndrome Demencial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P20.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P20.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P20.Question",
+            "code": "P20.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P22.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P22.Question",
+          "code": "P22.Question",
+          "display": "Sinais/sintomas relacionados ao comportamento da criança"
+        }
+      ],
+      "text": "Sinais/sintomas relacionados ao comportamento da criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P22.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P22"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P23.Question",
+          "code": "P23.Question",
+          "display": "Sinais/sintomas relacionados ao comportamento do adolescente"
+        }
+      ],
+      "text": "Sinais/sintomas relacionados ao comportamento do adolescente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P24.Question",
+          "code": "P24.Question",
+          "display": "Dificuldades especificas de aprendizagem"
+        }
+      ],
+      "text": "Dificuldades especificas de aprendizagem",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P25.Question",
+          "code": "P25.Question",
+          "display": "Problemas da fase de vida de adulto"
+        }
+      ],
+      "text": "Problemas da fase de vida de adulto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P27.Question",
+          "code": "P27.Question",
+          "display": "Medo de perturbações mentais"
+        }
+      ],
+      "text": "Medo de perturbações mentais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P29.Question",
+          "code": "P29.Question",
+          "display": "Sinais/sintomas psicológicos, outros"
+        }
+      ],
+      "text": "Sinais/sintomas psicológicos, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P70.Question",
+          "code": "P70.Question",
+          "display": "Demência"
+        }
+      ],
+      "text": "Demência",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P70.QuestionA",
+          "code": "P70.QuestionA",
+          "display": "Início antes dos 65 anos; progressão rápida; sintomas atípicos (linguagem, psicose, sinais neurológicos focais); alterações em exames de imagem; falha de resposta ao tratamento inicial?"
+        }
+      ],
+      "text": "Início antes dos 65 anos; progressão rápida; sintomas atípicos (linguagem, psicose, sinais neurológicos focais); alterações em exames de imagem; falha de resposta ao tratamento inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P70.Question",
+            "code": "P70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P71.Question",
+          "code": "P71.Question",
+          "display": "Outras psicoses orgânicas NE"
+        }
+      ],
+      "text": "Outras psicoses orgânicas NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P71.QuestionA",
+          "code": "P71.QuestionA",
+          "display": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P71.Question",
+            "code": "P71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P72.Question",
+          "code": "P72.Question",
+          "display": "Esquizofrenia"
+        }
+      ],
+      "text": "Esquizofrenia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P72.QuestionA",
+          "code": "P72.QuestionA",
+          "display": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P72.Question",
+            "code": "P72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P73.Question",
+          "code": "P73.Question",
+          "display": "Psicose afetiva"
+        }
+      ],
+      "text": "Psicose afetiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P73.QuestionA",
+          "code": "P73.QuestionA",
+          "display": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro inicial, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P73.Question",
+            "code": "P73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P74.Question",
+          "code": "P74.Question",
+          "display": "Distúrbio ansioso/estado de ansiedade"
+        }
+      ],
+      "text": "Distúrbio ansioso/estado de ansiedade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P74.QuestionA",
+          "code": "P74.QuestionA",
+          "display": "Sem resposta ao tratamento inicial feito na unidade (por pelo menos 8 semanas) ou ansiedade com ideação suicida persistente?"
+        }
+      ],
+      "text": "Sem resposta ao tratamento inicial feito na unidade (por pelo menos 8 semanas) ou ansiedade com ideação suicida persistente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P74.Question",
+            "code": "P74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P74.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P74.QuestionB",
+          "code": "P74.QuestionB",
+          "display": "O transtorno de ansiedade é alguma fobia específica ou está fortemente ligado a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?"
+        }
+      ],
+      "text": "O transtorno de ansiedade é alguma fobia específica ou está fortemente ligado a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P74.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P74.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P74.QuestionA",
+            "code": "P74.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P75.Question",
+          "code": "P75.Question",
+          "display": "Somatização"
+        }
+      ],
+      "text": "Somatização",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P76.Question",
+          "code": "P76.Question",
+          "display": "Perturbações depressivas"
+        }
+      ],
+      "text": "Perturbações depressivas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P76.QuestionA",
+          "code": "P76.QuestionA",
+          "display": "Apresenta algum dos achados a seguir: sem resposta ao tratamento inicial feito na unidade (por pelo menos 8 semanas); depressão com ideação suicida persistente; sintomas psicóticos; internação por saúde mental prévia?"
+        }
+      ],
+      "text": "Apresenta algum dos achados a seguir: sem resposta ao tratamento inicial feito na unidade (por pelo menos 8 semanas); depressão com ideação suicida persistente; sintomas psicóticos; internação por saúde mental prévia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P76.Question",
+            "code": "P76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P76.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P76.QuestionB",
+          "code": "P76.QuestionB",
+          "display": "O transtorno depressivo é está fortemente ligado a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?"
+        }
+      ],
+      "text": "O transtorno depressivo é está fortemente ligado a conflitos psíquicos, gatilhos emocionais ou dificuldades de enfrentamento que indicam necessidade principal de avaliaçao com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P76.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P76.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P76.QuestionA",
+            "code": "P76.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P77.Question",
+          "code": "P77.Question",
+          "display": "Suicídio/tentativa de suicídio"
+        }
+      ],
+      "text": "Suicídio/tentativa de suicídio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P77.QuestionA",
+          "code": "P77.QuestionA",
+          "display": "Apresentou ideação suicida ativa/estruturada, a tentativa foi recente com métodos de alta letalidade ou tem sintomas psicóticos (delírios, alucinações) associados?"
+        }
+      ],
+      "text": "Apresentou ideação suicida ativa/estruturada, a tentativa foi recente com métodos de alta letalidade ou tem sintomas psicóticos (delírios, alucinações) associados?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P77.Question",
+            "code": "P77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P77.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P77.QuestionB",
+          "code": "P77.QuestionB",
+          "display": "O foco principal da discussão é apoio no suporte psicoterápico/emocional (ex: elaboração de luto, conflitos relacionais, trauma) a partir da avaliação com psicologia?"
+        }
+      ],
+      "text": "O foco principal da discussão é apoio no suporte psicoterápico/emocional (ex: elaboração de luto, conflitos relacionais, trauma) a partir da avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P77.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P77.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P77.QuestionA",
+            "code": "P77.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P78.Question",
+          "code": "P78.Question",
+          "display": "Neurastenia"
+        }
+      ],
+      "text": "Neurastenia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P79.Question",
+          "code": "P79.Question",
+          "display": "Fobia/perturbação compulsiva"
+        }
+      ],
+      "text": "Fobia/perturbação compulsiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P79.QuestionA",
+          "code": "P79.QuestionA",
+          "display": "Fobia/perturbação compulsiva já avaliado com necessidade de avaliação de psicologia?"
+        }
+      ],
+      "text": "Fobia/perturbação compulsiva já avaliado com necessidade de avaliação de psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P79.Question",
+            "code": "P79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P80.Question",
+          "code": "P80.Question",
+          "display": "Perturbações de personalidade"
+        }
+      ],
+      "text": "Perturbações de personalidade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P80.QuestionA",
+          "code": "P80.QuestionA",
+          "display": "Perturbação de personalidade já avaliado com necessidade de avaliação de psicologia?"
+        }
+      ],
+      "text": "Perturbação de personalidade já avaliado com necessidade de avaliação de psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P80.Question",
+            "code": "P80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P81.Question",
+          "code": "P81.Question",
+          "display": "Perturbação hipercinética"
+        }
+      ],
+      "text": "Perturbação hipercinética",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P81.QuestionA",
+          "code": "P81.QuestionA",
+          "display": "Perturbação hipercinética (falta de atenção, hiperatividade) em adulto ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Perturbação hipercinética (falta de atenção, hiperatividade) em adulto ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P81.Question",
+            "code": "P81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P81.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P81.QuestionB",
+          "code": "P81.QuestionB",
+          "display": "Perturbação hipercinética (falta de atenção, hiperatividade) em adulto já avaliada e com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Perturbação hipercinética (falta de atenção, hiperatividade) em adulto já avaliada e com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P81.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P81.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P81.QuestionA",
+            "code": "P81.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P82.Question",
+          "code": "P82.Question",
+          "display": "Estresse pós traumático"
+        }
+      ],
+      "text": "Estresse pós traumático",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P82.QuestionA",
+          "code": "P82.QuestionA",
+          "display": "Estresse pós-traumático ainda sem diagnóstico definitivo ou sem tratamento inicial instituido na unidade de saúde?"
+        }
+      ],
+      "text": "Estresse pós-traumático ainda sem diagnóstico definitivo ou sem tratamento inicial instituido na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P82.Question",
+            "code": "P82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P82.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P82.QuestionB",
+          "code": "P82.QuestionB",
+          "display": "Estresse pós-traumático já avaliado e com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Estresse pós-traumático já avaliado e com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P82.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P82.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P82.QuestionA",
+            "code": "P82.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P85.Question",
+          "code": "P85.Question",
+          "display": "Retardo/ Atraso mental"
+        }
+      ],
+      "text": "Retardo/ Atraso mental",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P85.QuestionA",
+          "code": "P85.QuestionA",
+          "display": "Retardo/Atraso mental em adulto ainda sem diagnóstico definitivo?"
+        }
+      ],
+      "text": "Retardo/Atraso mental em adulto ainda sem diagnóstico definitivo?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P85.Question",
+            "code": "P85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P86.Question",
+          "code": "P86.Question",
+          "display": "Anorexia nervosa, bulimia"
+        }
+      ],
+      "text": "Anorexia nervosa, bulimia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P86.QuestionA",
+          "code": "P86.QuestionA",
+          "display": "Anorexia nervosa/bulimia ainda sem diagnóstico definitivo ou sem tratamento inicial instituido na unidade de saúde?"
+        }
+      ],
+      "text": "Anorexia nervosa/bulimia ainda sem diagnóstico definitivo ou sem tratamento inicial instituido na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P86.Question",
+            "code": "P86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P86.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P86.QuestionB",
+          "code": "P86.QuestionB",
+          "display": "Anorexia nervosa/bulimia já avaliada e com necessidade principal de avaliação com psicologia?"
+        }
+      ],
+      "text": "Anorexia nervosa/bulimia já avaliada e com necessidade principal de avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P86.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P86.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P86.QuestionA",
+            "code": "P86.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P86.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P86.QuestionC",
+          "code": "P86.QuestionC",
+          "display": "Anorexia nervosa/bulimia já avaliada e com necessidade principal de suporte nutricional?"
+        }
+      ],
+      "text": "Anorexia nervosa/bulimia já avaliada e com necessidade principal de suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P86.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P86.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/P86.QuestionB",
+            "code": "P86.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P98.Question",
+          "code": "P98.Question",
+          "display": "Outras psicoses NE"
+        }
+      ],
+      "text": "Outras psicoses NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225133 MEDICO PSIQUIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "P99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/P99.Question",
+          "code": "P99.Question",
+          "display": "Outras perturbações psicológicas"
+        }
+      ],
+      "text": "Outras perturbações psicológicas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/P99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "P.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "P99"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2562 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.D",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.D",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_D",
+  "title": "Mangará Agendamento - Capítulo D (Digestivo)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo D. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto D.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "D.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo D. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "D01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D01.Question",
+          "code": "D01.Question",
+          "display": "Dor abdominal generalizada/cólicas"
+        }
+      ],
+      "text": "Dor abdominal generalizada/cólicas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D01.QuestionA",
+          "code": "D01.QuestionA",
+          "display": "Trata-se de dor abdominal/cólica já avaliada, já avaliada, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de dor abdominal/cólica já avaliada, já avaliada, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D01.Question",
+            "code": "D01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D02.Question",
+          "code": "D02.Question",
+          "display": "Dores abdominais, epigástricas"
+        }
+      ],
+      "text": "Dores abdominais, epigástricas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D02.QuestionA",
+          "code": "D02.QuestionA",
+          "display": "Trata-se de dor epigástrica (no estômago) já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de dor epigástrica (no estômago) já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D02.Question",
+            "code": "D02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D03.Question",
+          "code": "D03.Question",
+          "display": "Azia/ Queimação"
+        }
+      ],
+      "text": "Azia/ Queimação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D03.QuestionA",
+          "code": "D03.QuestionA",
+          "display": "Trata-se de azia/queimação já avaliado, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de azia/queimação já avaliado, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D03.Question",
+            "code": "D03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D04.Question",
+          "code": "D04.Question",
+          "display": "Dor anal/retal"
+        }
+      ],
+      "text": "Dor anal/retal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D05.Question",
+          "code": "D05.Question",
+          "display": "Irritação perianal"
+        }
+      ],
+      "text": "Irritação perianal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D06.Question",
+          "code": "D06.Question",
+          "display": "Outras dores abdominais localizadas"
+        }
+      ],
+      "text": "Outras dores abdominais localizadas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D07.Question",
+          "code": "D07.Question",
+          "display": "Dispepsia/indigestão"
+        }
+      ],
+      "text": "Dispepsia/indigestão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D07.QuestionA",
+          "code": "D07.QuestionA",
+          "display": "Trata-se de dispepsia/indigestão já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de dispepsia/indigestão já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D07.Question",
+            "code": "D07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D08.Question",
+          "code": "D08.Question",
+          "display": "Flatulência /gases/eructações"
+        }
+      ],
+      "text": "Flatulência /gases/eructações",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D08.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D08.QuestionA",
+          "code": "D08.QuestionA",
+          "display": "Trata-se de flatulências/gases/eructações já avaliados, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de flatulências/gases/eructações já avaliados, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D08.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D08.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D08.Question",
+            "code": "D08.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D09.Question",
+          "code": "D09.Question",
+          "display": "Náusea"
+        }
+      ],
+      "text": "Náusea",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D09.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D09.QuestionA",
+          "code": "D09.QuestionA",
+          "display": "Trata-se de náusea já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de náusea já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D09.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D09.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D09.Question",
+            "code": "D09.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D10.Question",
+          "code": "D10.Question",
+          "display": "Vomito"
+        }
+      ],
+      "text": "Vomito",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D10.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D10.QuestionA",
+          "code": "D10.QuestionA",
+          "display": "Trata-se de quadro de vômitos já avaliado, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de quadro de vômitos já avaliado, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D10.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D10.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D10.Question",
+            "code": "D10.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D11.Question",
+          "code": "D11.Question",
+          "display": "Diarreia"
+        }
+      ],
+      "text": "Diarreia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D11.QuestionA",
+          "code": "D11.QuestionA",
+          "display": "Trata-se de diarreia já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de diarreia já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D11.Question",
+            "code": "D11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D12.Question",
+          "code": "D12.Question",
+          "display": "Obstipação"
+        }
+      ],
+      "text": "Obstipação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D12.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D12.QuestionA",
+          "code": "D12.QuestionA",
+          "display": "Trata-se de obstipação já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de obstipação já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D12.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D12.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D12.Question",
+            "code": "D12.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D13.Question",
+          "code": "D13.Question",
+          "display": "Icterícia"
+        }
+      ],
+      "text": "Icterícia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D14.Question",
+          "code": "D14.Question",
+          "display": "Hematêmese/vómito sangue"
+        }
+      ],
+      "text": "Hematêmese/vómito sangue",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D15.Question",
+          "code": "D15.Question",
+          "display": "Melena"
+        }
+      ],
+      "text": "Melena",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D16.Question",
+          "code": "D16.Question",
+          "display": "Hemorragia retal"
+        }
+      ],
+      "text": "Hemorragia retal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D17.Question",
+          "code": "D17.Question",
+          "display": "Incontinência fecal"
+        }
+      ],
+      "text": "Incontinência fecal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D18.Question",
+          "code": "D18.Question",
+          "display": "Alterações nas fezes/mov. intestinais"
+        }
+      ],
+      "text": "Alterações nas fezes/mov. intestinais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D19.Question",
+          "code": "D19.Question",
+          "display": "Sinais/sintomas dos dentes/gengiva"
+        }
+      ],
+      "text": "Sinais/sintomas dos dentes/gengiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D20.Question",
+          "code": "D20.Question",
+          "display": "Sinais/sintomas da boca/língua/lábios"
+        }
+      ],
+      "text": "Sinais/sintomas da boca/língua/lábios",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D21.Question",
+          "code": "D21.Question",
+          "display": "Problemas de deglutição"
+        }
+      ],
+      "text": "Problemas de deglutição",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D21.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D21.QuestionA",
+          "code": "D21.QuestionA",
+          "display": "Trata-se de Problema de Deglutição já avaliado, sem sinais de alarme, com necessidade principal de avaliação da fonoaudiologia para reabilitação?"
+        }
+      ],
+      "text": "Trata-se de Problema de Deglutição já avaliado, sem sinais de alarme, com necessidade principal de avaliação da fonoaudiologia para reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D21.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D21.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D21.Question",
+            "code": "D21.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D21.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D21.QuestionB",
+          "code": "D21.QuestionB",
+          "display": "Trata-se de Problema de Deglutição já avaliado, sem sinais de alarme, com necessidade principal de adequação alimentar (espessamentos, adequação de textura/consistência) e suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Problema de Deglutição já avaliado, sem sinais de alarme, com necessidade principal de adequação alimentar (espessamentos, adequação de textura/consistência) e suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D21.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D21.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D21.QuestionA",
+            "code": "D21.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D23.Question",
+          "code": "D23.Question",
+          "display": "Hepatomegalia"
+        }
+      ],
+      "text": "Hepatomegalia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D24.Question",
+          "code": "D24.Question",
+          "display": "Massa abdominal NE"
+        }
+      ],
+      "text": "Massa abdominal NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D25.Question",
+          "code": "D25.Question",
+          "display": "Distensão abdominal"
+        }
+      ],
+      "text": "Distensão abdominal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D25.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D25.QuestionA",
+          "code": "D25.QuestionA",
+          "display": "Trata-se de distensão abdominal já avaliada, sem sinais de alarme, desencadeada por alimentação e com necessidade de estruturação de plano alimentar?"
+        }
+      ],
+      "text": "Trata-se de distensão abdominal já avaliada, sem sinais de alarme, desencadeada por alimentação e com necessidade de estruturação de plano alimentar?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D25.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D25.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D25.Question",
+            "code": "D25.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D26.Question",
+          "code": "D26.Question",
+          "display": "Medo de câncer no aparelho digestivo"
+        }
+      ],
+      "text": "Medo de câncer no aparelho digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D27.Question",
+          "code": "D27.Question",
+          "display": "Medo de outras doenças aparelho digestivo"
+        }
+      ],
+      "text": "Medo de outras doenças aparelho digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D29.Question",
+          "code": "D29.Question",
+          "display": "Outros sinais/sintomas do aparelho digestivo"
+        }
+      ],
+      "text": "Outros sinais/sintomas do aparelho digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D70.Question",
+          "code": "D70.Question",
+          "display": "Infecção gastrointestinal"
+        }
+      ],
+      "text": "Infecção gastrointestinal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D70.QuestionA",
+          "code": "D70.QuestionA",
+          "display": "Trata-se de infecção gastrointestinal crônica, sem melhora com tratamento na unidade de saúde ou em pessoa imunocomprometida?"
+        }
+      ],
+      "text": "Trata-se de infecção gastrointestinal crônica, sem melhora com tratamento na unidade de saúde ou em pessoa imunocomprometida?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D70.Question",
+            "code": "D70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D71.Question",
+          "code": "D71.Question",
+          "display": "Caxumba/parotidite epidêmica"
+        }
+      ],
+      "text": "Caxumba/parotidite epidêmica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D71.QuestionA",
+          "code": "D71.QuestionA",
+          "display": "Trata-se de caxumba/parotidite com evolução para orquiote (acomentimento dos testículos)?"
+        }
+      ],
+      "text": "Trata-se de caxumba/parotidite com evolução para orquiote (acomentimento dos testículos)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D71.Question",
+            "code": "D71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D72.Question",
+          "code": "D72.Question",
+          "display": "Hepatite viral"
+        }
+      ],
+      "text": "Hepatite viral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D72.QuestionA",
+          "code": "D72.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica/resultado de sorologia?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica/resultado de sorologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D72.Question",
+            "code": "D72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D73.Question",
+          "code": "D73.Question",
+          "display": "Gastroenterite, presumível infecção"
+        }
+      ],
+      "text": "Gastroenterite, presumível infecção",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D74.Question",
+          "code": "D74.Question",
+          "display": "Neoplasia maligna do estômago"
+        }
+      ],
+      "text": "Neoplasia maligna do estômago",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D74.QuestionA",
+          "code": "D74.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliada e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliada e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D74.Question",
+            "code": "D74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D74.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D74.QuestionB",
+          "code": "D74.QuestionB",
+          "display": "Trata-se neoplasia maligna do estômago para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do estômago para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D74.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D74.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D74.QuestionA",
+            "code": "D74.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D75.Question",
+          "code": "D75.Question",
+          "display": "Neoplasia maligna do cólon/reto"
+        }
+      ],
+      "text": "Neoplasia maligna do cólon/reto",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D75.QuestionA",
+          "code": "D75.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D75.Question",
+            "code": "D75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D75.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D75.QuestionB",
+          "code": "D75.QuestionB",
+          "display": "Trata-se neoplasia maligna do cólon/reto para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do cólon/reto para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D75.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D75.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D75.QuestionA",
+            "code": "D75.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D76.Question",
+          "code": "D76.Question",
+          "display": "Neoplasia maligna do pâncreas"
+        }
+      ],
+      "text": "Neoplasia maligna do pâncreas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D76.QuestionA",
+          "code": "D76.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D76.Question",
+            "code": "D76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D76.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D76.QuestionB",
+          "code": "D76.QuestionB",
+          "display": "Trata-se neoplasia maligna do pâncreas para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do pâncreas para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D76.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D76.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D76.QuestionA",
+            "code": "D76.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D77.Question",
+          "code": "D77.Question",
+          "display": "Neoplasia maligna do aparelho digestivo NE"
+        }
+      ],
+      "text": "Neoplasia maligna do aparelho digestivo NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D77.QuestionA",
+          "code": "D77.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D77.Question",
+            "code": "D77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D77.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D77.QuestionB",
+          "code": "D77.QuestionB",
+          "display": "Trata-se neoplasia maligna do aparelho digestivo para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do aparelho digestivo para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D77.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D77.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D77.QuestionA",
+            "code": "D77.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D78.Question",
+          "code": "D78.Question",
+          "display": "Neoplasia benigna do aparelho digestivo/incerta"
+        }
+      ],
+      "text": "Neoplasia benigna do aparelho digestivo/incerta",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D79.Question",
+          "code": "D79.Question",
+          "display": "Corpo estranho no aparelho digestivo"
+        }
+      ],
+      "text": "Corpo estranho no aparelho digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D80.Question",
+          "code": "D80.Question",
+          "display": "Malformações congênitas do aparelho digestivo"
+        }
+      ],
+      "text": "Malformações congênitas do aparelho digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D82.Question",
+          "code": "D82.Question",
+          "display": "Doença dos dentes/gengivas"
+        }
+      ],
+      "text": "Doença dos dentes/gengivas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D83.Question",
+          "code": "D83.Question",
+          "display": "Doença da boca/língua/lábios"
+        }
+      ],
+      "text": "Doença da boca/língua/lábios",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D84.Question",
+          "code": "D84.Question",
+          "display": "Doença do esôfago"
+        }
+      ],
+      "text": "Doença do esôfago",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D84.QuestionA",
+          "code": "D84.QuestionA",
+          "display": "Trata-se de doença do esôfago (esofagite, refluxo, acalasia, etc) já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de doença do esôfago (esofagite, refluxo, acalasia, etc) já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D84.Question",
+            "code": "D84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D85.Question",
+          "code": "D85.Question",
+          "display": "Úlcera do duodeno"
+        }
+      ],
+      "text": "Úlcera do duodeno",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D85.QuestionA",
+          "code": "D85.QuestionA",
+          "display": "Trata-se de úlcera do duodeno já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de úlcera do duodeno já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D85.Question",
+            "code": "D85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D86.Question",
+          "code": "D86.Question",
+          "display": "Úlcera péptica, outra"
+        }
+      ],
+      "text": "Úlcera péptica, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D86.QuestionA",
+          "code": "D86.QuestionA",
+          "display": "Trata-se de úlcera péptica já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de úlcera péptica já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D86.Question",
+            "code": "D86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D87.Question",
+          "code": "D87.Question",
+          "display": "Alterações funcionais do estômago"
+        }
+      ],
+      "text": "Alterações funcionais do estômago",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D87.QuestionA",
+          "code": "D87.QuestionA",
+          "display": "Trata-se de alterações funcionais do estômago já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de alterações funcionais do estômago já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D87.Question",
+            "code": "D87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D89.Question",
+          "code": "D89.Question",
+          "display": "Hérnia inguinal"
+        }
+      ],
+      "text": "Hérnia inguinal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D90.Question",
+          "code": "D90.Question",
+          "display": "Hérnia de hiato /diafragmática"
+        }
+      ],
+      "text": "Hérnia de hiato /diafragmática",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D91.Question",
+          "code": "D91.Question",
+          "display": "Hérnia abdominal, outras"
+        }
+      ],
+      "text": "Hérnia abdominal, outras",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D92.Question",
+          "code": "D92.Question",
+          "display": "Doença diverticular intestinal"
+        }
+      ],
+      "text": "Doença diverticular intestinal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D92.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D92.QuestionA",
+          "code": "D92.QuestionA",
+          "display": "Trata-se de doença diverticular intestinal já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de doença diverticular intestinal já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D92.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D92.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D92.Question",
+            "code": "D92.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D93.Question",
+          "code": "D93.Question",
+          "display": "Síndrome do cólon irritável"
+        }
+      ],
+      "text": "Síndrome do cólon irritável",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D93.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D93.QuestionA",
+          "code": "D93.QuestionA",
+          "display": "Trata-se de Síndrome do Intestino Irritável já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de Síndrome do Intestino Irritável já avaliada, sem sinais de alarme, com necessidade principal de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D93.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D93.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/D93.Question",
+            "code": "D93.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D94.Question",
+          "code": "D94.Question",
+          "display": "Enterite crónica/colite ulcerosa"
+        }
+      ],
+      "text": "Enterite crónica/colite ulcerosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D95.Question",
+          "code": "D95.Question",
+          "display": "Fissura anal / abcesso perianal"
+        }
+      ],
+      "text": "Fissura anal / abcesso perianal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D96.Question",
+          "code": "D96.Question",
+          "display": "Lombrigas /outros parasitas"
+        }
+      ],
+      "text": "Lombrigas /outros parasitas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D97.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D97.Question",
+          "code": "D97.Question",
+          "display": "Doença do Fígado"
+        }
+      ],
+      "text": "Doença do Fígado",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D97.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D97"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D98.Question",
+          "code": "D98.Question",
+          "display": "Colecistite, colelitiase"
+        }
+      ],
+      "text": "Colecistite, colelitiase",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "D99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/D99.Question",
+          "code": "D99.Question",
+          "display": "Outra doença do sistema digestivo"
+        }
+      ],
+      "text": "Outra doença do sistema digestivo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/D99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "D.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "D99"
+          }
+        }
+      ]
+    }
+  ]
+}

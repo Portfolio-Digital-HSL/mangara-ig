@@ -1,0 +1,3792 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.L",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.L",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_L",
+  "title": "Mangará Agendamento - Capítulo L (Musculoesquelético)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo L. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto L.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "L.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo L. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "L01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L01.Question",
+          "code": "L01.Question",
+          "display": "Sinais/sintomas do pescoço"
+        }
+      ],
+      "text": "Sinais/sintomas do pescoço",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L01.QuestionA",
+          "code": "L01.QuestionA",
+          "display": "Dor cervical avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor cervical avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L01.Question",
+            "code": "L01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L01.QuestionB",
+          "code": "L01.QuestionB",
+          "display": "O paciente apresenta alteração estrutural em exame de imagem, parestesia/radiculopatia grave sem resposta ao manejo conservador por 6 semanas, ou perda de força/déficit motor?"
+        }
+      ],
+      "text": "O paciente apresenta alteração estrutural em exame de imagem, parestesia/radiculopatia grave sem resposta ao manejo conservador por 6 semanas, ou perda de força/déficit motor?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L01.QuestionA",
+            "code": "L01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L02.Question",
+          "code": "L02.Question",
+          "display": "Sinais/sintomas da região dorsal"
+        }
+      ],
+      "text": "Sinais/sintomas da região dorsal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L02.QuestionA",
+          "code": "L02.QuestionA",
+          "display": "Dor dorsal avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor dorsal avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L02.Question",
+            "code": "L02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L02.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L02.QuestionB",
+          "code": "L02.QuestionB",
+          "display": "O paciente apresenta alteração estrutural em exame de imagem, parestesia/radiculopatia grave sem resposta ao manejo conservador por 6 semanas, ou perda de força/déficit motor?"
+        }
+      ],
+      "text": "O paciente apresenta alteração estrutural em exame de imagem, parestesia/radiculopatia grave sem resposta ao manejo conservador por 6 semanas, ou perda de força/déficit motor?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L02.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L02.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L02.QuestionA",
+            "code": "L02.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L03.Question",
+          "code": "L03.Question",
+          "display": "Sinais/sintomas da região lombar"
+        }
+      ],
+      "text": "Sinais/sintomas da região lombar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L03.QuestionA",
+          "code": "L03.QuestionA",
+          "display": "Dor lombar avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor lombar avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L03.Question",
+            "code": "L03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L03.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L03.QuestionB",
+          "code": "L03.QuestionB",
+          "display": "O paciente apresenta dor irradiada para as pernas abaixo do joelho (ciatalgia), fraqueza motora objetiva ou espondilolistese ao exame de imagem, SEM melhora após 6 semanas de tratamento clínico otimizado?"
+        }
+      ],
+      "text": "O paciente apresenta dor irradiada para as pernas abaixo do joelho (ciatalgia), fraqueza motora objetiva ou espondilolistese ao exame de imagem, SEM melhora após 6 semanas de tratamento clínico otimizado?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L03.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L03.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L03.QuestionA",
+            "code": "L03.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L03.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L03.QuestionC",
+          "code": "L03.QuestionC",
+          "display": "A dor lombar é crônica (dura há mais de 3 meses), começou antes dos 40 anos e tem características INFLAMATÓRIAS (piora no repouso, acorda o paciente na segunda metade da noite e melhora com o movimento/exercícios)?"
+        }
+      ],
+      "text": "A dor lombar é crônica (dura há mais de 3 meses), começou antes dos 40 anos e tem características INFLAMATÓRIAS (piora no repouso, acorda o paciente na segunda metade da noite e melhora com o movimento/exercícios)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L03.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L03.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L03.QuestionB",
+            "code": "L03.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L04.Question",
+          "code": "L04.Question",
+          "display": "Sinais/sintomas do tórax"
+        }
+      ],
+      "text": "Sinais/sintomas do tórax",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L04.QuestionA",
+          "code": "L04.QuestionA",
+          "display": "Trata-se de dor torácica que surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?"
+        }
+      ],
+      "text": "Trata-se de dor torácica que surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L04.Question",
+            "code": "L04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L04.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L04.QuestionB",
+          "code": "L04.QuestionB",
+          "display": "Dor/sintomas em região de tórax avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional"
+        }
+      ],
+      "text": "Dor/sintomas em região de tórax avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L04.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L04.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L04.QuestionA",
+            "code": "L04.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L04.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L04.QuestionC",
+          "code": "L04.QuestionC",
+          "display": "Sintomas em região de tórax que piora com movimento específico ou ao palpar algum ponto específico sem melhora com tratamento feito na unidade?"
+        }
+      ],
+      "text": "Sintomas em região de tórax que piora com movimento específico ou ao palpar algum ponto específico sem melhora com tratamento feito na unidade?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L04.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L04.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L04.QuestionB",
+            "code": "L04.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L05.Question",
+          "code": "L05.Question",
+          "display": "Sinais/sintomas da axila"
+        }
+      ],
+      "text": "Sinais/sintomas da axila",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L05.QuestionA",
+          "code": "L05.QuestionA",
+          "display": "Dor na axila avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor na axila avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L05.Question",
+            "code": "L05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L07.Question",
+          "code": "L07.Question",
+          "display": "Sinais/sintomas da mandíbula"
+        }
+      ],
+      "text": "Sinais/sintomas da mandíbula",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L07.QuestionA",
+          "code": "L07.QuestionA",
+          "display": "Dor, fraqueza ou travamento de região temporo-mandibular já avaliada com necessidade de reabilitação funcional?"
+        }
+      ],
+      "text": "Dor, fraqueza ou travamento de região temporo-mandibular já avaliada com necessidade de reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L07.Question",
+            "code": "L07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L08.Question",
+          "code": "L08.Question",
+          "display": "Sinais/sintomas dos ombros"
+        }
+      ],
+      "text": "Sinais/sintomas dos ombros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L08.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L08.QuestionA",
+          "code": "L08.QuestionA",
+          "display": "Dor em ombros avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor em ombros avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L08.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L08.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L08.Question",
+            "code": "L08.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L08.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L08.QuestionB",
+          "code": "L08.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente (queda, colisão) com perda da força para elevar o braço, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente (queda, colisão) com perda da força para elevar o braço, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L08.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L08.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L08.QuestionA",
+            "code": "L08.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L09.Question",
+          "code": "L09.Question",
+          "display": "Sinais/sintomas dos braços"
+        }
+      ],
+      "text": "Sinais/sintomas dos braços",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L09.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L09.QuestionA",
+          "code": "L09.QuestionA",
+          "display": "Dor nos braços já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor nos braços já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L09.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L09.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L09.Question",
+            "code": "L09.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L09.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L09.QuestionB",
+          "code": "L09.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do braço, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do braço, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L09.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L09.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L09.QuestionA",
+            "code": "L09.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L10.Question",
+          "code": "L10.Question",
+          "display": "Sinais/sintomas dos cotovelos"
+        }
+      ],
+      "text": "Sinais/sintomas dos cotovelos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L10.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L10.QuestionA",
+          "code": "L10.QuestionA",
+          "display": "Dor no cotovelo já avaliada previamente, sem sinais de alarme, com necessitade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor no cotovelo já avaliada previamente, sem sinais de alarme, com necessitade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L10.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L10.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L10.Question",
+            "code": "L10.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L10.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L10.QuestionB",
+          "code": "L10.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do cotovelo, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do cotovelo, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L10.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L10.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L10.QuestionA",
+            "code": "L10.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L11.Question",
+          "code": "L11.Question",
+          "display": "Sinais/sintomas dos punhos"
+        }
+      ],
+      "text": "Sinais/sintomas dos punhos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L11.QuestionA",
+          "code": "L11.QuestionA",
+          "display": "Dor/ sintomas em punhos já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor/ sintomas em punhos já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L11.Question",
+            "code": "L11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L11.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L11.QuestionB",
+          "code": "L11.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do punho, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente (queda, colisão) com limitação na movimentação do punho, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L11.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L11.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L11.QuestionA",
+            "code": "L11.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L12.Question",
+          "code": "L12.Question",
+          "display": "Sinais/sintomas das mãos e dedos"
+        }
+      ],
+      "text": "Sinais/sintomas das mãos e dedos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L12.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L12.QuestionA",
+          "code": "L12.QuestionA",
+          "display": "Dor em mãos/dedos já avaliada previamente, sem sinais de alarme (risco de fratura, rompimento de tendão, luxações), com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor em mãos/dedos já avaliada previamente, sem sinais de alarme (risco de fratura, rompimento de tendão, luxações), com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L12.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L12.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L12.Question",
+            "code": "L12.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L12.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L12.QuestionB",
+          "code": "L12.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de mãos/dedos, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de mãos/dedos, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L12.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L12.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L12.QuestionA",
+            "code": "L12.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L12.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L12.QuestionC",
+          "code": "L12.QuestionC",
+          "display": "A dor na mão é crônica (dura há mais de 3 meses), apresenta nódulos nas articulações ou tem características INFLAMATÓRIAS (acorda com rigidez matinal maior que 30 minutos, melhora com o movimento/exercícios)?"
+        }
+      ],
+      "text": "A dor na mão é crônica (dura há mais de 3 meses), apresenta nódulos nas articulações ou tem características INFLAMATÓRIAS (acorda com rigidez matinal maior que 30 minutos, melhora com o movimento/exercícios)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L12.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L12.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L12.QuestionB",
+            "code": "L12.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L13.Question",
+          "code": "L13.Question",
+          "display": "Sinais/sintomas do quadril"
+        }
+      ],
+      "text": "Sinais/sintomas do quadril",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L13.QuestionA",
+          "code": "L13.QuestionA",
+          "display": "Dor/sintomas em quadril já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional"
+        }
+      ],
+      "text": "Dor/sintomas em quadril já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L13.Question",
+            "code": "L13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L13.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L13.QuestionB",
+          "code": "L13.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de quadril, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de quadril, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L13.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L13.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L13.QuestionA",
+            "code": "L13.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L14.Question",
+          "code": "L14.Question",
+          "display": "Sinais/sintomas da coxa/perna"
+        }
+      ],
+      "text": "Sinais/sintomas da coxa/perna",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L14.QuestionA",
+          "code": "L14.QuestionA",
+          "display": "Dor/ sintomas em coxa/perna já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor/ sintomas em coxa/perna já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L14.Question",
+            "code": "L14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L14.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L14.QuestionB",
+          "code": "L14.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de coxa/perna, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de coxa/perna, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L14.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L14.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L14.QuestionA",
+            "code": "L14.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L15.Question",
+          "code": "L15.Question",
+          "display": "Sinais/sintomas do joelho"
+        }
+      ],
+      "text": "Sinais/sintomas do joelho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L15.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L15.QuestionA",
+          "code": "L15.QuestionA",
+          "display": "Dor/sintomas  em joelhos já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor/sintomas  em joelhos já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L15.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L15.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L15.Question",
+            "code": "L15.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L15.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L15.QuestionB",
+          "code": "L15.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de joelho, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de joelho, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L15.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L15.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L15.QuestionA",
+            "code": "L15.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L16.Question",
+          "code": "L16.Question",
+          "display": "Sinais/sintomas do tornozelo"
+        }
+      ],
+      "text": "Sinais/sintomas do tornozelo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L16.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L16.QuestionA",
+          "code": "L16.QuestionA",
+          "display": "Dor/sintomas em tornozelo já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor/sintomas em tornozelo já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L16.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L16.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L16.Question",
+            "code": "L16.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L16.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L16.QuestionB",
+          "code": "L16.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de tornozelo, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de tornozelo, exame de imagem com alteração grave, deformidade visível ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L16.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L16.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L16.QuestionA",
+            "code": "L16.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L17.Question",
+          "code": "L17.Question",
+          "display": "Sinais/sintomas do pé/dedos pé"
+        }
+      ],
+      "text": "Sinais/sintomas do pé/dedos pé",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L17.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L17.QuestionA",
+          "code": "L17.QuestionA",
+          "display": "Dor/sintomas em pé/dedo do pé já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Dor/sintomas em pé/dedo do pé já avaliada previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L17.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L17.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L17.Question",
+            "code": "L17.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L17.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L17.QuestionB",
+          "code": "L17.QuestionB",
+          "display": "O paciente apresenta histórico de trauma recente com limitação na movimentação de pé/dedo do pé, exame de imagem com alteração grave, deformidade visível em quadril ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta histórico de trauma recente com limitação na movimentação de pé/dedo do pé, exame de imagem com alteração grave, deformidade visível em quadril ou dor incapacitante mantida mesmo após 6 a 8 semanas de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L17.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L17.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L17.QuestionA",
+            "code": "L17.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L18.Question",
+          "code": "L18.Question",
+          "display": "Dores musculares"
+        }
+      ],
+      "text": "Dores musculares",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L18.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L18.QuestionA",
+          "code": "L18.QuestionA",
+          "display": "Dores musculares já avaliadas previamente, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Dores musculares já avaliadas previamente, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L18.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L18.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L18.Question",
+            "code": "L18.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L18.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L18.QuestionB",
+          "code": "L18.QuestionB",
+          "display": "Dores musculares são difusas e acompanhadas de rigidez matinal, acometem principalmente pescoço, região dos ombros e quadril e são acompanhadas de febre baixa ou perda de peso?"
+        }
+      ],
+      "text": "Dores musculares são difusas e acompanhadas de rigidez matinal, acometem principalmente pescoço, região dos ombros e quadril e são acompanhadas de febre baixa ou perda de peso?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L18.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L18.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L18.QuestionA",
+            "code": "L18.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L19.Question",
+          "code": "L19.Question",
+          "display": "Sinais/sintomas musculares NE"
+        }
+      ],
+      "text": "Sinais/sintomas musculares NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L19.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L19.QuestionA",
+          "code": "L19.QuestionA",
+          "display": "Sinais/sintomas musculares já avaliadas previamente, com limitação funcional e com necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Sinais/sintomas musculares já avaliadas previamente, com limitação funcional e com necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L19.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L19.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L19.Question",
+            "code": "L19.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L20.Question",
+          "code": "L20.Question",
+          "display": "Sinais/sintomas das articulações NE"
+        }
+      ],
+      "text": "Sinais/sintomas das articulações NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L20.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L20.QuestionA",
+          "code": "L20.QuestionA",
+          "display": "Sinais/sintomas das juntas/articulações já avaliadas previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Sinais/sintomas das juntas/articulações já avaliadas previamente, sem sinais de alarme, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L20.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L20.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L20.Question",
+            "code": "L20.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L20.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L20.QuestionB",
+          "code": "L20.QuestionB",
+          "display": "As juntas/articulações apresentam inchaço, vermelhidão, aumento da temperatura local e rigidez matinal (sensação de juntas duras ou travadas) com duração superior a 30 minutos?"
+        }
+      ],
+      "text": "As juntas/articulações apresentam inchaço, vermelhidão, aumento da temperatura local e rigidez matinal (sensação de juntas duras ou travadas) com duração superior a 30 minutos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L20.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L20.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L20.QuestionA",
+            "code": "L20.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L26.Question",
+          "code": "L26.Question",
+          "display": "Medo de câncer no aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Medo de câncer no aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L27.Question",
+          "code": "L27.Question",
+          "display": "Medo de doença no aparelho músculo-esquelético, outro"
+        }
+      ],
+      "text": "Medo de doença no aparelho músculo-esquelético, outro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L29.Question",
+          "code": "L29.Question",
+          "display": "Outros sinais/sintomas do aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Outros sinais/sintomas do aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L29.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L29.QuestionA",
+          "code": "L29.QuestionA",
+          "display": "Sinais/sintomas músculo-esqueléticos já avaliadas previamente, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Sinais/sintomas músculo-esqueléticos já avaliadas previamente, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L29.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L29.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L29.Question",
+            "code": "L29.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L70.Question",
+          "code": "L70.Question",
+          "display": "Infecções do aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Infecções do aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L71.Question",
+          "code": "L71.Question",
+          "display": "Neoplasia maligna do aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Neoplasia maligna do aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L71.QuestionA",
+          "code": "L71.QuestionA",
+          "display": "Trata-se de neoplasia maligna músculo-esquelética já avaliada e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de neoplasia maligna músculo-esquelética já avaliada e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L71.Question",
+            "code": "L71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L71.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L71.QuestionB",
+          "code": "L71.QuestionB",
+          "display": "Trata-se neoplasia maligna músculo-esquelética já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna músculo-esquelética já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L71.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L71.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L71.QuestionA",
+            "code": "L71.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L71.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L71.QuestionC",
+          "code": "L71.QuestionC",
+          "display": "Trata-se neoplasia maligna músculo-esquelética para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna músculo-esquelética para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L71.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L71.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L71.QuestionB",
+            "code": "L71.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L72.Question",
+          "code": "L72.Question",
+          "display": "Fratura: rádio/cúbito"
+        }
+      ],
+      "text": "Fratura: rádio/cúbito",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L72.QuestionA",
+          "code": "L72.QuestionA",
+          "display": "Trata-se de fratura de rádio/cúbito já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de fratura de rádio/cúbito já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L72.Question",
+            "code": "L72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L73.Question",
+          "code": "L73.Question",
+          "display": "Fratura: tíbia/perônio/ fíbula"
+        }
+      ],
+      "text": "Fratura: tíbia/perônio/ fíbula",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L73.QuestionA",
+          "code": "L73.QuestionA",
+          "display": "Trata-se de fratura de tíbia/perônio/fíbula já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de fratura de tíbia/perônio/fíbula já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L73.Question",
+            "code": "L73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L74.Question",
+          "code": "L74.Question",
+          "display": "Fratura: osso da mão/pé"
+        }
+      ],
+      "text": "Fratura: osso da mão/pé",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L74.QuestionA",
+          "code": "L74.QuestionA",
+          "display": "Trata-se de fratura de ossos da mão/pé já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de fratura de ossos da mão/pé já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L74.Question",
+            "code": "L74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L75.Question",
+          "code": "L75.Question",
+          "display": "Fratura: fémur"
+        }
+      ],
+      "text": "Fratura: fémur",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L75.QuestionA",
+          "code": "L75.QuestionA",
+          "display": "Trata-se fratura de fêmur já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se fratura de fêmur já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L75.Question",
+            "code": "L75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L76.Question",
+          "code": "L76.Question",
+          "display": "Outras fraturas"
+        }
+      ],
+      "text": "Outras fraturas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L76.QuestionA",
+          "code": "L76.QuestionA",
+          "display": "Trata-se de fratura já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de fratura já avaliada, em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L76.Question",
+            "code": "L76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L77.Question",
+          "code": "L77.Question",
+          "display": "Entorses e distensões do tornozelo"
+        }
+      ],
+      "text": "Entorses e distensões do tornozelo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L77.QuestionA",
+          "code": "L77.QuestionA",
+          "display": "Trata-se de entorse ou distensões do tornozelo já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de entorse ou distensões do tornozelo já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L77.Question",
+            "code": "L77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L78.Question",
+          "code": "L78.Question",
+          "display": "Entorses e distensões do joelho"
+        }
+      ],
+      "text": "Entorses e distensões do joelho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L78.QuestionA",
+          "code": "L78.QuestionA",
+          "display": "Trata-se entorse ou distensões do joelho já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se entorse ou distensões do joelho já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L78.Question",
+            "code": "L78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L79.Question",
+          "code": "L79.Question",
+          "display": "Entorses e distensões das articulações NE"
+        }
+      ],
+      "text": "Entorses e distensões das articulações NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L79.QuestionA",
+          "code": "L79.QuestionA",
+          "display": "Trata-se de entorse ou distensões já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de entorse ou distensões já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L79.Question",
+            "code": "L79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L80.Question",
+          "code": "L80.Question",
+          "display": "Luxação/subluxação"
+        }
+      ],
+      "text": "Luxação/subluxação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L80.QuestionA",
+          "code": "L80.QuestionA",
+          "display": "Trata-se de luxação/subluxação já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de luxação/subluxação já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L80.Question",
+            "code": "L80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L81.Question",
+          "code": "L81.Question",
+          "display": "Traumatismos do aparelho musculoesquelético NE"
+        }
+      ],
+      "text": "Traumatismos do aparelho musculoesquelético NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L81.QuestionA",
+          "code": "L81.QuestionA",
+          "display": "Trata-se de luxação/subluxação já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de luxação/subluxação já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L81.Question",
+            "code": "L81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L82.Question",
+          "code": "L82.Question",
+          "display": "Malformações congênitas do aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Malformações congênitas do aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L82.QuestionA",
+          "code": "L82.QuestionA",
+          "display": "Trata-se de malformação músculo-esquelética já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de malformação músculo-esquelética já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L82.Question",
+            "code": "L82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L83.Question",
+          "code": "L83.Question",
+          "display": "Doenças ou síndromes da coluna cervical"
+        }
+      ],
+      "text": "Doenças ou síndromes da coluna cervical",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L83.QuestionA",
+          "code": "L83.QuestionA",
+          "display": "Trata-se de doenças ou síndromes da coluna cervical já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de doenças ou síndromes da coluna cervical já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L83.Question",
+            "code": "L83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L84.Question",
+          "code": "L84.Question",
+          "display": "Doenças ou síndromes da coluna sem irradiação de dor"
+        }
+      ],
+      "text": "Doenças ou síndromes da coluna sem irradiação de dor",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L84.QuestionA",
+          "code": "L84.QuestionA",
+          "display": "Trata-se de doenças ou síndromes da coluna sem irradiação da dor já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de doenças ou síndromes da coluna sem irradiação da dor já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L84.Question",
+            "code": "L84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L85.Question",
+          "code": "L85.Question",
+          "display": "Deformação adquirida da coluna"
+        }
+      ],
+      "text": "Deformação adquirida da coluna",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L85.QuestionA",
+          "code": "L85.QuestionA",
+          "display": "Trata-se de deformação adquirida da coluna já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de deformação adquirida da coluna já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L85.Question",
+            "code": "L85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L86.Question",
+          "code": "L86.Question",
+          "display": "Síndrome vertebral com irradiação dor"
+        }
+      ],
+      "text": "Síndrome vertebral com irradiação dor",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L86.QuestionA",
+          "code": "L86.QuestionA",
+          "display": "Trata-se de síndrome vertebral com irradiação da dor já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de síndrome vertebral com irradiação da dor já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L86.Question",
+            "code": "L86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L87.Question",
+          "code": "L87.Question",
+          "display": "Bursite/tendinite/sinovite NE"
+        }
+      ],
+      "text": "Bursite/tendinite/sinovite NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L87.QuestionA",
+          "code": "L87.QuestionA",
+          "display": "Trata-se de bursite/tendinite, ainda sem confirmação diagnóstica (ainda suspeita) e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de bursite/tendinite, ainda sem confirmação diagnóstica (ainda suspeita) e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L87.Question",
+            "code": "L87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L87.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L87.QuestionB",
+          "code": "L87.QuestionB",
+          "display": "Trata-se de bursite/tendinite/sinovite já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de bursite/tendinite/sinovite já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L87.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L87.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L87.QuestionA",
+            "code": "L87.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L88.Question",
+          "code": "L88.Question",
+          "display": "Artrite reumatóide/seropositiva"
+        }
+      ],
+      "text": "Artrite reumatóide/seropositiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L88.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L88.QuestionA",
+          "code": "L88.QuestionA",
+          "display": "Trata-se de suspeita de artrite reumatóide/seropositiva, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de suspeita de artrite reumatóide/seropositiva, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L88.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L88.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L88.Question",
+            "code": "L88.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L89.Question",
+          "code": "L89.Question",
+          "display": "Osteoartrose do quadril"
+        }
+      ],
+      "text": "Osteoartrose do quadril",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L89.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L89.QuestionA",
+          "code": "L89.QuestionA",
+          "display": "Trata-se de suspeita de osteoartrose do quadril, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de suspeita de osteoartrose do quadril, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L89.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L89.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L89.Question",
+            "code": "L89.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L89.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L89.QuestionB",
+          "code": "L89.QuestionB",
+          "display": "Trata-se de osteoatrose de quadril já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de osteoatrose de quadril já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L89.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L89.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L89.QuestionA",
+            "code": "L89.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L90.Question",
+          "code": "L90.Question",
+          "display": "Osteoartrose do joelho"
+        }
+      ],
+      "text": "Osteoartrose do joelho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L90.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L90.QuestionA",
+          "code": "L90.QuestionA",
+          "display": "Trata-se de suspeita de osteoartrose do joelho, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de suspeita de osteoartrose do joelho, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L90.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L90.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L90.Question",
+            "code": "L90.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L90.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L90.QuestionB",
+          "code": "L90.QuestionB",
+          "display": "Trata-se de osteoatrose de joelho já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de osteoatrose de joelho já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L90.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L90.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L90.QuestionA",
+            "code": "L90.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L91.Question",
+          "code": "L91.Question",
+          "display": "Outras osteoartroses"
+        }
+      ],
+      "text": "Outras osteoartroses",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L91.QuestionA",
+          "code": "L91.QuestionA",
+          "display": "Trata-se de suspeita de osteoatrose, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de suspeita de osteoatrose, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L91.Question",
+            "code": "L91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L91.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L91.QuestionB",
+          "code": "L91.QuestionB",
+          "display": "Trata-se de osteoatrose já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de osteoatrose já avaliada com limitação de funcionalidade, e necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L91.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L91.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L91.QuestionA",
+            "code": "L91.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L92.Question",
+          "code": "L92.Question",
+          "display": "Síndrome do ombro doloroso"
+        }
+      ],
+      "text": "Síndrome do ombro doloroso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L92.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L92.QuestionA",
+          "code": "L92.QuestionA",
+          "display": "Trata-se de síndrome do ombro doloroso já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de síndrome do ombro doloroso já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L92.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L92.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L92.Question",
+            "code": "L92.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L93.Question",
+          "code": "L93.Question",
+          "display": "Cotovelo de tenista"
+        }
+      ],
+      "text": "Cotovelo de tenista",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L93.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L93.QuestionA",
+          "code": "L93.QuestionA",
+          "display": "Trata-se de epicondilite lateral (cotovelo de tenista) já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de epicondilite lateral (cotovelo de tenista) já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L93.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L93.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L93.Question",
+            "code": "L93.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L94.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L94.Question",
+          "code": "L94.Question",
+          "display": "Osteocondrose"
+        }
+      ],
+      "text": "Osteocondrose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L94.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L94"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L94.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L94.QuestionA",
+          "code": "L94.QuestionA",
+          "display": "Trata-se de osteocondrose já avaliada e em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de osteocondrose já avaliada e em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L94.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L94.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L94.Question",
+            "code": "L94.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L95.Question",
+          "code": "L95.Question",
+          "display": "Osteoporose"
+        }
+      ],
+      "text": "Osteoporose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L95.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L95.QuestionA",
+          "code": "L95.QuestionA",
+          "display": "Trata-se de suspeita de osteoporose, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de suspeita de osteoporose, ainda sem confirmação diagnóstica e sem tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L95.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L95.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L95.Question",
+            "code": "L95.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L95.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L95.QuestionB",
+          "code": "L95.QuestionB",
+          "display": "Trata-se de osteoporose já avaliada, com necessidade de orientações, plano de exercícios e reabilitação funcional?"
+        }
+      ],
+      "text": "Trata-se de osteoporose já avaliada, com necessidade de orientações, plano de exercícios e reabilitação funcional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L95.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L95.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L95.QuestionA",
+            "code": "L95.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L96.Question",
+          "code": "L96.Question",
+          "display": "Lesão interna aguda do joelho"
+        }
+      ],
+      "text": "Lesão interna aguda do joelho",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L96.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L96.QuestionA",
+          "code": "L96.QuestionA",
+          "display": "Trata-se de lesão interna aguda do joelho já avaliada e em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de lesão interna aguda do joelho já avaliada e em acompanhamento médico, com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L96.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L96.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L96.Question",
+            "code": "L96.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L97.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L97.Question",
+          "code": "L97.Question",
+          "display": "Neoplasia benigna/incertas"
+        }
+      ],
+      "text": "Neoplasia benigna/incertas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L97.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L97"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L98.Question",
+          "code": "L98.Question",
+          "display": "Malformação adquirida de um membro"
+        }
+      ],
+      "text": "Malformação adquirida de um membro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L98.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L98.QuestionA",
+          "code": "L98.QuestionA",
+          "display": "Trata-se de malformação aquirida/sequelar já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?"
+        }
+      ],
+      "text": "Trata-se de malformação aquirida/sequelar já avaliada com limitação funcional e necessidade de orientações, plano de exercícios e reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L98.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L98.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/L98.Question",
+            "code": "L98.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "L99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/L99.Question",
+          "code": "L99.Question",
+          "display": "Outra doença do aparelho músculo-esquelético"
+        }
+      ],
+      "text": "Outra doença do aparelho músculo-esquelético",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/L99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "L.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "L99"
+          }
+        }
+      ]
+    }
+  ]
+}

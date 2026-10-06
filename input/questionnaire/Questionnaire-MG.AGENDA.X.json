@@ -1,0 +1,2892 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.X",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.X",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_X",
+  "title": "Mangará Agendamento - Capítulo X (Aparelho Genital Feminino e Mama)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo X. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto X.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "X.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo X. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "X01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X01.Question",
+          "code": "X01.Question",
+          "display": "Dor genital"
+        }
+      ],
+      "text": "Dor genital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X01.QuestionA",
+          "code": "X01.QuestionA",
+          "display": "Dor pélvica há mais de 6 meses, refratária ao tratamento na unidade de saúde ou dor pélvica crônica com alteração ao exame físico ou de imagem?"
+        }
+      ],
+      "text": "Dor pélvica há mais de 6 meses, refratária ao tratamento na unidade de saúde ou dor pélvica crônica com alteração ao exame físico ou de imagem?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X01.Question",
+            "code": "X01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X01.QuestionB",
+          "code": "X01.QuestionB",
+          "display": "Apresenta dor/disfunção da musculatura do assoalho pélvico com indicação de reabilitação pélvica?"
+        }
+      ],
+      "text": "Apresenta dor/disfunção da musculatura do assoalho pélvico com indicação de reabilitação pélvica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X01.QuestionA",
+            "code": "X01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X02.Question",
+          "code": "X02.Question",
+          "display": "Dores menstruais"
+        }
+      ],
+      "text": "Dores menstruais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X02.QuestionA",
+          "code": "X02.QuestionA",
+          "display": "Suspeita ou confirmação de dismenorreia secundária (causa pélvica como endometriose profunda) ou sem melhora ao tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Suspeita ou confirmação de dismenorreia secundária (causa pélvica como endometriose profunda) ou sem melhora ao tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X02.Question",
+            "code": "X02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X03.Question",
+          "code": "X03.Question",
+          "display": "Dores intermenstruais"
+        }
+      ],
+      "text": "Dores intermenstruais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X03.QuestionA",
+          "code": "X03.QuestionA",
+          "display": "A dor intermenstrual está associada a sangramento vaginal anormal (fora do período menstrual), dor na relação sexual penetrativa (dispareunia) ou suspeita de endometriose/patologia pélvica estrutural?"
+        }
+      ],
+      "text": "A dor intermenstrual está associada a sangramento vaginal anormal (fora do período menstrual), dor na relação sexual penetrativa (dispareunia) ou suspeita de endometriose/patologia pélvica estrutural?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X03.Question",
+            "code": "X03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X04.Question",
+          "code": "X04.Question",
+          "display": "Relação sexual dolorosa na mulher"
+        }
+      ],
+      "text": "Relação sexual dolorosa na mulher",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X04.QuestionA",
+          "code": "X04.QuestionA",
+          "display": "A paciente apresenta dor profunda associada a alterações ao exame físico/especular (como lesões ou massas), suspeita de patologia pélvica estrutural (ex.: endometriose) ou falha no tratamento inicial de causas não orgânicas?"
+        }
+      ],
+      "text": "A paciente apresenta dor profunda associada a alterações ao exame físico/especular (como lesões ou massas), suspeita de patologia pélvica estrutural (ex.: endometriose) ou falha no tratamento inicial de causas não orgânicas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X04.Question",
+            "code": "X04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X05.Question",
+          "code": "X05.Question",
+          "display": "Menstruação escassa/ausente"
+        }
+      ],
+      "text": "Menstruação escassa/ausente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X05.QuestionA",
+          "code": "X05.QuestionA",
+          "display": "Após descartar gravidez, a paciente apresenta suspeita de causa anatômica uterina/vaginal (ex.: sinéquias, malformações) ou investigação inicial de causa hormonal sem resposta ao tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Após descartar gravidez, a paciente apresenta suspeita de causa anatômica uterina/vaginal (ex.: sinéquias, malformações) ou investigação inicial de causa hormonal sem resposta ao tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X05.Question",
+            "code": "X05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X05.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X05.QuestionB",
+          "code": "X05.QuestionB",
+          "display": "Menstruação escassa/ausente está associada (ou suspeita) a distúrbios da tireoide ou disfunção hipotálamo-hipofisária?"
+        }
+      ],
+      "text": "Menstruação escassa/ausente está associada (ou suspeita) a distúrbios da tireoide ou disfunção hipotálamo-hipofisária?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X05.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X05.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X05.QuestionA",
+            "code": "X05.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X06.Question",
+          "code": "X06.Question",
+          "display": "Menstruação excessiva"
+        }
+      ],
+      "text": "Menstruação excessiva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X06.QuestionA",
+          "code": "X06.QuestionA",
+          "display": "A paciente apresenta alteração estrutural identificada em exame de imagem (ex.: mioma grande, pólipo) ou sangramento uterino anormal sem melhora ao tratamento clínico inicial na unidade de saúde?"
+        }
+      ],
+      "text": "A paciente apresenta alteração estrutural identificada em exame de imagem (ex.: mioma grande, pólipo) ou sangramento uterino anormal sem melhora ao tratamento clínico inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X06.Question",
+            "code": "X06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X07.Question",
+          "code": "X07.Question",
+          "display": "Menstruação irregular/frequente"
+        }
+      ],
+      "text": "Menstruação irregular/frequente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X07.QuestionA",
+          "code": "X07.QuestionA",
+          "display": "O sangramento irregular vem acompanhado de achados estruturais no ultrassom pélvico/transvaginal, alterações ao exame físico ou falha do manejo hormonal de primeira linha na unidade de saúde?"
+        }
+      ],
+      "text": "O sangramento irregular vem acompanhado de achados estruturais no ultrassom pélvico/transvaginal, alterações ao exame físico ou falha do manejo hormonal de primeira linha na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X07.Question",
+            "code": "X07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X08.Question",
+          "code": "X08.Question",
+          "display": "Hemorragia intermenstrual"
+        }
+      ],
+      "text": "Hemorragia intermenstrual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X08.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X08.QuestionA",
+          "code": "X08.QuestionA",
+          "display": "Sangramento intermenstrual recorrente sem melhora ao tratamento na unidade de saúde ou suspeita de lesão estrutural pélvica/cervical ao exame físico ou de imagem?"
+        }
+      ],
+      "text": "Sangramento intermenstrual recorrente sem melhora ao tratamento na unidade de saúde ou suspeita de lesão estrutural pélvica/cervical ao exame físico ou de imagem?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X08.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X08.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X08.Question",
+            "code": "X08.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X09.Question",
+          "code": "X09.Question",
+          "display": "Sinais/sintomas pré-menstruais"
+        }
+      ],
+      "text": "Sinais/sintomas pré-menstruais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X10.Question",
+          "code": "X10.Question",
+          "display": "Desejo de alterar a data da menstruação"
+        }
+      ],
+      "text": "Desejo de alterar a data da menstruação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X11.Question",
+          "code": "X11.Question",
+          "display": "Sinais/sintomas da menopausa/ climatério"
+        }
+      ],
+      "text": "Sinais/sintomas da menopausa/ climatério",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X11.QuestionA",
+          "code": "X11.QuestionA",
+          "display": "Possui contraindicações à Terapia de Reposição Hormonal (ex.: histórico de câncer de mama/endométrio, sangramento vaginal de causa desconhecida, tromboembolismo prévio) ou sintomas refratários ao tratamento inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Possui contraindicações à Terapia de Reposição Hormonal (ex.: histórico de câncer de mama/endométrio, sangramento vaginal de causa desconhecida, tromboembolismo prévio) ou sintomas refratários ao tratamento inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X11.Question",
+            "code": "X11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X12.Question",
+          "code": "X12.Question",
+          "display": "Hemorragia pós-menopausa"
+        }
+      ],
+      "text": "Hemorragia pós-menopausa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X12.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X12.QuestionA",
+          "code": "X12.QuestionA",
+          "display": "Sangramento vaginal após 12 meses da última menstruação com avaliação inicial/exame de imagem indicando alteração endometrial?"
+        }
+      ],
+      "text": "Sangramento vaginal após 12 meses da última menstruação com avaliação inicial/exame de imagem indicando alteração endometrial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X12.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X12.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X12.Question",
+            "code": "X12.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X13.Question",
+          "code": "X13.Question",
+          "display": "Hemorragia pós-coital"
+        }
+      ],
+      "text": "Hemorragia pós-coital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X13.QuestionA",
+          "code": "X13.QuestionA",
+          "display": "Ao exame especular ou à avaliação visual prévia, foi identificada lesão exofítica/suspeita no colo do útero ou paredes vaginais?"
+        }
+      ],
+      "text": "Ao exame especular ou à avaliação visual prévia, foi identificada lesão exofítica/suspeita no colo do útero ou paredes vaginais?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X13.Question",
+            "code": "X13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X14.Question",
+          "code": "X14.Question",
+          "display": "Secreção vaginal"
+        }
+      ],
+      "text": "Secreção vaginal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X14.QuestionA",
+          "code": "X14.QuestionA",
+          "display": "Trata-se de corrimento vaginal recorrente/refratário a múltiplos tratamentos empíricos prévios, ou associado a dor pélvica crônica/massa anexa suspeita?"
+        }
+      ],
+      "text": "Trata-se de corrimento vaginal recorrente/refratário a múltiplos tratamentos empíricos prévios, ou associado a dor pélvica crônica/massa anexa suspeita?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X14.Question",
+            "code": "X14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X15.Question",
+          "code": "X15.Question",
+          "display": "Sinais/sintomas da vagina"
+        }
+      ],
+      "text": "Sinais/sintomas da vagina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X16.Question",
+          "code": "X16.Question",
+          "display": "Sinais/sintomas da vulva"
+        }
+      ],
+      "text": "Sinais/sintomas da vulva",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X17.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X17.Question",
+          "code": "X17.Question",
+          "display": "Sinais/sintomas da pélvis feminina"
+        }
+      ],
+      "text": "Sinais/sintomas da pélvis feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X17.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X17"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X18.Question",
+          "code": "X18.Question",
+          "display": "Dor na mama feminina"
+        }
+      ],
+      "text": "Dor na mama feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X18.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X18.QuestionA",
+          "code": "X18.QuestionA",
+          "display": "A dor mamária é recorrente (sem relação com período menstrual), tem saída de secreção com sangue/água transparente pelo mamilo, ou associação com nódulo palpável de aparecimento recente?"
+        }
+      ],
+      "text": "A dor mamária é recorrente (sem relação com período menstrual), tem saída de secreção com sangue/água transparente pelo mamilo, ou associação com nódulo palpável de aparecimento recente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X18.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X18.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X18.Question",
+            "code": "X18.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X19.Question",
+          "code": "X19.Question",
+          "display": "Tumor ou nódulo na mama feminina"
+        }
+      ],
+      "text": "Tumor ou nódulo na mama feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X19.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X19.QuestionA",
+          "code": "X19.QuestionA",
+          "display": "O nódulo mamário é palpável, de surgimento recente/crescimento rápido, OU já possui exame de imagem (Mamografia/Ultrassonografia) alterado com classificação BI-RADS 4 ou 5?"
+        }
+      ],
+      "text": "O nódulo mamário é palpável, de surgimento recente/crescimento rápido, OU já possui exame de imagem (Mamografia/Ultrassonografia) alterado com classificação BI-RADS 4 ou 5?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X19.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X19.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X19.Question",
+            "code": "X19.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X20.Question",
+          "code": "X20.Question",
+          "display": "Sinais/sintomas do mamilo feminino"
+        }
+      ],
+      "text": "Sinais/sintomas do mamilo feminino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X20.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X20.QuestionA",
+          "code": "X20.QuestionA",
+          "display": "A paciente apresenta alteração na pele do mamilo/mama (retração, ferida, aspecto em 'casca de laranja') OU saída espontânea de secreção sanguinolenta/transparente unilateral por um único poro mamário?"
+        }
+      ],
+      "text": "A paciente apresenta alteração na pele do mamilo/mama (retração, ferida, aspecto em 'casca de laranja') OU saída espontânea de secreção sanguinolenta/transparente unilateral por um único poro mamário?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X20.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X20.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X20.Question",
+            "code": "X20.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X21.Question",
+          "code": "X21.Question",
+          "display": "Sinais/sintomas da mama feminina, outros"
+        }
+      ],
+      "text": "Sinais/sintomas da mama feminina, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X21.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X21.QuestionA",
+          "code": "X21.QuestionA",
+          "display": "A paciente apresenta sinais inflamatórios recorrentes nas mamas ou apresenta saída de secreção com aspecto de leite fora do período de gravidez e puerpério?"
+        }
+      ],
+      "text": "A paciente apresenta sinais inflamatórios recorrentes nas mamas ou apresenta saída de secreção com aspecto de leite fora do período de gravidez e puerpério?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X21.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X21.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X21.Question",
+            "code": "X21.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X22.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X22.Question",
+          "code": "X22.Question",
+          "display": "Preocupação com aparência da mama feminina"
+        }
+      ],
+      "text": "Preocupação com aparência da mama feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X22.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X22"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X23.Question",
+          "code": "X23.Question",
+          "display": "Medo de doença sexualmente transmissível"
+        }
+      ],
+      "text": "Medo de doença sexualmente transmissível",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X24.Question",
+          "code": "X24.Question",
+          "display": "Medo de disfunção sexual"
+        }
+      ],
+      "text": "Medo de disfunção sexual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X25.Question",
+          "code": "X25.Question",
+          "display": "Medo de câncer genital"
+        }
+      ],
+      "text": "Medo de câncer genital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X26.Question",
+          "code": "X26.Question",
+          "display": "Medo de câncer na mama"
+        }
+      ],
+      "text": "Medo de câncer na mama",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X27.Question",
+          "code": "X27.Question",
+          "display": "Medo de outra doença genital/mama"
+        }
+      ],
+      "text": "Medo de outra doença genital/mama",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X70.Question",
+          "code": "X70.Question",
+          "display": "Sífilis feminina"
+        }
+      ],
+      "text": "Sífilis feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X70.QuestionA",
+          "code": "X70.QuestionA",
+          "display": "Diagnóstico de sífilis para início de tratamento e interpretação de exames de seguimento/controle de cura?"
+        }
+      ],
+      "text": "Diagnóstico de sífilis para início de tratamento e interpretação de exames de seguimento/controle de cura?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X70.Question",
+            "code": "X70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X71.Question",
+          "code": "X71.Question",
+          "display": "Gonorréia feminina"
+        }
+      ],
+      "text": "Gonorréia feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X71.QuestionA",
+          "code": "X71.QuestionA",
+          "display": "A paciente apresenta falha ao tratamento prévio/suspeita de resistência bacteriana, acometimento disseminado ou infecção recorrente por patógeno multirresistente?"
+        }
+      ],
+      "text": "A paciente apresenta falha ao tratamento prévio/suspeita de resistência bacteriana, acometimento disseminado ou infecção recorrente por patógeno multirresistente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X71.Question",
+            "code": "X71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X72.Question",
+          "code": "X72.Question",
+          "display": "Candidíase genital feminina"
+        }
+      ],
+      "text": "Candidíase genital feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X72.QuestionA",
+          "code": "X72.QuestionA",
+          "display": "Trata-se de candidíase recorrente (4 ou mais episódios em 12 meses), com resposta inadequada aos esquemas terapêuticos habituais ou em paciente imunocomprometida?"
+        }
+      ],
+      "text": "Trata-se de candidíase recorrente (4 ou mais episódios em 12 meses), com resposta inadequada aos esquemas terapêuticos habituais ou em paciente imunocomprometida?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X72.Question",
+            "code": "X72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X73.Question",
+          "code": "X73.Question",
+          "display": "Tricomoníase genital feminina"
+        }
+      ],
+      "text": "Tricomoníase genital feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X73.QuestionA",
+          "code": "X73.QuestionA",
+          "display": "A paciente apresenta falha terapêutica após repetição do tratamento e tratamento de parceirias, ou histórico de alergia grave às opções de primeira linha (como nitroimidazólicos)?"
+        }
+      ],
+      "text": "A paciente apresenta falha terapêutica após repetição do tratamento e tratamento de parceirias, ou histórico de alergia grave às opções de primeira linha (como nitroimidazólicos)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X73.Question",
+            "code": "X73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X74.Question",
+          "code": "X74.Question",
+          "display": "Doença inflamatória pélvica"
+        }
+      ],
+      "text": "Doença inflamatória pélvica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X74.QuestionA",
+          "code": "X74.QuestionA",
+          "display": "A paciente apresenta falha de resposta ao tratamento ambulatorial ou indicação de investigação cirúrgica/diferencial?"
+        }
+      ],
+      "text": "A paciente apresenta falha de resposta ao tratamento ambulatorial ou indicação de investigação cirúrgica/diferencial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X74.Question",
+            "code": "X74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X75.Question",
+          "code": "X75.Question",
+          "display": "Neoplasia maligna do colo"
+        }
+      ],
+      "text": "Neoplasia maligna do colo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X75.QuestionA",
+          "code": "X75.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X75.Question",
+            "code": "X75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X75.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X75.QuestionB",
+          "code": "X75.QuestionB",
+          "display": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X75.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X75.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X75.QuestionA",
+            "code": "X75.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X76.Question",
+          "code": "X76.Question",
+          "display": "Neoplasia maligna da mama feminina"
+        }
+      ],
+      "text": "Neoplasia maligna da mama feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X76.QuestionA",
+          "code": "X76.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X76.Question",
+            "code": "X76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X76.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X76.QuestionB",
+          "code": "X76.QuestionB",
+          "display": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X76.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X76.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X76.QuestionA",
+            "code": "X76.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X77.Question",
+          "code": "X77.Question",
+          "display": "Neoplasia maligna genital feminina, outra"
+        }
+      ],
+      "text": "Neoplasia maligna genital feminina, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X77.QuestionA",
+          "code": "X77.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliada e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliada e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X77.Question",
+            "code": "X77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X77.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X77.QuestionB",
+          "code": "X77.QuestionB",
+          "display": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do colo do útero para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X77.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X77.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X77.QuestionA",
+            "code": "X77.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X78.Question",
+          "code": "X78.Question",
+          "display": "Fibromioma uterino"
+        }
+      ],
+      "text": "Fibromioma uterino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X78.QuestionA",
+          "code": "X78.QuestionA",
+          "display": "Trata-se mioma uterino para avaliação inicial e/ou início de tratamento clínico na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se mioma uterino para avaliação inicial e/ou início de tratamento clínico na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X78.Question",
+            "code": "X78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X79.Question",
+          "code": "X79.Question",
+          "display": "Neoplasia benigna da mama feminina/ fibroadenoma"
+        }
+      ],
+      "text": "Neoplasia benigna da mama feminina/ fibroadenoma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X79.QuestionA",
+          "code": "X79.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X79.Question",
+            "code": "X79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X80.Question",
+          "code": "X80.Question",
+          "display": "Neoplasia benigna genital"
+        }
+      ],
+      "text": "Neoplasia benigna genital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X80.QuestionA",
+          "code": "X80.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X80.Question",
+            "code": "X80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X81.Question",
+          "code": "X81.Question",
+          "display": "Neoplasia genital feminina, outra/NE"
+        }
+      ],
+      "text": "Neoplasia genital feminina, outra/NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X81.QuestionA",
+          "code": "X81.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X81.Question",
+            "code": "X81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X82.Question",
+          "code": "X82.Question",
+          "display": "Lesão traumática genital feminina"
+        }
+      ],
+      "text": "Lesão traumática genital feminina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X83.Question",
+          "code": "X83.Question",
+          "display": "Malformações congênitas genitais"
+        }
+      ],
+      "text": "Malformações congênitas genitais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X84.Question",
+          "code": "X84.Question",
+          "display": "Vaginite/vulvite NE"
+        }
+      ],
+      "text": "Vaginite/vulvite NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X84.QuestionA",
+          "code": "X84.QuestionA",
+          "display": "Apresenta vulvovaginite infeciosa atípica/complexa, refratária a tratamentos de primeira linha?"
+        }
+      ],
+      "text": "Apresenta vulvovaginite infeciosa atípica/complexa, refratária a tratamentos de primeira linha?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X84.Question",
+            "code": "X84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X85.Question",
+          "code": "X85.Question",
+          "display": "Doença do colo NE"
+        }
+      ],
+      "text": "Doença do colo NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X85.QuestionA",
+          "code": "X85.QuestionA",
+          "display": "Trata-se de alteração de exame físico sem diagnóstico definitivo para investigação inicial?"
+        }
+      ],
+      "text": "Trata-se de alteração de exame físico sem diagnóstico definitivo para investigação inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X85.Question",
+            "code": "X85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X86.Question",
+          "code": "X86.Question",
+          "display": "Esfregaço de Papanicolau/colpocitologia oncótica anormal"
+        }
+      ],
+      "text": "Esfregaço de Papanicolau/colpocitologia oncótica anormal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X86.QuestionA",
+          "code": "X86.QuestionA",
+          "display": "O laudo da citologia oncótica (preventino/papanicolau) apresenta alteração de alto risco (como HSIL, ASC-H, AGC, carcinoma) ou lesão intraepitelial mantida/persistente?"
+        }
+      ],
+      "text": "O laudo da citologia oncótica (preventino/papanicolau) apresenta alteração de alto risco (como HSIL, ASC-H, AGC, carcinoma) ou lesão intraepitelial mantida/persistente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X86.Question",
+            "code": "X86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X87.Question",
+          "code": "X87.Question",
+          "display": "Prolapso utero-vaginal"
+        }
+      ],
+      "text": "Prolapso utero-vaginal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X87.QuestionA",
+          "code": "X87.QuestionA",
+          "display": "A paciente apresenta prolapso sintomático de grau avançado (estágio III ou IV, extravasando o intróito vaginal) para avaliação quanto a necessidade de procedimento cirúrgico?"
+        }
+      ],
+      "text": "A paciente apresenta prolapso sintomático de grau avançado (estágio III ou IV, extravasando o intróito vaginal) para avaliação quanto a necessidade de procedimento cirúrgico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X87.Question",
+            "code": "X87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X87.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X87.QuestionB",
+          "code": "X87.QuestionB",
+          "display": "Trata-se de prolapso útero-vaginal já avaliado com necessidade principal de fisioterapia pélvica?"
+        }
+      ],
+      "text": "Trata-se de prolapso útero-vaginal já avaliado com necessidade principal de fisioterapia pélvica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X87.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X87.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X87.QuestionA",
+            "code": "X87.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X88.Question",
+          "code": "X88.Question",
+          "display": "Doença fibrocística da mama"
+        }
+      ],
+      "text": "Doença fibrocística da mama",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X88.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X88.QuestionA",
+          "code": "X88.QuestionA",
+          "display": "Existem achados suspeitos de malignidade ao exame físico ou na imagem (ex.: nodulação palpável suspeita, descarga papilar espontânea/sanguinolenta, BIRADS 4 ou 5)?"
+        }
+      ],
+      "text": "Existem achados suspeitos de malignidade ao exame físico ou na imagem (ex.: nodulação palpável suspeita, descarga papilar espontânea/sanguinolenta, BIRADS 4 ou 5)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X88.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X88.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X88.Question",
+            "code": "X88.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X89.Question",
+          "code": "X89.Question",
+          "display": "Síndrome da tensão pré-menstrual"
+        }
+      ],
+      "text": "Síndrome da tensão pré-menstrual",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X89.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X89.QuestionA",
+          "code": "X89.QuestionA",
+          "display": "Trata-se de quadro inicial sem tentativa de tratamento prévio na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de quadro inicial sem tentativa de tratamento prévio na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X89.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X89.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X89.Question",
+            "code": "X89.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X90.Question",
+          "code": "X90.Question",
+          "display": "Herpes genital feminino"
+        }
+      ],
+      "text": "Herpes genital feminino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA; CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X90.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X90.QuestionA",
+          "code": "X90.QuestionA",
+          "display": "Trata-se de um quadro de herpes genital primário e sem complicações (ex.: lesões extensas/atípicas, falha prévia de tratamento ou imunossupressão)?"
+        }
+      ],
+      "text": "Trata-se de um quadro de herpes genital primário e sem complicações (ex.: lesões extensas/atípicas, falha prévia de tratamento ou imunossupressão)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X90.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X90.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X90.Question",
+            "code": "X90.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X91.Question",
+          "code": "X91.Question",
+          "display": "Condiloma acuminado feminino"
+        }
+      ],
+      "text": "Condiloma acuminado feminino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X91.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X91.QuestionA",
+          "code": "X91.QuestionA",
+          "display": "Trata-se de verrugas em região genital ou ânus de pequeno/médio porte, sem suspeita de malignidade, em paciente não gestante?"
+        }
+      ],
+      "text": "Trata-se de verrugas em região genital ou ânus de pequeno/médio porte, sem suspeita de malignidade, em paciente não gestante?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X91.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X91.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X91.Question",
+            "code": "X91.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X92.Question",
+          "code": "X92.Question",
+          "display": "Infecção por clamídia"
+        }
+      ],
+      "text": "Infecção por clamídia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X92.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X92.QuestionA",
+          "code": "X92.QuestionA",
+          "display": "Infecção genital/urinária baixa não complicada por clamídia, sem sinais de Doença Inflamatória Pélvica (DIP) ou falha de tratamento prévio?"
+        }
+      ],
+      "text": "Infecção genital/urinária baixa não complicada por clamídia, sem sinais de Doença Inflamatória Pélvica (DIP) ou falha de tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X92.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X92.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X92.Question",
+            "code": "X92.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X99.Question",
+          "code": "X99.Question",
+          "display": "Outra doença genital"
+        }
+      ],
+      "text": "Outra doença genital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "X99"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "X99.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/X99.QuestionA",
+          "code": "X99.QuestionA",
+          "display": "Trata-se de doença genital sem diagnóstico definitivo para discussão sobre avaliação e manejo inicial na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de doença genital sem diagnóstico definitivo para discussão sobre avaliação e manejo inicial na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/X99.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "X99.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/X99.Question",
+            "code": "X99.SIM"
+          }
+        }
+      ]
+    }
+  ]
+}

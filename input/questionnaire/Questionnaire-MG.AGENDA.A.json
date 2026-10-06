@@ -1,0 +1,1752 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.A",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.A",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_A",
+  "title": "Mangará Agendamento - Capítulo A (Geral e Inespecífico)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-06",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo A. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto A.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "A.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo A. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "A01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A01.Question",
+          "code": "A01.Question",
+          "display": "Dor generalizada /múltipla"
+        }
+      ],
+      "text": "Dor generalizada /múltipla",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A01.QuestionA",
+          "code": "A01.QuestionA",
+          "display": "Você busca ajuda apenas para fisioterapia e reabilitação física em dor generalizada/múltipla?"
+        }
+      ],
+      "text": "Você busca ajuda apenas para fisioterapia e reabilitação física em dor generalizada/múltipla?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A01.Question",
+            "code": "A01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A01.QuestionB",
+          "code": "A01.QuestionB",
+          "display": "O paciente usa (ou usou) pelo menos duas medicações para o problema de dor generalizada/múltipla e não teve resposta?"
+        }
+      ],
+      "text": "O paciente usa (ou usou) pelo menos duas medicações para o problema de dor generalizada/múltipla e não teve resposta?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225136 MEDICO REUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A01.QuestionA",
+            "code": "A01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A02.Question",
+          "code": "A02.Question",
+          "display": "Arrepios/ calafrios"
+        }
+      ],
+      "text": "Arrepios/ calafrios",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A03.Question",
+          "code": "A03.Question",
+          "display": "Febre"
+        }
+      ],
+      "text": "Febre",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A03.QuestionA",
+          "code": "A03.QuestionA",
+          "display": "Febre prolongada ou recorrente, paciente imunocomprometido ou viagem/exposição de risco recente?"
+        }
+      ],
+      "text": "Febre prolongada ou recorrente, paciente imunocomprometido ou viagem/exposição de risco recente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A03.Question",
+            "code": "A03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A04.Question",
+          "code": "A04.Question",
+          "display": "Debilidade/cansaço geral/fadiga"
+        }
+      ],
+      "text": "Debilidade/cansaço geral/fadiga",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A05.Question",
+          "code": "A05.Question",
+          "display": "Sentir-se doente"
+        }
+      ],
+      "text": "Sentir-se doente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A06.Question",
+          "code": "A06.Question",
+          "display": "Desmaio/síncope"
+        }
+      ],
+      "text": "Desmaio/síncope",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A06.QuestionA",
+          "code": "A06.QuestionA",
+          "display": "O quadro de desmaio/síncope está relacionado a um quadro de convulsão ou epilepsia?"
+        }
+      ],
+      "text": "O quadro de desmaio/síncope está relacionado a um quadro de convulsão ou epilepsia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A06.Question",
+            "code": "A06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A06.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A06.QuestionB",
+          "code": "A06.QuestionB",
+          "display": "O quadro de desmaio/síncope está relacionado a algum problema cardiológico?"
+        }
+      ],
+      "text": "O quadro de desmaio/síncope está relacionado a algum problema cardiológico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A06.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A06.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A06.QuestionA",
+            "code": "A06.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A08.Question",
+          "code": "A08.Question",
+          "display": "Inchaço"
+        }
+      ],
+      "text": "Inchaço",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A09.Question",
+          "code": "A09.Question",
+          "display": "Problemas de sudorese"
+        }
+      ],
+      "text": "Problemas de sudorese",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A10.Question",
+          "code": "A10.Question",
+          "display": "Sangramento/Hemorragia NE"
+        }
+      ],
+      "text": "Sangramento/Hemorragia NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A11.Question",
+          "code": "A11.Question",
+          "display": "Dores torácicas NE"
+        }
+      ],
+      "text": "Dores torácicas NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A11.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A11.QuestionA",
+          "code": "A11.QuestionA",
+          "display": "A dor torácica surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?"
+        }
+      ],
+      "text": "A dor torácica surge aos esforços, piorou recentemente ou vem acompanhada de falta de ar, tontura ou suor frio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A11.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225120 MEDICO CARDIOLOGISTA; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A11.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A11.Question",
+            "code": "A11.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A11.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A11.QuestionB",
+          "code": "A11.QuestionB",
+          "display": "A dor piora com movimento específico ou ao palpar algum ponto da caixa torárica?"
+        }
+      ],
+      "text": "A dor piora com movimento específico ou ao palpar algum ponto da caixa torárica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A11.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225270 MEDICO ORTOPEDISTA E TRAUMATOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A11.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A11.QuestionA",
+            "code": "A11.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A13.Question",
+          "code": "A13.Question",
+          "display": "Receio/Medo do tratamento"
+        }
+      ],
+      "text": "Receio/Medo do tratamento",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A13.QuestionA",
+          "code": "A13.QuestionA",
+          "display": "Receio/medo de tratamento está correlacionado com outros sofrimentos psíquicos ou emocionais?"
+        }
+      ],
+      "text": "Receio/medo de tratamento está correlacionado com outros sofrimentos psíquicos ou emocionais?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A13.Question",
+            "code": "A13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A16.Question",
+          "code": "A16.Question",
+          "display": "Criança irritável (choro excessivo, bebê agitado)"
+        }
+      ],
+      "text": "Criança irritável (choro excessivo, bebê agitado)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A18.Question",
+          "code": "A18.Question",
+          "display": "Preocupação com aparência"
+        }
+      ],
+      "text": "Preocupação com aparência",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A18.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A18.QuestionA",
+          "code": "A18.QuestionA",
+          "display": "Já tem diagnóstico específico em saúde mental que esteja relacionado a preocupação com aparência?"
+        }
+      ],
+      "text": "Já tem diagnóstico específico em saúde mental que esteja relacionado a preocupação com aparência?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A18.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A18.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A18.Question",
+            "code": "A18.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A20.Question",
+          "code": "A20.Question",
+          "display": "Pedido/discussão eutanásia"
+        }
+      ],
+      "text": "Pedido/discussão eutanásia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A21.Question",
+          "code": "A21.Question",
+          "display": "Fator de risco de malignidade"
+        }
+      ],
+      "text": "Fator de risco de malignidade",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A23.Question",
+          "code": "A23.Question",
+          "display": "Fator de risco NE"
+        }
+      ],
+      "text": "Fator de risco NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A25.Question",
+          "code": "A25.Question",
+          "display": "Medo de morrer/medo da morte"
+        }
+      ],
+      "text": "Medo de morrer/medo da morte",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A25.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A25.QuestionA",
+          "code": "A25.QuestionA",
+          "display": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para avaliação com psicologia?"
+        }
+      ],
+      "text": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para avaliação com psicologia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A25.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A25.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A25.Question",
+            "code": "A25.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A26.Question",
+          "code": "A26.Question",
+          "display": "Medo de câncer NE"
+        }
+      ],
+      "text": "Medo de câncer NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A27.Question",
+          "code": "A27.Question",
+          "display": "Medo de outra doença NE"
+        }
+      ],
+      "text": "Medo de outra doença NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A70.Question",
+          "code": "A70.Question",
+          "display": "Tuberculose"
+        }
+      ],
+      "text": "Tuberculose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A70.QuestionA",
+          "code": "A70.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A70.Question",
+            "code": "A70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A71.Question",
+          "code": "A71.Question",
+          "display": "Sarampo"
+        }
+      ],
+      "text": "Sarampo",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A72.Question",
+          "code": "A72.Question",
+          "display": "Varicela"
+        }
+      ],
+      "text": "Varicela",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A72.QuestionA",
+          "code": "A72.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A72.Question",
+            "code": "A72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A73.Question",
+          "code": "A73.Question",
+          "display": "Malária"
+        }
+      ],
+      "text": "Malária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A74.Question",
+          "code": "A74.Question",
+          "display": "Rubéola"
+        }
+      ],
+      "text": "Rubéola",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A75.Question",
+          "code": "A75.Question",
+          "display": "Mononucleose infecciosa"
+        }
+      ],
+      "text": "Mononucleose infecciosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A76.Question",
+          "code": "A76.Question",
+          "display": "Outro exantema viral"
+        }
+      ],
+      "text": "Outro exantema viral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A76.QuestionA",
+          "code": "A76.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A76.Question",
+            "code": "A76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A77.Question",
+          "code": "A77.Question",
+          "display": "Dengue e outras doenças virais NE"
+        }
+      ],
+      "text": "Dengue e outras doenças virais NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A77.QuestionA",
+          "code": "A77.QuestionA",
+          "display": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A77.Question",
+            "code": "A77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A78.Question",
+          "code": "A78.Question",
+          "display": "Hanseníase e outras doenças infecciosas NE"
+        }
+      ],
+      "text": "Hanseníase e outras doenças infecciosas NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A79.Question",
+          "code": "A79.Question",
+          "display": "Carcinomatose (localização primária desconhecida)"
+        }
+      ],
+      "text": "Carcinomatose (localização primária desconhecida)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A82.Question",
+          "code": "A82.Question",
+          "display": "Efeito secundário de lesão traumática"
+        }
+      ],
+      "text": "Efeito secundário de lesão traumática",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A82.QuestionA",
+          "code": "A82.QuestionA",
+          "display": "Sequela motora com demanda de fisioterapia/reabilitação?"
+        }
+      ],
+      "text": "Sequela motora com demanda de fisioterapia/reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A82.Question",
+            "code": "A82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A82.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A82.QuestionB",
+          "code": "A82.QuestionB",
+          "display": "Sequela de deglutição, comunicação ou auditiva com demanda de fonoaudiologia/reabilitação?"
+        }
+      ],
+      "text": "Sequela de deglutição, comunicação ou auditiva com demanda de fonoaudiologia/reabilitação?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A82.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A82.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/A82.QuestionA",
+            "code": "A82.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A85.Question",
+          "code": "A85.Question",
+          "display": "Efeito adverso de fármaco dose correta"
+        }
+      ],
+      "text": "Efeito adverso de fármaco dose correta",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A86.Question",
+          "code": "A86.Question",
+          "display": "Efeito tóxico de substância não medicinal"
+        }
+      ],
+      "text": "Efeito tóxico de substância não medicinal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A87.Question",
+          "code": "A87.Question",
+          "display": "Complicações de tratamento médico"
+        }
+      ],
+      "text": "Complicações de tratamento médico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A88.Question",
+          "code": "A88.Question",
+          "display": "Efeito adverso de fator físico"
+        }
+      ],
+      "text": "Efeito adverso de fator físico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A89.Question",
+          "code": "A89.Question",
+          "display": "Efeito da prótese"
+        }
+      ],
+      "text": "Efeito da prótese",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A90.Question",
+          "code": "A90.Question",
+          "display": "Malformação congênita NE/múltiplas"
+        }
+      ],
+      "text": "Malformação congênita NE/múltiplas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A91.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A91.Question",
+          "code": "A91.Question",
+          "display": "Investigação com resultado anormal NE"
+        }
+      ],
+      "text": "Investigação com resultado anormal NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A91.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A91"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A93.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A93.Question",
+          "code": "A93.Question",
+          "display": "Recém nascido prematuro"
+        }
+      ],
+      "text": "Recém nascido prematuro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A93.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A93"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A97.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A97.Question",
+          "code": "A97.Question",
+          "display": "Sem doença"
+        }
+      ],
+      "text": "Sem doença",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A97.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A97"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A98.Question",
+          "code": "A98.Question",
+          "display": "Medicina preventiva/manutenção da saúde"
+        }
+      ],
+      "text": "Medicina preventiva/manutenção da saúde",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "A99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/A99.Question",
+          "code": "A99.Question",
+          "display": "Outras doenças gerais NE"
+        }
+      ],
+      "text": "Outras doenças gerais NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "A.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "A99"
+          }
+        }
+      ]
+    }
+  ]
+}
