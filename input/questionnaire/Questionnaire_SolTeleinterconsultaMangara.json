@@ -1,0 +1,292 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "SolTeleinterconsultaMangara",
+  "url": "https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara",
+  "version": "1.0.0",
+  "name": "SolTeleinterconsultaMangara",
+  "title": "Solicitação de Teleinterconsulta",
+  "status": "draft",
+  "experimental": true,
+  "description": "Solicitação de teleinterconsulta: pedido de discussão de caso entre profissionais com a presença do usuário.",
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "linkId": "SOL.DS",
+      "text": "Data da Solicitação",
+      "type": "date",
+      "required": true
+    },
+    {
+      "linkId": "SOL.IP",
+      "text": "Identificação do Paciente",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.IP.NM",
+          "text": "Nome completo do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.CNS",
+          "text": "CNS do(a) Paciente",
+          "type": "string",
+          "required": false
+        },
+        {
+          "linkId": "SOL.IP.CPF",
+          "text": "CPF do(a) Paciente",
+          "type": "string",
+          "required": false
+        },
+        {
+          "linkId": "SOL.IP.Sexo",
+          "text": "Sexo do(a) Paciente",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRSexo"
+        },
+        {
+          "linkId": "SOL.IP.RacaCor",
+          "text": "Raça/Cor do(a) Paciente",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRRacaCor"
+        },
+        {
+          "linkId": "SOL.IP.DN",
+          "text": "Data de Nascimento do(a) Paciente",
+          "type": "date",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.Aldeia",
+          "text": "Aldeia do(a) Paciente",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRAldeia",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "A resposta é o código da aldeia no CodeSystem BRAldeia (https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia). O Polo Base NÃO é perguntado: é obtido da aldeia. 1) $lookup da aldeia no servidor de terminologia devolve a property co_polo_base (ex.: aldeia 61741 BACURAL → co_polo_base 1523; testado em https://tx.mangaradigital.org/r4). 2) Busca da Organization do Polo Base: Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{co_polo_base}. 3) Mostrar ao usuário (somente leitura) o nome e o código do Polo Base (grupo SOL.IP.PoloBase)."
+            }
+          ]
+        },
+        {
+          "linkId": "SOL.IP.PoloBase",
+          "text": "Polo Base da aldeia",
+          "type": "group",
+          "readOnly": true,
+          "enableWhen": [
+            {
+              "question": "SOL.IP.Aldeia",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ],
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%poloBaseBundle.entry.resource.ofType(Organization).name.first()"
+                  }
+                }
+              ],
+              "linkId": "SOL.IP.PoloBase.Nome",
+              "text": "Nome do Polo Base",
+              "type": "string",
+              "readOnly": true
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%poloBaseCodigo"
+                  }
+                }
+              ],
+              "linkId": "SOL.IP.PoloBase.Codigo",
+              "text": "Código do Polo Base",
+              "type": "string",
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "linkId": "SOL.IP.EM",
+          "text": "Email do(a) Paciente",
+          "type": "string",
+          "required": false
+        },
+        {
+          "linkId": "SOL.IP.TEL",
+          "text": "Telefone de contato do(a) Paciente",
+          "type": "string",
+          "required": false
+        },
+        {
+          "linkId": "SOL.IP.IDSIS",
+          "text": "Identificador do registro de atendimento no sistema de origem",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.ES",
+      "text": "Estabelecimento Solicitante",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "SOL.ES.CNES",
+          "text": "CNES",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.ES.NM",
+          "text": "Nome do Estabelecimento",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.PS",
+      "text": "Profissional Solicitante",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.PS.NM",
+          "text": "Nome Completo",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.CPF",
+          "text": "CPF",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.CP",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+        },
+        {
+          "linkId": "SOL.PS.NC",
+          "text": "Número no Conselho",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.UF",
+          "text": "UF",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "SOL.PS.CBO",
+          "text": "CBO",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao"
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.DC",
+      "text": "Documentos",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "SOL.DC.TP",
+          "text": "Tipo do Documento",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/TipoDocumento_Upload_Mangara"
+        },
+        {
+          "linkId": "SOL.DC.AR",
+          "text": "Arquivo",
+          "type": "attachment",
+          "required": true
+        }
+      ],
+      "repeats": true
+    },
+    {
+      "linkId": "SOL.IC",
+      "text": "Informações Clínicas",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.IC.IR",
+          "text": "Informações Clínicas Relevantes",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.MT",
+      "text": "Motivo da Solicitação",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.MT.DS",
+          "text": "Descrição subjetiva do motivo",
+          "type": "text",
+          "required": false
+        },
+        {
+          "linkId": "SOL.MT.CIAP",
+          "text": "Motivo da solicitação (CIAP-2)",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2"
+        }
+      ]
+    }
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "aldeia",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='SOL.IP.Aldeia').answer.value.first()"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "poloBaseCodigo",
+        "language": "text/fhirpath",
+        "expression": "iif(%aldeia.exists(), %terminologies.lookup(%aldeia).parameter.where(name='property' and part.where(name='code').value='co_polo_base').part.where(name='value').value.first(), {})"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "poloBaseBundle",
+        "language": "application/x-fhir-query",
+        "expression": "Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{{%poloBaseCodigo}}"
+      }
+    }
+  ]
+}
