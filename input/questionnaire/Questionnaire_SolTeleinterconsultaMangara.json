@@ -71,7 +71,18 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-              "valueMarkdown": "A resposta é o código da aldeia no CodeSystem BRAldeia (https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia). O Polo Base NÃO é perguntado: é obtido da aldeia. 1) $lookup da aldeia no servidor de terminologia devolve a property co_polo_base (ex.: aldeia 61741 BACURAL → co_polo_base 1523; testado em https://tx.mangaradigital.org/r4). 2) Busca da Organization do Polo Base: Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{co_polo_base}. 3) Mostrar ao usuário (somente leitura) o nome e o código do Polo Base (grupo SOL.IP.PoloBase)."
+              "valueMarkdown": "Só aparece se Raça/Cor (SOL.IP.RacaCor) = 05 Indígena. A resposta é o código da aldeia no CodeSystem BRAldeia (https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia). O Polo Base NÃO é perguntado: é obtido da aldeia. 1) $lookup da aldeia no servidor de terminologia devolve a property co_polo_base (ex.: aldeia 61741 BACURAL → co_polo_base 1523; testado em https://tx.mangaradigital.org/r4). 2) Busca da Organization do Polo Base: Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{co_polo_base}. 3) Mostrar ao usuário (somente leitura) o nome e o código do Polo Base (grupo SOL.IP.PoloBase)."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "SOL.IP.RacaCor",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor",
+                "code": "05",
+                "display": "Indígena"
+              }
             }
           ]
         },
@@ -81,6 +92,15 @@
           "type": "group",
           "readOnly": true,
           "enableWhen": [
+            {
+              "question": "SOL.IP.RacaCor",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor",
+                "code": "05",
+                "display": "Indígena"
+              }
+            },
             {
               "question": "SOL.IP.Aldeia",
               "operator": "exists",
@@ -118,7 +138,8 @@
               "type": "string",
               "readOnly": true
             }
-          ]
+          ],
+          "enableBehavior": "all"
         },
         {
           "linkId": "SOL.IP.EM",
@@ -254,11 +275,18 @@
           "required": false
         },
         {
+          "linkId": "SOL.MT.TP",
+          "text": "Tipo do Motivo",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRMotivoTeleconsultoria"
+        },
+        {
           "linkId": "SOL.MT.CIAP",
           "text": "Motivo da solicitação (CIAP-2)",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2"
+          "answerValueSet": "https://mangara.org.br/fhir/ValueSet/CIAPAgendamentoMangara"
         }
       ]
     }
