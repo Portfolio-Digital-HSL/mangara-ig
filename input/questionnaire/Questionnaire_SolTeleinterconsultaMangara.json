@@ -66,12 +66,12 @@
           "linkId": "SOL.IP.Aldeia",
           "text": "Aldeia do(a) Paciente",
           "type": "choice",
-          "required": false,
+          "required": true,
           "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRAldeia",
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-              "valueMarkdown": "Só aparece se Raça/Cor (SOL.IP.RacaCor) = 05 Indígena. A resposta é o código da aldeia no CodeSystem BRAldeia (https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia). O Polo Base NÃO é perguntado: é obtido da aldeia. 1) $lookup da aldeia no servidor de terminologia devolve a property co_polo_base (ex.: aldeia 61741 BACURAL → co_polo_base 1523; testado em https://tx.mangaradigital.org/r4). 2) Busca da Organization do Polo Base: Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{co_polo_base}. 3) Mostrar ao usuário (somente leitura) o nome e o código do Polo Base (grupo SOL.IP.PoloBase)."
+              "valueMarkdown": "Só aparece, e é obrigatória, se Raça/Cor (SOL.IP.RacaCor) = 05 Indígena. A resposta é o código da aldeia no CodeSystem BRAldeia (https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia). O Polo Base NÃO é perguntado: é obtido da aldeia. 1) $lookup da aldeia no servidor de terminologia devolve a property co_polo_base (ex.: aldeia 61741 BACURAL → co_polo_base 1523; testado em https://tx.mangaradigital.org/r4). 2) Busca da Organization do Polo Base: Organization?identifier=https://saude.gov.br/fhir/sid/polo-base|{co_polo_base}. 3) Mostrar ao usuário (somente leitura) o nome e o código do Polo Base (grupo SOL.IP.PoloBase)."
             }
           ],
           "enableWhen": [

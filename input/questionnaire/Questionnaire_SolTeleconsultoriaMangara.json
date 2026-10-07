@@ -1,0 +1,298 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "SolTeleconsultoria",
+  "url": "https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleconsultoria",
+  "version": "1.0.0",
+  "name": "SolTeleconsultoriaMangara",
+  "title": "Solicitação de Teleconsultoria",
+  "status": "draft",
+  "experimental": true,
+  "description": "Solicitação de teleconsultoria: pedido de apoio matricial de uma equipe do HSL a um profissional teleconsultor, sem a presença do usuário.",
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "linkId": "SOL.DS",
+      "text": "Data da Solicitação",
+      "type": "date",
+      "required": true
+    },
+    {
+      "linkId": "SOL.ES",
+      "text": "Estabelecimento Solicitante",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "SOL.ES.CNES",
+          "text": "CNES",
+          "type": "string"
+        },
+        {
+          "linkId": "SOL.ES.NM",
+          "text": "Nome do Estabelecimento",
+          "type": "string"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%dseiRef"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+              "valueCode": "Organization"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "DSEI do estabelecimento solicitante: não é perguntado. É a Organization referenciada em Organization.partOf do estabelecimento cujo CNES foi informado em SOL.ES.CNES (busca Organization?identifier=https://saude.gov.br/fhir/sid/cnes|{CNES}). Ex. no hml-fhir: CNES 7509103 (POLO BASE INDIGENA DE AMARANTE, Organization/298837) → partOf Organization/298777 DSEI MARANHAO (identifier https://saude.gov.br/fhir/sid/dsei = 19)."
+            }
+          ],
+          "linkId": "SOL.ES.DSEI",
+          "text": "DSEI",
+          "type": "reference",
+          "readOnly": true
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%dseiBundle.entry.resource.ofType(Organization).name.first()"
+              }
+            }
+          ],
+          "linkId": "SOL.ES.DSEI.NM",
+          "text": "Nome do DSEI",
+          "type": "string",
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.PS",
+      "text": "Profissional Solicitante",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.PS.NM",
+          "text": "Nome Completo",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.CPF",
+          "text": "CPF",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.CP",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+        },
+        {
+          "linkId": "SOL.PS.NC",
+          "text": "Número no Conselho",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.PS.UF",
+          "text": "UF",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "SOL.PS.CBO",
+          "text": "CBO",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao"
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.MT",
+      "text": "Motivo",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.MT.DS",
+          "text": "Descrição subjetiva do motivo",
+          "type": "text",
+          "required": false
+        },
+        {
+          "linkId": "SOL.MT.TP",
+          "text": "Tipo do Motivo",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRMotivoTeleconsultoria"
+        }
+      ]
+    },
+    {
+      "linkId": "Teleconsultoria-paciente-especifico",
+      "text": "Teleconsultoria é para discutir um paciente específico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136"
+    },
+    {
+      "linkId": "SOL.IP",
+      "text": "Identificação do Paciente",
+      "type": "group",
+      "required": false,
+      "enableWhen": [
+        {
+          "question": "Teleconsultoria-paciente-especifico",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "SOL.IP.NM",
+          "text": "Nome completo do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.CNS",
+          "text": "CNS do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.CPF",
+          "text": "CPF do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.Sexo",
+          "text": "Sexo do(a) Paciente",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRSexo"
+        },
+        {
+          "linkId": "SOL.IP.DN",
+          "text": "Data de Nascimento do(a) Paciente",
+          "type": "date",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.EM",
+          "text": "Email do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.TEL",
+          "text": "Telefone de contato do(a) Paciente",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "SOL.IP.IDSIS",
+          "text": "Identificador do registro de atendimento no sistema de origem",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.IC",
+      "text": "Informações Clínicas",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "SOL.IC.IR",
+          "text": "Informações Clínicas Relevantes",
+          "type": "text",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "Teleconsultoria-paciente-especifico",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "/documentos/upload",
+      "text": "Documentos",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "/documentos/tipo",
+          "text": "Tipo de Documento",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/TipoDocumento_Upload_Mangara"
+        },
+        {
+          "linkId": "/documentos/arquivo",
+          "text": "Arquivo",
+          "type": "attachment",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "cnes",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='SOL.ES.CNES').answer.value.first()"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "estabBundle",
+        "language": "application/x-fhir-query",
+        "expression": "Organization?identifier=https://saude.gov.br/fhir/sid/cnes|{{%cnes}}"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "dseiRef",
+        "language": "text/fhirpath",
+        "expression": "%estabBundle.entry.resource.ofType(Organization).partOf.first()"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "dseiBundle",
+        "language": "application/x-fhir-query",
+        "expression": "Organization?_id={{%dseiRef.reference.replace('Organization/', '')}}"
+      }
+    }
+  ]
+}
