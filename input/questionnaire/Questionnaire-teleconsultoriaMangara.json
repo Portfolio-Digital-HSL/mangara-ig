@@ -1,0 +1,484 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "teleconsultoria-Mangara",
+  "url": "https://ig.mangaradigital.org/apost-ig/Questionnaire/teleconsultoria-Mangara",
+  "version": "0.1.0",
+  "name": "TeleconsultoriaMangara",
+  "title": "Teleconsultoria – Mangará",
+  "status": "draft",
+  "description": "Registro de teleconsultoria do Mangará, preenchido pelo teleconsultor, conforme o modelo de informação RNDS (RATC – Teleconsultoria – Teleconsultor).",
+  "language": "pt-BR",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
+    ]
+  },
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "linkId": "TC.INF.DH",
+      "text": "Data e hora da teleconsultoria",
+      "type": "dateTime",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "[1..1] Data e hora em que a teleconsultoria foi realizada."
+        }
+      ]
+    },
+    {
+      "linkId": "SOL.ES",
+      "text": "Estabelecimento Solicitante",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "SOL.ES.CNES",
+          "text": "CNES",
+          "type": "string"
+        },
+        {
+          "linkId": "SOL.ES.NM",
+          "text": "Nome do Estabelecimento",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "linkId": "/tele-Nao-aconteceu?",
+      "text": "Teleconsultoria aconteceu?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136"
+    },
+    {
+      "linkId": "/motivo-cancelamento-teleic",
+      "text": "Motivo do cancelamento da teleconsultoria",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ReasonAusenciaTele",
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "N"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "/Profissional-não-solicitante",
+      "text": "Profissional não é o solicitante?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136",
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "/profissional-solicitante",
+      "text": "Identificação do profissional solicitante",
+      "type": "group",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/Profissional-não-solicitante",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "/profissional-solicitante/nome",
+          "text": "Nome completo",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/cpf",
+          "text": "CPF",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho-numero",
+          "text": "Número no conselho",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho-uf",
+          "text": "UF do conselho",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "/profissional-solicitante/email",
+          "text": "E-mail",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/telefone",
+          "text": "Telefone (com DD)",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "linkId": "TC.INF",
+      "text": "Informações gerais da teleconsultoria",
+      "type": "group",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "Teleconsultoria-paciente-especifico",
+          "text": "Teleconsultoria é sobre um indivíduo específico?",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Fora do modelo RNDS, que pede o indivíduo [1..1]. Mantido porque a solicitação do Mangará permite teleconsultoria sem paciente específico."
+            }
+          ]
+        },
+        {
+          "linkId": "LCVMA1DE003A",
+          "text": "Identificador Nacional do Indivíduo (CPF ou CNS)",
+          "type": "string",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "Teleconsultoria-paciente-especifico",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[1..1] CPF ou CNS do indivíduo. Validar junto ao CADSUS."
+            }
+          ]
+        },
+        {
+          "linkId": "TC.PROF",
+          "text": "Profissional teleconsultor",
+          "type": "group",
+          "required": true,
+          "repeats": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[1..N] Profissional(is) que responderam à teleconsultoria."
+            }
+          ],
+          "item": [
+            {
+              "linkId": "TC.PROF.ID",
+              "text": "CPF ou CNS do profissional",
+              "type": "string",
+              "required": true
+            },
+            {
+              "linkId": "TC.PROF.CP",
+              "text": "Conselho profissional",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+            },
+            {
+              "linkId": "TC.PROF.NC",
+              "text": "Número do conselho",
+              "type": "string",
+              "required": true
+            },
+            {
+              "linkId": "TC.PROF.UF",
+              "text": "UF ou região do conselho",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+            },
+            {
+              "linkId": "TC.PROF.OCUP",
+              "text": "Ocupação do profissional (CBO)",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "TC.INF.TIPO",
+      "text": "Tipo de teleconsultoria",
+      "type": "choice",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "[1..1] Modalidade: Síncrona ou Assíncrona. CodeSystem https://terminologia.saude.gov.br/fhir/CodeSystem/BRTipoTeleconsultoria."
+        }
+      ],
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRTipoTeleconsultoria"
+    },
+    {
+      "linkId": "motivo-solicitacao-teleconsultoria",
+      "text": "Motivo da solicitação da teleconsultoria",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRMotivoTeleconsultoria",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "[1..1] Avaliação da necessidade de encaminhamento; Apoio à conduta terapêutica; Apoio na hipótese diagnóstica; Cuidado compartilhado com outro profissional de saúde."
+        }
+      ]
+    },
+    {
+      "linkId": "problemas_identificados",
+      "text": "Problema(s) ou diagnóstico(s) avaliado(s) pelo teleconsultor",
+      "type": "group",
+      "required": true,
+      "repeats": true,
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "[1..N] Uma ocorrência por problema. Em cada uma, informar UM código: CIAP-2 ou CID-10."
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+          "extension": [
+            {
+              "url": "key",
+              "valueId": "um-codigo"
+            },
+            {
+              "url": "severity",
+              "valueCode": "error"
+            },
+            {
+              "url": "expression",
+              "valueString": "(item.where(linkId='problemas_identificados-ciap2').answer.count() + item.where(linkId='problemas_identificados-cid10').answer.count()) = 1"
+            },
+            {
+              "url": "human",
+              "valueString": "Informe um código: CIAP-2 ou CID-10."
+            }
+          ]
+        }
+      ],
+      "item": [
+        {
+          "linkId": "problemas_identificados-ciap2",
+          "text": "Problema ou diagnóstico (CIAP-2)",
+          "type": "choice",
+          "repeats": true,
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2"
+        },
+        {
+          "linkId": "categoria_diagnostica-ciap2",
+          "text": "Categoria do diagnóstico",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCategoriaDiagnostico",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[0..1] Principal ou Secundário."
+            }
+          ]
+        },
+        {
+          "linkId": "problemas_identificados-statusVerificacao-ciap2",
+          "text": "Grau de certeza",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-ver-status",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[0..1] HL7 FHIR ConditionVerificationStatus (tradução pt-BR)."
+            }
+          ]
+        },
+        {
+          "linkId": "informacoes-adicionais-ciap2",
+          "text": "Informações adicionais CIAP-2",
+          "type": "text",
+          "required": false
+        },
+        {
+          "linkId": "problemas_identificados-cid10",
+          "text": "Problema ou diagnóstico (CID-10)",
+          "type": "choice",
+          "repeats": true,
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCID10"
+        },
+        {
+          "linkId": "categoria_diagnostica-cid10",
+          "text": "Categoria do diagnóstico",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCategoriaDiagnostico",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[0..1] Principal ou Secundário."
+            }
+          ]
+        },
+        {
+          "linkId": "problemas_identificados-statusVerificacao-cid10",
+          "text": "Grau de certeza",
+          "type": "choice",
+          "required": false,
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-ver-status",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[0..1] HL7 FHIR ConditionVerificationStatus (tradução pt-BR)."
+            }
+          ]
+        },
+        {
+          "linkId": "informacoes-adicionais-cid10",
+          "text": "Informações adicionais CID-10",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "linkId": "orientacoes-teleconsultor",
+      "text": "Orientações do teleconsultor",
+      "type": "group",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "resposta-teleconsultoria",
+          "text": "Resposta à teleconsultoria",
+          "type": "text",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[1..1] Resposta direta, clara e específica à pergunta do profissional de saúde."
+            }
+          ]
+        },
+        {
+          "linkId": "orientacoes-tecnico-cientificas",
+          "text": "Orientações técnico-científicas",
+          "type": "text",
+          "required": false
+        },
+        {
+          "linkId": "conduta-encaminhamento",
+          "text": "Conduta ou encaminhamento proposto",
+          "type": "choice",
+          "required": true,
+          "repeats": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCondutaTeleconsultoria",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "[1..N] ValueSet BRCondutaTeleconsultoria (10 condutas do modelo RNDS)."
+            }
+          ]
+        },
+        {
+          "linkId": "orientacoes-observacoes-adicionais",
+          "text": "Informações adicionais",
+          "type": "text",
+          "required": false
+        },
+        {
+          "linkId": "documentos/upload-teleconsultoria",
+          "text": "Documentos",
+          "type": "group",
+          "required": false,
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "documentos-tipo-teleconsultoria",
+              "text": "Tipo de Documento",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/TipoDocumento_Upload_Mangara"
+            },
+            {
+              "linkId": "documentos-arquivo-teleconsultoria",
+              "text": "Arquivo",
+              "type": "attachment",
+              "required": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
