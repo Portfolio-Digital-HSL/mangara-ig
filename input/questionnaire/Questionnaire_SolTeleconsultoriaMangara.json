@@ -34,44 +34,99 @@
           "type": "string"
         },
         {
+          "linkId": "SOL.ES.VINC",
+          "text": "Polo Base e DSEI do estabelecimento",
+          "type": "group",
+          "readOnly": true,
+          "required": false,
           "extension": [
-            {
-              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
-              "valueExpression": {
-                "language": "text/fhirpath",
-                "expression": "%dseiRef"
-              }
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
-              "valueCode": "Organization"
-            },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-              "valueMarkdown": "DSEI do estabelecimento solicitante: não é perguntado. É a Organization referenciada em Organization.partOf do estabelecimento cujo CNES foi informado em SOL.ES.CNES (busca Organization?identifier=https://saude.gov.br/fhir/sid/cnes|{CNES}). Ex. no hml-fhir: CNES 7509103 (POLO BASE INDIGENA DE AMARANTE, Organization/298837) → partOf Organization/298777 DSEI MARANHAO (identifier https://saude.gov.br/fhir/sid/dsei = 19)."
+              "valueMarkdown": "Não é perguntado; preenchido a partir do CNES (SOL.ES.CNES), subindo pelos Organization.partOf: estabelecimento → Polo Base → DSEI. Busca 1: Organization?identifier=https://saude.gov.br/fhir/sid/cnes|{CNES}. Buscas 2 e 3: Organization?_id={id do partOf}. Classificação, para não depender do número de níveis: Polo Base = organização da cadeia com subtype PoloBase (extension br-core-organization-subtype); DSEI = organização da cadeia com identifier https://saude.gov.br/fhir/sid/dsei. Nem todo estabelecimento tem Polo e/ou DSEI: os campos ficam vazios. Atenção: em hml-fhir (07/10/2026) as UBSI apontam direto para o DSEI (ex.: UBSI ALDEIA VERDE, Organization/299018 → partOf Organization/298768 DSEI MGES), sem o nível do Polo."
             }
           ],
-          "linkId": "SOL.ES.DSEI",
-          "text": "DSEI",
-          "type": "reference",
-          "readOnly": true
-        },
-        {
-          "extension": [
+          "enableWhen": [
             {
-              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
-              "valueExpression": {
-                "language": "text/fhirpath",
-                "expression": "%dseiBundle.entry.resource.ofType(Organization).name.first()"
-              }
+              "question": "SOL.ES.CNES",
+              "operator": "exists",
+              "answerBoolean": true
             }
           ],
-          "linkId": "SOL.ES.DSEI.NM",
-          "text": "Nome do DSEI",
-          "type": "string",
-          "readOnly": true
+          "item": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%polo.name"
+                  }
+                }
+              ],
+              "linkId": "SOL.ES.VINC.PoloNome",
+              "text": "Polo Base",
+              "type": "string",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%polo.identifier.where(system='https://saude.gov.br/fhir/sid/polo-base').value.first()"
+                  }
+                }
+              ],
+              "linkId": "SOL.ES.VINC.PoloCodigo",
+              "text": "Código do Polo Base",
+              "type": "string",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%dsei.name"
+                  }
+                }
+              ],
+              "linkId": "SOL.ES.VINC.DSEINome",
+              "text": "DSEI",
+              "type": "string",
+              "readOnly": true,
+              "required": false
+            },
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%dsei.identifier.where(system='https://saude.gov.br/fhir/sid/dsei').value.first()"
+                  }
+                }
+              ],
+              "linkId": "SOL.ES.VINC.DSEICodigo",
+              "text": "Código do DSEI",
+              "type": "string",
+              "readOnly": true,
+              "required": false
+            }
+          ]
         }
       ]
+    },
+    {
+      "linkId": "/Profissional-não-solicitante",
+      "text": "Outro profissional participará no lugar do solicitante?",
+      "type": "choice",
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136",
+      "required": true
     },
     {
       "linkId": "SOL.PS",
@@ -83,42 +138,68 @@
           "linkId": "SOL.PS.NM",
           "text": "Nome Completo",
           "type": "string",
-          "required": true
+          "required": true,
+          "readOnly": true,
+         
         },
         {
           "linkId": "SOL.PS.CPF",
           "text": "CPF",
           "type": "string",
-          "required": true
+          "required": true,
+          "readOnly": true,
+         
         },
         {
           "linkId": "SOL.PS.CP",
           "text": "Conselho Profissional",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais",
+          "readOnly": true
         },
         {
           "linkId": "SOL.PS.NC",
           "text": "Número no Conselho",
           "type": "string",
-          "required": true
+          "required": true,
+          "readOnly": true
         },
         {
           "linkId": "SOL.PS.UF",
           "text": "UF",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa",
+          "readOnly": true
         },
         {
           "linkId": "SOL.PS.CBO",
           "text": "CBO",
           "type": "choice",
           "required": false,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao"
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao",
+          "readOnly": true
         }
-      ]
+      ],
+      
+      
+    },
+    
+        {
+          "linkId": "/profissional-solicitante/email",
+          "text": "E-mail",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/telefone",
+          "text": "Telefone (com DD)",
+          "type": "string",
+          "required": true
+        }
+      ],
+     
     },
     {
       "linkId": "SOL.MT",
@@ -261,38 +342,5 @@
       ]
     }
   ],
-  "extension": [
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "cnes",
-        "language": "text/fhirpath",
-        "expression": "%resource.repeat(item).where(linkId='SOL.ES.CNES').answer.value.first()"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "estabBundle",
-        "language": "application/x-fhir-query",
-        "expression": "Organization?identifier=https://saude.gov.br/fhir/sid/cnes|{{%cnes}}"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "dseiRef",
-        "language": "text/fhirpath",
-        "expression": "%estabBundle.entry.resource.ofType(Organization).partOf.first()"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "dseiBundle",
-        "language": "application/x-fhir-query",
-        "expression": "Organization?_id={{%dseiRef.reference.replace('Organization/', '')}}"
-      }
-    }
-  ]
+ 
 }
