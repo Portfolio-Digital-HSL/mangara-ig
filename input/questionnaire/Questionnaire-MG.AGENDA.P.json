@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo P. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
@@ -1194,7 +1194,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA."
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
@@ -1254,7 +1254,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA. | Alerta"
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
         }
       ],
       "enableWhen": [
@@ -2454,7 +2454,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [

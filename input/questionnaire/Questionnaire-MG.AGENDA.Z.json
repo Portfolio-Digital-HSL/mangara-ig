@@ -1,0 +1,582 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.Z",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.Z",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_Z",
+  "title": "Mangará Agendamento - Capítulo Z (Problemas Sociais)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo Z. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto Z.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "Z.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo Z. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "Z10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z10.Question",
+          "code": "Z10.Question",
+          "display": "Problema relacionado com sistema de saúde"
+        }
+      ],
+      "text": "Problema relacionado com sistema de saúde",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z11.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z11.Question",
+          "code": "Z11.Question",
+          "display": "Problema relacionado com estar doente"
+        }
+      ],
+      "text": "Problema relacionado com estar doente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z11.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z11"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z12.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z12.Question",
+          "code": "Z12.Question",
+          "display": "Problema de relacionamento com parceiro/ conjugal"
+        }
+      ],
+      "text": "Problema de relacionamento com parceiro/ conjugal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z12.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z12"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z13.Question",
+          "code": "Z13.Question",
+          "display": "Problema comportamental do parceiro/ companheiro"
+        }
+      ],
+      "text": "Problema comportamental do parceiro/ companheiro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z14.Question",
+          "code": "Z14.Question",
+          "display": "Problema por doença do parceiro/ companheiro"
+        }
+      ],
+      "text": "Problema por doença do parceiro/ companheiro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z14.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z14.QuestionA",
+          "code": "Z14.QuestionA",
+          "display": "Trata-se de estresse do(a) cuidador(a) com impacto importante na saúde mental?"
+        }
+      ],
+      "text": "Trata-se de estresse do(a) cuidador(a) com impacto importante na saúde mental?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z14.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 251510 PSICOLOGO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z14.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Z14.Question",
+            "code": "Z14.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z15.Question",
+          "code": "Z15.Question",
+          "display": "Perda ou falecimento do parceiro/ companheiro"
+        }
+      ],
+      "text": "Perda ou falecimento do parceiro/ companheiro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z16.Question",
+          "code": "Z16.Question",
+          "display": "Problema de relacionamento com uma criança"
+        }
+      ],
+      "text": "Problema de relacionamento com uma criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z18.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z18.Question",
+          "code": "Z18.Question",
+          "display": "Problema com criança doente"
+        }
+      ],
+      "text": "Problema com criança doente",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z18.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z18"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z19.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z19.Question",
+          "code": "Z19.Question",
+          "display": "Perda ou falecimento de criança"
+        }
+      ],
+      "text": "Perda ou falecimento de criança",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z19.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z19"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z20.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z20.Question",
+          "code": "Z20.Question",
+          "display": "Problema de relacionamento com familiares"
+        }
+      ],
+      "text": "Problema de relacionamento com familiares",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z20.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z20"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z21.Question",
+          "code": "Z21.Question",
+          "display": "Problema comportamental de familiar"
+        }
+      ],
+      "text": "Problema comportamental de familiar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z22.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z22.Question",
+          "code": "Z22.Question",
+          "display": "Problema por doença familiar"
+        }
+      ],
+      "text": "Problema por doença familiar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z22.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z22"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z23.Question",
+          "code": "Z23.Question",
+          "display": "Perda/falecimento de familiar"
+        }
+      ],
+      "text": "Perda/falecimento de familiar",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z24.Question",
+          "code": "Z24.Question",
+          "display": "Problema de relacionamento com amigos"
+        }
+      ],
+      "text": "Problema de relacionamento com amigos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z25.Question",
+          "code": "Z25.Question",
+          "display": "Ato ou acontecimento violento"
+        }
+      ],
+      "text": "Ato ou acontecimento violento",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 251510 PSICOLOGO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z27.Question",
+          "code": "Z27.Question",
+          "display": "Medo de problema social"
+        }
+      ],
+      "text": "Medo de problema social",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Z29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Z29.Question",
+          "code": "Z29.Question",
+          "display": "Problema social NE"
+        }
+      ],
+      "text": "Problema social NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Z29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Z.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Z29"
+          }
+        }
+      ]
+    }
+  ]
+}

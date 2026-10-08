@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo D. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [

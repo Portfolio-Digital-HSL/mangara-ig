@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo A. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
@@ -824,10 +824,10 @@
         {
           "system": "https://mangara.org.br/fhir/CodeSystem/A25.QuestionA",
           "code": "A25.QuestionA",
-          "display": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para avaliação com psicologia?"
+          "display": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para acolhimento com psicologia?"
         }
       ],
-      "text": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para avaliação com psicologia?",
+      "text": "Medo da morte/de morrer está inserido em algum sofrimento mental já estabelecido ou trauma específico para acolhimento com psicologia?",
       "type": "choice",
       "required": true,
       "answerValueSet": "https://mangara.org.br/fhir/ValueSet/A25.QuestionA",

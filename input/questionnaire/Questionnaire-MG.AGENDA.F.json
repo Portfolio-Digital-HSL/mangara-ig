@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo F. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
@@ -324,7 +324,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -414,7 +414,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -474,7 +474,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
@@ -594,7 +594,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -894,7 +894,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -924,7 +924,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -1014,7 +1014,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -1044,7 +1044,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [

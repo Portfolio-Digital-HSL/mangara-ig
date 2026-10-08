@@ -1,0 +1,1842 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.Y",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.Y",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_Y",
+  "title": "Mangará Agendamento - Capítulo Y (Aparelho Genital Masculino)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo Y. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto Y.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "Y.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo Y. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "Y01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y01.Question",
+          "code": "Y01.Question",
+          "display": "Dor no pênis"
+        }
+      ],
+      "text": "Dor no pênis",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y01.QuestionA",
+          "code": "Y01.QuestionA",
+          "display": "Apresenta dor peniana crônica ou refratária ao tratamento inicial na unidade?"
+        }
+      ],
+      "text": "Apresenta dor peniana crônica ou refratária ao tratamento inicial na unidade?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y01.Question",
+            "code": "Y01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y02.Question",
+          "code": "Y02.Question",
+          "display": "Dor no escroto/testículos"
+        }
+      ],
+      "text": "Dor no escroto/testículos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y02.QuestionA",
+          "code": "Y02.QuestionA",
+          "display": "Trata-se de dor testicular com alteração de exame físico ou alteração em exame de imagem (ultrassonografia)?"
+        }
+      ],
+      "text": "Trata-se de dor testicular com alteração de exame físico ou alteração em exame de imagem (ultrassonografia)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y02.Question",
+            "code": "Y02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y03.Question",
+          "code": "Y03.Question",
+          "display": "Secreção uretral"
+        }
+      ],
+      "text": "Secreção uretral",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y03.QuestionA",
+          "code": "Y03.QuestionA",
+          "display": "Trata-se de corrimento uretral recorrente, sem melhora com tratamento de primeira linha?"
+        }
+      ],
+      "text": "Trata-se de corrimento uretral recorrente, sem melhora com tratamento de primeira linha?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y03.Question",
+            "code": "Y03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y04.Question",
+          "code": "Y04.Question",
+          "display": "Sinais/sintomas do pênis, outros"
+        }
+      ],
+      "text": "Sinais/sintomas do pênis, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y04.QuestionA",
+          "code": "Y04.QuestionA",
+          "display": "Apresenta alguma alteração em exame físico (curvatura do pênis acentuada sugerindo Doença de Peyronie ou alteração do prepúcio/suspeita de fimose em adulto?"
+        }
+      ],
+      "text": "Apresenta alguma alteração em exame físico (curvatura do pênis acentuada sugerindo Doença de Peyronie ou alteração do prepúcio/suspeita de fimose em adulto?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y04.Question",
+            "code": "Y04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y05.Question",
+          "code": "Y05.Question",
+          "display": "Sinais/sintomas do escroto/testículos, outros"
+        }
+      ],
+      "text": "Sinais/sintomas do escroto/testículos, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y05.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y05.QuestionA",
+          "code": "Y05.QuestionA",
+          "display": "Apresenta lesão/massa suspeita de neoplasia ou varicocele de alto grau sintomática/com infertilidade?"
+        }
+      ],
+      "text": "Apresenta lesão/massa suspeita de neoplasia ou varicocele de alto grau sintomática/com infertilidade?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y05.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y05.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y05.Question",
+            "code": "Y05.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y06.Question",
+          "code": "Y06.Question",
+          "display": "Sinais/sintomas da próstata"
+        }
+      ],
+      "text": "Sinais/sintomas da próstata",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y06.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y06.QuestionA",
+          "code": "Y06.QuestionA",
+          "display": "Apresenta sintomas como jato fraco/interrompido, gotejamento pós-miccional, sensação de envaziamento incompleto ou dificuldade para iniciar a micção sem melhora com tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Apresenta sintomas como jato fraco/interrompido, gotejamento pós-miccional, sensação de envaziamento incompleto ou dificuldade para iniciar a micção sem melhora com tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y06.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y06.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y06.Question",
+            "code": "Y06.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y07.Question",
+          "code": "Y07.Question",
+          "display": "Impotência NE"
+        }
+      ],
+      "text": "Impotência NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y07.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y07.QuestionA",
+          "code": "Y07.QuestionA",
+          "display": "O paciente apresenta deformidade peniana (ex.: Doença de Peyronie), disfunção erétil secundária a trauma/cirurgia pélvica prévia ou ausência de resposta ao tratamento farmacológico de primeira linha (ex.: inibidores da PDE5)?"
+        }
+      ],
+      "text": "O paciente apresenta deformidade peniana (ex.: Doença de Peyronie), disfunção erétil secundária a trauma/cirurgia pélvica prévia ou ausência de resposta ao tratamento farmacológico de primeira linha (ex.: inibidores da PDE5)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y07.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y07.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y07.Question",
+            "code": "Y07.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y10.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y10.Question",
+          "code": "Y10.Question",
+          "display": "Infertilidade/subfertildade masculina"
+        }
+      ],
+      "text": "Infertilidade/subfertildade masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y10.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y10"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y10.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y10.QuestionA",
+          "code": "Y10.QuestionA",
+          "display": "O paciente apresenta alteração grave no espermograma (ex.: azoospermia ou oligospermia severa), alteração no exame físico (ex.: varicocele grau III, orquialgia ou alteração testicular) ou histórico de criptorquidia/cirurgia urológica?"
+        }
+      ],
+      "text": "O paciente apresenta alteração grave no espermograma (ex.: azoospermia ou oligospermia severa), alteração no exame físico (ex.: varicocele grau III, orquialgia ou alteração testicular) ou histórico de criptorquidia/cirurgia urológica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y10.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y10.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y10.Question",
+            "code": "Y10.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y13.Question",
+          "code": "Y13.Question",
+          "display": "Esterilização masculina"
+        }
+      ],
+      "text": "Esterilização masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y13.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y13.QuestionA",
+          "code": "Y13.QuestionA",
+          "display": "Deseja discutir alguma complicação de cirurgia prévia de vasectomia?"
+        }
+      ],
+      "text": "Deseja discutir alguma complicação de cirurgia prévia de vasectomia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y13.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y13.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y13.Question",
+            "code": "Y13.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y14.Question",
+          "code": "Y14.Question",
+          "display": "Planejamento familiar, outros"
+        }
+      ],
+      "text": "Planejamento familiar, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y16.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y16.Question",
+          "code": "Y16.Question",
+          "display": "Sinais/sintomas da mama masculina"
+        }
+      ],
+      "text": "Sinais/sintomas da mama masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y16.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y16"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y16.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y16.QuestionA",
+          "code": "Y16.QuestionA",
+          "display": "paciente apresenta ginecomastia volumosa/dolorosa persistente com suspeita de indicação cirúrgica, nódulo palpável suspeito OU alteração hormonal/urológica associada?"
+        }
+      ],
+      "text": "paciente apresenta ginecomastia volumosa/dolorosa persistente com suspeita de indicação cirúrgica, nódulo palpável suspeito OU alteração hormonal/urológica associada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y16.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y16.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y16.Question",
+            "code": "Y16.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y24.Question",
+          "code": "Y24.Question",
+          "display": "Medo de disfunção sexual masculina"
+        }
+      ],
+      "text": "Medo de disfunção sexual masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y25.Question",
+          "code": "Y25.Question",
+          "display": "Medo de doença sexualmente transmissível"
+        }
+      ],
+      "text": "Medo de doença sexualmente transmissível",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y26.Question",
+          "code": "Y26.Question",
+          "display": "Medo de câncer genital masculino"
+        }
+      ],
+      "text": "Medo de câncer genital masculino",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y27.Question",
+          "code": "Y27.Question",
+          "display": "Medo de doença genital masculina, outra"
+        }
+      ],
+      "text": "Medo de doença genital masculina, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y70.Question",
+          "code": "Y70.Question",
+          "display": "Sífilis masculina"
+        }
+      ],
+      "text": "Sífilis masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y70.QuestionA",
+          "code": "Y70.QuestionA",
+          "display": "O paciente possui histórico de alergia à penicilina, alteração neurológica/oftalmológica, suspeita de neurossífilis, falha no tratamento anterior com VDRL em ascensão ou sorologia positiva para HIV?"
+        }
+      ],
+      "text": "O paciente possui histórico de alergia à penicilina, alteração neurológica/oftalmológica, suspeita de neurossífilis, falha no tratamento anterior com VDRL em ascensão ou sorologia positiva para HIV?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y70.Question",
+            "code": "Y70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y71.Question",
+          "code": "Y71.Question",
+          "display": "Gonorréia masculina"
+        }
+      ],
+      "text": "Gonorréia masculina",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y71.QuestionA",
+          "code": "Y71.QuestionA",
+          "display": "O paciente apresenta sintomas sistêmicos (como febre alta ou dor articular/lesões de pele), suspeita de resistência/falha ao tratamento com Ceftriaxona/Azitromicina, ou complicações locais como abscesso?"
+        }
+      ],
+      "text": "O paciente apresenta sintomas sistêmicos (como febre alta ou dor articular/lesões de pele), suspeita de resistência/falha ao tratamento com Ceftriaxona/Azitromicina, ou complicações locais como abscesso?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y71.Question",
+            "code": "Y71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y72.Question",
+          "code": "Y72.Question",
+          "display": "Herpes genital"
+        }
+      ],
+      "text": "Herpes genital",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y72.QuestionA",
+          "code": "Y72.QuestionA",
+          "display": "O paciente apresenta lesões de herpes recorrentes (4 ou mais episódios ao ano), lesões extensas/refratárias ao aciclovir, ou diagnóstico confirmado de HIV/imunossupressão?"
+        }
+      ],
+      "text": "O paciente apresenta lesões de herpes recorrentes (4 ou mais episódios ao ano), lesões extensas/refratárias ao aciclovir, ou diagnóstico confirmado de HIV/imunossupressão?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y72.Question",
+            "code": "Y72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y73.Question",
+          "code": "Y73.Question",
+          "display": "Prostatite/vesiculite seminal"
+        }
+      ],
+      "text": "Prostatite/vesiculite seminal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y73.QuestionA",
+          "code": "Y73.QuestionA",
+          "display": "O paciente apresenta retenção urinária, suspeita de abscesso prostático, PSA persistentemente alterado após o tratamento da infecção ou episódios de repetição/prostatite crônica?"
+        }
+      ],
+      "text": "O paciente apresenta retenção urinária, suspeita de abscesso prostático, PSA persistentemente alterado após o tratamento da infecção ou episódios de repetição/prostatite crônica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y73.Question",
+            "code": "Y73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y74.Question",
+          "code": "Y74.Question",
+          "display": "Orquite/epididimite"
+        }
+      ],
+      "text": "Orquite/epididimite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y74.QuestionA",
+          "code": "Y74.QuestionA",
+          "display": "O paciente apresenta dor testicular crônica, massa/nódulo testicular palpável, suspeita de abscesso escrotal ou falha ao tratamento antibiótico empírico?"
+        }
+      ],
+      "text": "O paciente apresenta dor testicular crônica, massa/nódulo testicular palpável, suspeita de abscesso escrotal ou falha ao tratamento antibiótico empírico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y74.Question",
+            "code": "Y74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y75.Question",
+          "code": "Y75.Question",
+          "display": "Balanite/ Balanopostite"
+        }
+      ],
+      "text": "Balanite/ Balanopostite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y75.QuestionA",
+          "code": "Y75.QuestionA",
+          "display": "O paciente apresenta fimose com impossibilidade de expor a glande, parafimose, lesões ulceradas/suspeitas de malignidade ou episódios recorrentes apesar da higiene e tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta fimose com impossibilidade de expor a glande, parafimose, lesões ulceradas/suspeitas de malignidade ou episódios recorrentes apesar da higiene e tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y75.Question",
+            "code": "Y75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y76.Question",
+          "code": "Y76.Question",
+          "display": "Condiloma acuminado"
+        }
+      ],
+      "text": "Condiloma acuminado",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y76.QuestionA",
+          "code": "Y76.QuestionA",
+          "display": "O paciente apresenta lesões de grande extensão, acometimento meatal/intrauretral, falha aos tratamentos tópicos convencionais ou necessidade de discussão sobre cirurgia?"
+        }
+      ],
+      "text": "O paciente apresenta lesões de grande extensão, acometimento meatal/intrauretral, falha aos tratamentos tópicos convencionais ou necessidade de discussão sobre cirurgia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y76.Question",
+            "code": "Y76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y77.Question",
+          "code": "Y77.Question",
+          "display": "Neoplasia maligna da próstata"
+        }
+      ],
+      "text": "Neoplasia maligna da próstata",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y77.QuestionA",
+          "code": "Y77.QuestionA",
+          "display": "Trata-se neoplasia maligna de próstata para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna de próstata para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - Duane Rodrigues Batista."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y77.Question",
+            "code": "Y77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y78.Question",
+          "code": "Y78.Question",
+          "display": "Neoplasia maligna genital masculina, outra"
+        }
+      ],
+      "text": "Neoplasia maligna genital masculina, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y78.QuestionA",
+          "code": "Y78.QuestionA",
+          "display": "Trata-se neoplasia maligna de genital masculino para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna de genital masculino para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - Duane Rodrigues Batista."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y78.Question",
+            "code": "Y78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y79.Question",
+          "code": "Y79.Question",
+          "display": "Neoplasia benigna genital masculina NE"
+        }
+      ],
+      "text": "Neoplasia benigna genital masculina NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y79.QuestionA",
+          "code": "Y79.QuestionA",
+          "display": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y79.Question",
+            "code": "Y79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y80.Question",
+          "code": "Y80.Question",
+          "display": "Traumatismo genital masculino, outro"
+        }
+      ],
+      "text": "Traumatismo genital masculino, outro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y80.QuestionA",
+          "code": "Y80.QuestionA",
+          "display": "O paciente apresenta lesão anatômica estrutural relevante (sequele de laceração complexa, fratura peniana cicatrizada/deformidade) ou disfunção persistente após a fase aguda do trauma?"
+        }
+      ],
+      "text": "O paciente apresenta lesão anatômica estrutural relevante (sequele de laceração complexa, fratura peniana cicatrizada/deformidade) ou disfunção persistente após a fase aguda do trauma?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y80.Question",
+            "code": "Y80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y81.Question",
+          "code": "Y81.Question",
+          "display": "Fimose/prepúcio redundante"
+        }
+      ],
+      "text": "Fimose/prepúcio redundante",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y81.QuestionA",
+          "code": "Y81.QuestionA",
+          "display": "O paciente apresenta fimose com impossibilidade de expor a glande ou episódios recorrentes de balanopostite apesar da higiene e tratamento prévio?"
+        }
+      ],
+      "text": "O paciente apresenta fimose com impossibilidade de expor a glande ou episódios recorrentes de balanopostite apesar da higiene e tratamento prévio?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y81.Question",
+            "code": "Y81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y82.Question",
+          "code": "Y82.Question",
+          "display": "Hipospádia"
+        }
+      ],
+      "text": "Hipospádia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y83.Question",
+          "code": "Y83.Question",
+          "display": "Testículo não descido/ Criptorquidia/ Testículo ectópico"
+        }
+      ],
+      "text": "Testículo não descido/ Criptorquidia/ Testículo ectópico",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y83.QuestionA",
+          "code": "Y83.QuestionA",
+          "display": "Trata-se de criptorquidia/testículo ectópico não palpável na bolsa testicular após os 6 meses de idade para discussão sobre indicação cirúrgica (orquidopexia)"
+        }
+      ],
+      "text": "Trata-se de criptorquidia/testículo ectópico não palpável na bolsa testicular após os 6 meses de idade para discussão sobre indicação cirúrgica (orquidopexia)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y83.Question",
+            "code": "Y83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y84.Question",
+          "code": "Y84.Question",
+          "display": "Malformação genital congénita masculina, outra"
+        }
+      ],
+      "text": "Malformação genital congénita masculina, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y84.QuestionA",
+          "code": "Y84.QuestionA",
+          "display": "A malformação acarreta alteração anatômica grave/complexa (como hipospadia, epispadia ou curvatura peniana acentuada) com discussão sobre necessidade de cirurgia ou conduta especializada?"
+        }
+      ],
+      "text": "A malformação acarreta alteração anatômica grave/complexa (como hipospadia, epispadia ou curvatura peniana acentuada) com discussão sobre necessidade de cirurgia ou conduta especializada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y84.Question",
+            "code": "Y84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y85.Question",
+          "code": "Y85.Question",
+          "display": "Hipertrofia benigna da próstata/ hiperplasia prostática benigna"
+        }
+      ],
+      "text": "Hipertrofia benigna da próstata/ hiperplasia prostática benigna",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y85.QuestionA",
+          "code": "Y85.QuestionA",
+          "display": "O paciente apresenta HPB sem melhora com tratamento clínico na unidade ou necessidade de onda vesical, ITU de repetição, hematuria persistente ou suspeita de malignidade (PSA alterado/toque retal suspeito)"
+        }
+      ],
+      "text": "O paciente apresenta HPB sem melhora com tratamento clínico na unidade ou necessidade de onda vesical, ITU de repetição, hematuria persistente ou suspeita de malignidade (PSA alterado/toque retal suspeito)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y85.Question",
+            "code": "Y85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y86.Question",
+          "code": "Y86.Question",
+          "display": "Hidrocele"
+        }
+      ],
+      "text": "Hidrocele",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y86.QuestionA",
+          "code": "Y86.QuestionA",
+          "display": "A hidrocele é volumosa, dolorosa, sintomática, com crescimento progressivo ou com suspeita de patologia subjacente (ex.: massa testicular associada) para avaliação de conduta cirúrgica?"
+        }
+      ],
+      "text": "A hidrocele é volumosa, dolorosa, sintomática, com crescimento progressivo ou com suspeita de patologia subjacente (ex.: massa testicular associada) para avaliação de conduta cirúrgica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y86.Question",
+            "code": "Y86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y99.Question",
+          "code": "Y99.Question",
+          "display": "Doença genital masculina, outra"
+        }
+      ],
+      "text": "Doença genital masculina, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "Y99"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "Y99.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/Y99.QuestionA",
+          "code": "Y99.QuestionA",
+          "display": "Trata-se de um quadro suspeito, sem confirmação diagnóstica, para discussão inicial?"
+        }
+      ],
+      "text": "Trata-se de um quadro suspeito, sem confirmação diagnóstica, para discussão inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/Y99.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "Y99.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/Y99.Question",
+            "code": "Y99.SIM"
+          }
+        }
+      ]
+    }
+  ]
+}

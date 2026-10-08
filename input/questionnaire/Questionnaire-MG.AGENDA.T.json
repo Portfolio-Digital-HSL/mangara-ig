@@ -2,7 +2,7 @@
   "resourceType": "Questionnaire",
   "id": "MG.AGENDA.T",
   "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.T",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "name": "MG_AGENDA_T",
   "title": "Mangará Agendamento - Capítulo T (Endócrino/Metabólico/Nutricional)",
   "status": "draft",
@@ -10,26 +10,31 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-02",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
-  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo T.",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo T. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
     {
       "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-      "valueMarkdown": "Lógica: a pergunta de triagem (TNN.Question) aparece conforme o CIAP informado. Se SIM, segue para TNN.QuestionA. Pergunta B só aparece se A = NÃO; C só se B = NÃO. Resposta SIM em uma pergunta complementar encerra a triagem do CIAP e define o profissional (CBO). Se todas as complementares forem NÃO, vale o DESFECHO FINAL descrito na designNote da pergunta de triagem. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO."
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto T.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
     }
   ],
   "item": [
     {
-      "linkId": "T.A1.CIAP.DE2",
-      "text": "Código CIAP do motivo da solicitação",
+      "linkId": "T.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
       "type": "choice",
       "required": true,
+      "readOnly": true,
       "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
       "extension": [
         {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Código CIAP-2 do motivo da solicitação (capítulo T). Define qual pergunta de triagem é exibida."
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo T. Ele controla qual bloco de triagem aparece."
         }
       ]
     },
@@ -49,12 +54,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T01.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -79,12 +84,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T02.SIM → segue para T02.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -109,7 +114,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T02.Question = T02.SIM. Se T02.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T02. Se T02.A.NAO → desfecho final do T02. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -139,12 +144,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T03.SIM → segue para T03.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -169,7 +174,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T03.Question = T03.SIM. Se T03.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T03. Se T03.A.NAO → desfecho final do T03. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -199,12 +204,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: <16 CIAP específico para criança e/ou adolescente. Se T04.SIM → segue para T04.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) PEDIATRIA — CBO 225124 MEDICO PEDIATRA; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) PEDIATRIA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -229,7 +234,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T04.Question = T04.SIM. Se T04.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T04. Se T04.A.NAO → desfecho final do T04. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -259,12 +264,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T05.SIM → segue para T05.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -289,7 +294,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T05.Question = T05.SIM. Se T05.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T05. Se T05.A.NAO → desfecho final do T05. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -319,12 +324,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T07.SIM → segue para T07.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -349,7 +354,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T07.Question = T07.SIM. Se T07.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T07. Se T07.A.NAO → desfecho final do T07. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -379,12 +384,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T08.SIM → segue para T08.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -409,7 +414,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T08.Question = T08.SIM. Se T08.A.SIM → agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Encerra a triagem do T08. Se T08.A.NAO → segue para T08.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -439,7 +444,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T08.QuestionA = T08.A.NAO. Se T08.B.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T08. Se T08.B.NAO → desfecho final do T08. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
@@ -469,12 +474,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: <16 CIAP específico para criança e/ou adolescente. Se T10.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) PEDIATRIA — CBO 225124 MEDICO PEDIATRA; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225124 MEDICO PEDIATRA; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -499,12 +504,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T11.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -529,12 +534,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T26.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -559,12 +564,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T27.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -589,12 +594,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T70.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) INFECTOLOGIA — CBO 225103 MEDICO INFECTOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -619,12 +624,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T71.SIM → segue para T71.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Observação: MFC - DUANE RODRIGUES BATISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -649,7 +654,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T71.Question = T71.SIM. Se T71.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T71. Se T71.A.NAO → segue para T71.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -679,7 +684,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T71.QuestionA = T71.A.NAO. Se T71.B.SIM → agendar com (1) FONOAUDIOLOGIA — CBO 223810 FONOAUDIOLOGO. Encerra a triagem do T71. Se T71.B.NAO → segue para T71.QuestionC. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
         }
       ],
       "enableWhen": [
@@ -699,17 +704,17 @@
         {
           "system": "https://mangara.org.br/fhir/CodeSystem/T71.QuestionC",
           "code": "T71.QuestionC",
-          "display": "Trata-se neoplasia maligna da tireoide sem proposta curativa para discussão sobre cuidados paliativos?"
+          "display": "Trata-se neoplasia maligna da tireoide para discussão sobre cuidados paliativos?"
         }
       ],
-      "text": "Trata-se neoplasia maligna da tireoide sem proposta curativa para discussão sobre cuidados paliativos?",
+      "text": "Trata-se neoplasia maligna da tireoide para discussão sobre cuidados paliativos?",
       "type": "choice",
       "required": true,
       "answerValueSet": "https://mangara.org.br/fhir/ValueSet/T71.QuestionC",
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T71.QuestionB = T71.B.NAO. Se T71.C.SIM → agendar com (1) CUIDADOS PALIATIVOS — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Profissional indicado (Observações): MFC - DUANE RODRIGUES BATISTA. Encerra a triagem do T71. Se T71.C.NAO → desfecho final do T71. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
         }
       ],
       "enableWhen": [
@@ -739,12 +744,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T72.SIM → segue para T72.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -769,7 +774,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T72.Question = T72.SIM. Se T72.A.SIM → agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T72. Se T72.A.NAO → desfecho final do T72. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
@@ -799,12 +804,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T73.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -829,12 +834,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T78.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -859,12 +864,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T80.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -889,12 +894,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T81.SIM → segue para T81.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -919,7 +924,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T81.Question = T81.SIM. Se T81.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T81. Se T81.A.NAO → desfecho final do T81. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
@@ -949,12 +954,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T82.SIM → segue para T82.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Observação: Se: (1) ENDOCRINOLOGIA ou (2) MEDICINA INTERNA ou (3) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO; (2) FISIOTERAPIA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -979,7 +984,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T82.Question = T82.SIM. Se T82.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T82. Se T82.A.NAO → segue para T82.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1009,7 +1014,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T82.QuestionA = T82.A.NAO. Se T82.B.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. Encerra a triagem do T82. Se T82.B.NAO → desfecho final do T82. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
@@ -1039,12 +1044,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T83.SIM → segue para T83.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO; (2) FISIOTERAPIA. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1069,7 +1074,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T83.Question = T83.SIM. Se T83.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T83. Se T83.A.NAO → desfecho final do T83. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1099,12 +1104,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T85.SIM → segue para T85.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA; (2) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA; CBO 225125 MEDICO CLINICO."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1129,7 +1134,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T85.Question = T85.SIM. Se T85.A.SIM → agendar com (1) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Encerra a triagem do T85. Se T85.A.NAO → desfecho final do T85. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
@@ -1159,12 +1164,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T86.SIM → segue para T86.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1189,7 +1194,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T86.Question = T86.SIM. Se T86.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T86. Se T86.A.NAO → desfecho final do T86. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
@@ -1219,12 +1224,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T87.SIM → segue para T87.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1249,7 +1254,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T87.Question = T87.SIM. Se T87.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T87. Se T87.A.NAO → segue para T87.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
@@ -1279,7 +1284,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T87.QuestionA = T87.A.NAO. Se T87.B.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T87. Se T87.B.NAO → desfecho final do T87. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1309,12 +1314,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T89.SIM → segue para T89.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) ENDOCRINOLOGIA ou (2) MEDICINA INTERNA ou (3) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1339,7 +1344,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T89.Question = T89.SIM. Se T89.A.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T89. Se T89.A.NAO → segue para T89.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
@@ -1369,7 +1374,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T89.QuestionA = T89.A.NAO. Se T89.B.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T89. Se T89.B.NAO → desfecho final do T89. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1399,12 +1404,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T90.SIM → segue para T90.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1429,7 +1434,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T90.Question = T90.SIM. Se T90.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T90. Se T90.A.NAO → desfecho final do T90. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1459,12 +1464,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T91.SIM → segue para T91.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1489,7 +1494,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T91.Question = T91.SIM. Se T91.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T91. Se T91.A.NAO → segue para T91.QuestionB. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1519,7 +1524,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T91.QuestionA = T91.A.NAO. Se T91.B.SIM → agendar com (1) ENDOCRINOLOGIA — CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA. Encerra a triagem do T91. Se T91.B.NAO → desfecho final do T91. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225155 MEDICO ENDOCRINOLOGISTA E METABOLOGISTA."
         }
       ],
       "enableWhen": [
@@ -1549,12 +1554,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T92.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1579,12 +1584,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T93.SIM → segue para T93.QuestionA. DESFECHO FINAL (todas as perguntas complementares = NÃO): agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Observação: Se: (1) MEDICINA INTERNA ou (2) MFC -> sinalizar CUIDADO INTEGRADO com (1) NUTRIÇÃO. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
@@ -1609,7 +1614,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Exibir se T93.Question = T93.SIM. Se T93.A.SIM → agendar com (1) NUTRIÇÃO — CBO 223710 NUTRICIONISTA. Encerra a triagem do T93. Se T93.A.NAO → desfecho final do T93. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
         }
       ],
       "enableWhen": [
@@ -1639,12 +1644,12 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Idade: >16. Se T99.SIM → desfecho final abaixo. DESFECHO FINAL: agendar com (1) MEDICINA INTERNA — CBO 225125 MEDICO CLINICO; (2) MFC — CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. Alerta: Alerta de quadro com potencial para urgência/emergência para tratativa pertinente. CBO: https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO"
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
         }
       ],
       "enableWhen": [
         {
-          "question": "T.A1.CIAP.DE2",
+          "question": "T.CIAP",
           "operator": "=",
           "answerCoding": {
             "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",

@@ -1,0 +1,1902 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.R",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.R",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_R",
+  "title": "Mangará Agendamento - Capítulo R (Respiratório)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo R. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto R.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "R.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo R. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "R01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R01.Question",
+          "code": "R01.Question",
+          "display": "Dor atribuída ao aparelho respiratório"
+        }
+      ],
+      "text": "Dor atribuída ao aparelho respiratório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R02.Question",
+          "code": "R02.Question",
+          "display": "Dificuldade respiratória, dispneia"
+        }
+      ],
+      "text": "Dificuldade respiratória, dispneia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R02.QuestionA",
+          "code": "R02.QuestionA",
+          "display": "Trata-se de dispneia já avaliada com necessidade principal de reabilitação cardiopulmonar?"
+        }
+      ],
+      "text": "Trata-se de dispneia já avaliada com necessidade principal de reabilitação cardiopulmonar?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R02.Question",
+            "code": "R02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R04.Question",
+          "code": "R04.Question",
+          "display": "Outros problemas respiratórios"
+        }
+      ],
+      "text": "Outros problemas respiratórios",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R04.QuestionA",
+          "code": "R04.QuestionA",
+          "display": "Trata-se de outro problema respiratório já avaliado, com necessidade principal de reabilitação cardiopulmonar?"
+        }
+      ],
+      "text": "Trata-se de outro problema respiratório já avaliado, com necessidade principal de reabilitação cardiopulmonar?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R04.Question",
+            "code": "R04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R05.Question",
+          "code": "R05.Question",
+          "display": "Tosse"
+        }
+      ],
+      "text": "Tosse",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R06.Question",
+          "code": "R06.Question",
+          "display": "Hemorragia nasal/epistaxe"
+        }
+      ],
+      "text": "Hemorragia nasal/epistaxe",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R07.Question",
+          "code": "R07.Question",
+          "display": "Espirro/congestão nasal"
+        }
+      ],
+      "text": "Espirro/congestão nasal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R08.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R08.Question",
+          "code": "R08.Question",
+          "display": "Outros sinais/sintomas nasais"
+        }
+      ],
+      "text": "Outros sinais/sintomas nasais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R08.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R08"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R09.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R09.Question",
+          "code": "R09.Question",
+          "display": "Sinais/sintomas dos seios paranasais"
+        }
+      ],
+      "text": "Sinais/sintomas dos seios paranasais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R09.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R09"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R21.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R21.Question",
+          "code": "R21.Question",
+          "display": "Sinais/sintomas da garganta"
+        }
+      ],
+      "text": "Sinais/sintomas da garganta",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R21.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R21"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R23.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R23.Question",
+          "code": "R23.Question",
+          "display": "Sinais/sintomas da voz"
+        }
+      ],
+      "text": "Sinais/sintomas da voz",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R23.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R23"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R23.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R23.QuestionA",
+          "code": "R23.QuestionA",
+          "display": "Apresenta disfonia, rouquidão, fadiga vocal, voz soprosa/áspera, com necessidade de reabilitação vocal?"
+        }
+      ],
+      "text": "Apresenta disfonia, rouquidão, fadiga vocal, voz soprosa/áspera, com necessidade de reabilitação vocal?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R23.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R23.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R23.Question",
+            "code": "R23.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R24.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R24.Question",
+          "code": "R24.Question",
+          "display": "Hemoptise"
+        }
+      ],
+      "text": "Hemoptise",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R24.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R24"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R25.Question",
+          "code": "R25.Question",
+          "display": "Expectoração/mucosidade anormal"
+        }
+      ],
+      "text": "Expectoração/mucosidade anormal",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R26.Question",
+          "code": "R26.Question",
+          "display": "Medo de câncer do aparelho respiratório"
+        }
+      ],
+      "text": "Medo de câncer do aparelho respiratório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R27.Question",
+          "code": "R27.Question",
+          "display": "Medo de outras doenças respiratórias"
+        }
+      ],
+      "text": "Medo de outras doenças respiratórias",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R29.Question",
+          "code": "R29.Question",
+          "display": "Sinais/sintomas do aparelho respiratório, outros"
+        }
+      ],
+      "text": "Sinais/sintomas do aparelho respiratório, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R29.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R29.QuestionA",
+          "code": "R29.QuestionA",
+          "display": "Trata-se de sinal/sintoma respiratório já avaliado, com necessidade principal de reabilitação cardiopulmonar?"
+        }
+      ],
+      "text": "Trata-se de sinal/sintoma respiratório já avaliado, com necessidade principal de reabilitação cardiopulmonar?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R29.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R29.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R29.Question",
+            "code": "R29.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R71.Question",
+          "code": "R71.Question",
+          "display": "Tosse convulsa/ pertussis"
+        }
+      ],
+      "text": "Tosse convulsa/ pertussis",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R72.Question",
+          "code": "R72.Question",
+          "display": "Infecção estreptocócica da orofaringe"
+        }
+      ],
+      "text": "Infecção estreptocócica da orofaringe",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R72.QuestionA",
+          "code": "R72.QuestionA",
+          "display": "Infecção estreptocócica da orofarínge suspeita ou confirmada, ainda sem tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Infecção estreptocócica da orofarínge suspeita ou confirmada, ainda sem tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R72.Question",
+            "code": "R72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R73.Question",
+          "code": "R73.Question",
+          "display": "Abcesso/furúnculo no nariz"
+        }
+      ],
+      "text": "Abcesso/furúnculo no nariz",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R73.QuestionA",
+          "code": "R73.QuestionA",
+          "display": "Abcesso/furúnculo no nariz suspeito ou confirmado, ainda sem tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Abcesso/furúnculo no nariz suspeito ou confirmado, ainda sem tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R73.Question",
+            "code": "R73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R74.Question",
+          "code": "R74.Question",
+          "display": "Infecção aguda do aparelho respiratório superior (IVAS)"
+        }
+      ],
+      "text": "Infecção aguda do aparelho respiratório superior (IVAS)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R74.QuestionA",
+          "code": "R74.QuestionA",
+          "display": "Paciente apresenta imunossupressão grave (ex.: neutropenia febril, HIV com CD4 baixo, transplantado) ou sintomas refratários/atípicos persistentes por mais de 14 dias sem resposta aos tratamentos sintomáticos habituais?"
+        }
+      ],
+      "text": "Paciente apresenta imunossupressão grave (ex.: neutropenia febril, HIV com CD4 baixo, transplantado) ou sintomas refratários/atípicos persistentes por mais de 14 dias sem resposta aos tratamentos sintomáticos habituais?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R74.Question",
+            "code": "R74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R75.Question",
+          "code": "R75.Question",
+          "display": "Sinusite crónica/aguda"
+        }
+      ],
+      "text": "Sinusite crónica/aguda",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R75.QuestionA",
+          "code": "R75.QuestionA",
+          "display": "Paciente apresenta histórico de múltiplos ciclos de antibioticoterapia sem melhora, suspeita de infecção fúngica/atípica ou antecedente de cirurgia prévia nasossinusal/imunossupressão?"
+        }
+      ],
+      "text": "Paciente apresenta histórico de múltiplos ciclos de antibioticoterapia sem melhora, suspeita de infecção fúngica/atípica ou antecedente de cirurgia prévia nasossinusal/imunossupressão?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R75.Question",
+            "code": "R75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R76.Question",
+          "code": "R76.Question",
+          "display": "Amigdalite aguda"
+        }
+      ],
+      "text": "Amigdalite aguda",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R76.QuestionA",
+          "code": "R76.QuestionA",
+          "display": "Paciente apresenta histórico de amigdalites de repetição com falha a múltiplos esquemas antibióticos padronizados, suspeita de etiologia atípica/incomum ou complicação supurativa prévia (ex.: abscesso periamigdaliano já drenado)?"
+        }
+      ],
+      "text": "Paciente apresenta histórico de amigdalites de repetição com falha a múltiplos esquemas antibióticos padronizados, suspeita de etiologia atípica/incomum ou complicação supurativa prévia (ex.: abscesso periamigdaliano já drenado)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R76.Question",
+            "code": "R76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R77.Question",
+          "code": "R77.Question",
+          "display": "Laringite/traqueíte aguda"
+        }
+      ],
+      "text": "Laringite/traqueíte aguda",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R77.QuestionA",
+          "code": "R77.QuestionA",
+          "display": "Paciente apresenta disfonia/rouquidão persistente por mais de 3 semanas, febre prolongada não esclarecida ou histórico de imunocomprometimento/exposição a patógenos oportunistas?"
+        }
+      ],
+      "text": "Paciente apresenta disfonia/rouquidão persistente por mais de 3 semanas, febre prolongada não esclarecida ou histórico de imunocomprometimento/exposição a patógenos oportunistas?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R77.Question",
+            "code": "R77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R78.Question",
+          "code": "R78.Question",
+          "display": "Bronquite/bronquiolite aguda"
+        }
+      ],
+      "text": "Bronquite/bronquiolite aguda",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R78.QuestionA",
+          "code": "R78.QuestionA",
+          "display": "Paciente é portador de imunodeficiência grave, doença pulmonar estrutural avançada (ex.: fibrose cística, bronquiectasias) ou apresenta evolução desfavorável após tratamento empírico adequado?"
+        }
+      ],
+      "text": "Paciente é portador de imunodeficiência grave, doença pulmonar estrutural avançada (ex.: fibrose cística, bronquiectasias) ou apresenta evolução desfavorável após tratamento empírico adequado?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R78.Question",
+            "code": "R78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R79.Question",
+          "code": "R79.Question",
+          "display": "Bronquite crônica"
+        }
+      ],
+      "text": "Bronquite crônica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R79.QuestionA",
+          "code": "R79.QuestionA",
+          "display": "Paciente possui isolamento prévio de bactérias multirresistentes em escarro (ex.: Pseudomonas aeruginosa), uso frequente de corticoides sistêmicos/antibióticos de amplo espectro no último ano ou imunossupressão associada?"
+        }
+      ],
+      "text": "Paciente possui isolamento prévio de bactérias multirresistentes em escarro (ex.: Pseudomonas aeruginosa), uso frequente de corticoides sistêmicos/antibióticos de amplo espectro no último ano ou imunossupressão associada?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R79.Question",
+            "code": "R79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R80.Question",
+          "code": "R80.Question",
+          "display": "Gripe"
+        }
+      ],
+      "text": "Gripe",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R80.QuestionA",
+          "code": "R80.QuestionA",
+          "display": "Paciente pertence a grupo de altíssima complexidade (ex.: transplantado, em quimioterapia, uso de imunobiológicos) ou apresenta sintomas persistentes/múltiplos episódios?"
+        }
+      ],
+      "text": "Paciente pertence a grupo de altíssima complexidade (ex.: transplantado, em quimioterapia, uso de imunobiológicos) ou apresenta sintomas persistentes/múltiplos episódios?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R80.Question",
+            "code": "R80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R81.Question",
+          "code": "R81.Question",
+          "display": "Pneumonia"
+        }
+      ],
+      "text": "Pneumonia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R81.QuestionA",
+          "code": "R81.QuestionA",
+          "display": "Paciente apresentou falha terapêutica após esquema antibiótico ambulatorial adequado, possui antecedente de internação hospitalar recente (< 90 dias) ou suspeita de infecção por patógenos oportunistas/multirresistentes?"
+        }
+      ],
+      "text": "Paciente apresentou falha terapêutica após esquema antibiótico ambulatorial adequado, possui antecedente de internação hospitalar recente (< 90 dias) ou suspeita de infecção por patógenos oportunistas/multirresistentes?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R81.Question",
+            "code": "R81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R82.Question",
+          "code": "R82.Question",
+          "display": "Pleurite/derrame pleural"
+        }
+      ],
+      "text": "Pleurite/derrame pleural",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R83.Question",
+          "code": "R83.Question",
+          "display": "Outra infecção respiratória"
+        }
+      ],
+      "text": "Outra infecção respiratória",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R83.QuestionA",
+          "code": "R83.QuestionA",
+          "display": "Paciente imunocomprometido ou infecção por germes atípicos/multirresistentes ou falha de tratamento empírico inicial?"
+        }
+      ],
+      "text": "Paciente imunocomprometido ou infecção por germes atípicos/multirresistentes ou falha de tratamento empírico inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R83.Question",
+            "code": "R83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R84.Question",
+          "code": "R84.Question",
+          "display": "Neoplasia maligna dos brônquios/pulmão"
+        }
+      ],
+      "text": "Neoplasia maligna dos brônquios/pulmão",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R84.QuestionA",
+          "code": "R84.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R84.Question",
+            "code": "R84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R84.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R84.QuestionB",
+          "code": "R84.QuestionB",
+          "display": "Trata-se neoplasia maligna dos brônquios/pulmões para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna dos brônquios/pulmões para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R84.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R84.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R84.QuestionA",
+            "code": "R84.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R85.Question",
+          "code": "R85.Question",
+          "display": "Outra neoplasia respiratória maligna"
+        }
+      ],
+      "text": "Outra neoplasia respiratória maligna",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R85.QuestionA",
+          "code": "R85.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R85.Question",
+            "code": "R85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R85.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R85.QuestionB",
+          "code": "R85.QuestionB",
+          "display": "Trata-se neoplasia maligna do aparelho respiratório para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do aparelho respiratório para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R85.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R85.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R85.QuestionA",
+            "code": "R85.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R86.Question",
+          "code": "R86.Question",
+          "display": "Neoplasia benigna respiratória"
+        }
+      ],
+      "text": "Neoplasia benigna respiratória",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R86.QuestionA",
+          "code": "R86.QuestionA",
+          "display": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R86.Question",
+            "code": "R86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R88.Question",
+          "code": "R88.Question",
+          "display": "Outra lesão respiratória"
+        }
+      ],
+      "text": "Outra lesão respiratória",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R89.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R89.Question",
+          "code": "R89.Question",
+          "display": "Malformação congénita do aparelho respiratório"
+        }
+      ],
+      "text": "Malformação congénita do aparelho respiratório",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R89.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R89"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R90.Question",
+          "code": "R90.Question",
+          "display": "Hipertrofia das amígdalas/adenóides"
+        }
+      ],
+      "text": "Hipertrofia das amígdalas/adenóides",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R92.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R92.Question",
+          "code": "R92.Question",
+          "display": "Neoplasia respiratória NE"
+        }
+      ],
+      "text": "Neoplasia respiratória NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R92.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R92"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R95.Question",
+          "code": "R95.Question",
+          "display": "Doença pulmonar obstrutiva crónica"
+        }
+      ],
+      "text": "Doença pulmonar obstrutiva crónica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R95.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R95.QuestionA",
+          "code": "R95.QuestionA",
+          "display": "Trata-se de quadro ainda suspeito, apoio na avaliação inicial, interpretação de prova de função pulmonar e início de tratamento?"
+        }
+      ],
+      "text": "Trata-se de quadro ainda suspeito, apoio na avaliação inicial, interpretação de prova de função pulmonar e início de tratamento?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R95.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R95.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R95.Question",
+            "code": "R95.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R96.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R96.Question",
+          "code": "R96.Question",
+          "display": "Asma"
+        }
+      ],
+      "text": "Asma",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R96.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R96"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R96.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R96.QuestionA",
+          "code": "R96.QuestionA",
+          "display": "Trata-se de quadro ainda suspeito, apoio na avaliação inicial, interpretação de prova de função pulmonar e início de tratamento?"
+        }
+      ],
+      "text": "Trata-se de quadro ainda suspeito, apoio na avaliação inicial, interpretação de prova de função pulmonar e início de tratamento?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R96.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R96.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/R96.Question",
+            "code": "R96.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R97.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R97.Question",
+          "code": "R97.Question",
+          "display": "Rinite alérgica"
+        }
+      ],
+      "text": "Rinite alérgica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R97.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R97"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R98.Question",
+          "code": "R98.Question",
+          "display": "Síndrome de hiperventilação"
+        }
+      ],
+      "text": "Síndrome de hiperventilação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "R99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/R99.Question",
+          "code": "R99.Question",
+          "display": "Outras doenças respiratórias"
+        }
+      ],
+      "text": "Outras doenças respiratórias",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/R99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "R.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "R99"
+          }
+        }
+      ]
+    }
+  ]
+}

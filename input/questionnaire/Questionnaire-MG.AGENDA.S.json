@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo S. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
@@ -1784,10 +1784,10 @@
         {
           "system": "https://mangara.org.br/fhir/CodeSystem/S77.QuestionA",
           "code": "S77.QuestionA",
-          "display": "Trata-se neoplasia maligna (melanoma) para discussão sobre cuidados paliativos?"
+          "display": "Trata-se neoplasia maligna da pele para discussão sobre cuidados paliativos?"
         }
       ],
-      "text": "Trata-se neoplasia maligna (melanoma) para discussão sobre cuidados paliativos?",
+      "text": "Trata-se neoplasia maligna da pele para discussão sobre cuidados paliativos?",
       "type": "choice",
       "required": true,
       "answerValueSet": "https://mangara.org.br/fhir/ValueSet/S77.QuestionA",

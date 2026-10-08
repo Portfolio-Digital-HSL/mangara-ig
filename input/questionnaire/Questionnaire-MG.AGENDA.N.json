@@ -10,7 +10,7 @@
   "subjectType": [
     "Patient"
   ],
-  "date": "2026-10-06",
+  "date": "2026-10-07",
   "publisher": "Hospital Sírio-Libanês - Programa Mangará",
   "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo N. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
   "extension": [
@@ -594,7 +594,7 @@
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
         }
       ],
       "enableWhen": [
@@ -614,10 +614,10 @@
         {
           "system": "https://mangara.org.br/fhir/CodeSystem/N19.QuestionA",
           "code": "N19.QuestionA",
-          "display": "A alteração de fala já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?"
+          "display": "Alteração de fala já avaliada com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?"
         }
       ],
-      "text": "A alteração de fala já avaliado com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?",
+      "text": "Alteração de fala já avaliada com necessidade principal de reabilização de linguagem/comunicação com fonoaudiologia?",
       "type": "choice",
       "required": true,
       "answerValueSet": "https://mangara.org.br/fhir/ValueSet/N19.QuestionA",

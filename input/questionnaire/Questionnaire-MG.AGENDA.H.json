@@ -1,0 +1,1092 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.H",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.H",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_H",
+  "title": "Mangará Agendamento - Capítulo H (Ouvido)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo H. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto H.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "H.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo H. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "H01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H01.Question",
+          "code": "H01.Question",
+          "display": "Dor de ouvidos"
+        }
+      ],
+      "text": "Dor de ouvidos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H02.Question",
+          "code": "H02.Question",
+          "display": "Problemas de audição"
+        }
+      ],
+      "text": "Problemas de audição",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H02.QuestionA",
+          "code": "H02.QuestionA",
+          "display": "Trata-se de Problema de Audição avaliado com necessidade principal de orientação com fonoaudiologia ou intepretação de audiometria?"
+        }
+      ],
+      "text": "Trata-se de Problema de Audição avaliado com necessidade principal de orientação com fonoaudiologia ou intepretação de audiometria?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H02.Question",
+            "code": "H02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H02.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H02.QuestionB",
+          "code": "H02.QuestionB",
+          "display": "Houve perda auditiva súbita no passado, tontura/vertigem associada, ou alteração neurológica focal?"
+        }
+      ],
+      "text": "Houve perda auditiva súbita no passado, tontura/vertigem associada, ou alteração neurológica focal?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H02.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H02.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H02.QuestionA",
+            "code": "H02.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H03.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H03.Question",
+          "code": "H03.Question",
+          "display": "Acufeno, zumbidos, ruído, assobios"
+        }
+      ],
+      "text": "Acufeno, zumbidos, ruído, assobios",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H03.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H03"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H03.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H03.QuestionA",
+          "code": "H03.QuestionA",
+          "display": "Trata-se de zumbido avaliado, com necessidade de avaliação do impacto do zumbido na audição, terapia de habituação, mascaramento ou reabilitação auditiva?"
+        }
+      ],
+      "text": "Trata-se de zumbido avaliado, com necessidade de avaliação do impacto do zumbido na audição, terapia de habituação, mascaramento ou reabilitação auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H03.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H03.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H03.Question",
+            "code": "H03.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H03.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H03.QuestionB",
+          "code": "H03.QuestionB",
+          "display": "O zumbido é unilateral persistente, associado a sintomas neurológicos crônicos (ex.: cefaleia contínua, alterações de pares cranianos, tontura) ou investigação de causa central?"
+        }
+      ],
+      "text": "O zumbido é unilateral persistente, associado a sintomas neurológicos crônicos (ex.: cefaleia contínua, alterações de pares cranianos, tontura) ou investigação de causa central?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H03.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H03.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H03.QuestionA",
+            "code": "H03.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H04.Question",
+          "code": "H04.Question",
+          "display": "Secreção no ouvido"
+        }
+      ],
+      "text": "Secreção no ouvido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H13.Question",
+          "code": "H13.Question",
+          "display": "Sensação de ouvido tapado"
+        }
+      ],
+      "text": "Sensação de ouvido tapado",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H15.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H15.Question",
+          "code": "H15.Question",
+          "display": "Preocupação com a aparência das orelhas"
+        }
+      ],
+      "text": "Preocupação com a aparência das orelhas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H15.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H15"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H27.Question",
+          "code": "H27.Question",
+          "display": "Medo de doença do ouvido"
+        }
+      ],
+      "text": "Medo de doença do ouvido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H29.Question",
+          "code": "H29.Question",
+          "display": "Outros sinais/sintomas ouvido"
+        }
+      ],
+      "text": "Outros sinais/sintomas ouvido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H70.Question",
+          "code": "H70.Question",
+          "display": "Otite externa"
+        }
+      ],
+      "text": "Otite externa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H71.Question",
+          "code": "H71.Question",
+          "display": "Otite media aguda/miringite"
+        }
+      ],
+      "text": "Otite media aguda/miringite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H71.QuestionA",
+          "code": "H71.QuestionA",
+          "display": "O paciente apresenta episódios recorrentes de otite média aguda (ex.: 3 ou mais episódios em 6 meses), falha terapêutica a múltiplos esquemas antibióticos, ou suspeita de patógeno resistente/infecção por germe atípico?"
+        }
+      ],
+      "text": "O paciente apresenta episódios recorrentes de otite média aguda (ex.: 3 ou mais episódios em 6 meses), falha terapêutica a múltiplos esquemas antibióticos, ou suspeita de patógeno resistente/infecção por germe atípico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H71.Question",
+            "code": "H71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H72.Question",
+          "code": "H72.Question",
+          "display": "Otite média serosa"
+        }
+      ],
+      "text": "Otite média serosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H72.QuestionA",
+          "code": "H72.QuestionA",
+          "display": "O paciente apresenta efusão persistente em orelha média por mais de 3 meses, com queixa de hipoacusia ou necessidade de avaliação/reabilitação auditiva?"
+        }
+      ],
+      "text": "O paciente apresenta efusão persistente em orelha média por mais de 3 meses, com queixa de hipoacusia ou necessidade de avaliação/reabilitação auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H72.Question",
+            "code": "H72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H73.Question",
+          "code": "H73.Question",
+          "display": "Infecção da Trompa de Eustáquio"
+        }
+      ],
+      "text": "Infecção da Trompa de Eustáquio",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H73.QuestionA",
+          "code": "H73.QuestionA",
+          "display": "O paciente mantém disfunção tubária crônica associada à sensação persistente de plenitude auricular/hipoacusia com queixas de processamento/percepção auditiva?"
+        }
+      ],
+      "text": "O paciente mantém disfunção tubária crônica associada à sensação persistente de plenitude auricular/hipoacusia com queixas de processamento/percepção auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H73.Question",
+            "code": "H73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H74.Question",
+          "code": "H74.Question",
+          "display": "Otite media crónica"
+        }
+      ],
+      "text": "Otite media crónica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H74.QuestionA",
+          "code": "H74.QuestionA",
+          "display": "O paciente apresenta otorreia persistente com falha terapêutica a múltiplos esquemas antibióticos, ou suspeita de patógeno resistente/infecção por germe atípico?"
+        }
+      ],
+      "text": "O paciente apresenta otorreia persistente com falha terapêutica a múltiplos esquemas antibióticos, ou suspeita de patógeno resistente/infecção por germe atípico?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H74.Question",
+            "code": "H74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H75.Question",
+          "code": "H75.Question",
+          "display": "Neoplasia do ouvido"
+        }
+      ],
+      "text": "Neoplasia do ouvido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H80.Question",
+          "code": "H80.Question",
+          "display": "Malformações congênitas do ouvido"
+        }
+      ],
+      "text": "Malformações congênitas do ouvido",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H81.Question",
+          "code": "H81.Question",
+          "display": "Cerúmen no ouvido em excesso"
+        }
+      ],
+      "text": "Cerúmen no ouvido em excesso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H82.Question",
+          "code": "H82.Question",
+          "display": "Síndrome vertiginosa"
+        }
+      ],
+      "text": "Síndrome vertiginosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225112 MEDICO NEUROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H82.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H82.QuestionA",
+          "code": "H82.QuestionA",
+          "display": "Trata-se de investigação inicial de vertigem ainda sem tentativa de tratamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de investigação inicial de vertigem ainda sem tentativa de tratamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H82.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H82.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H82.Question",
+            "code": "H82.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H83.Question",
+          "code": "H83.Question",
+          "display": "Otoesclerose"
+        }
+      ],
+      "text": "Otoesclerose",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H83.QuestionA",
+          "code": "H83.QuestionA",
+          "display": "Trata-se de Otoesclerose já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?"
+        }
+      ],
+      "text": "Trata-se de Otoesclerose já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H83.Question",
+            "code": "H83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H84.Question",
+          "code": "H84.Question",
+          "display": "Presbiacusia"
+        }
+      ],
+      "text": "Presbiacusia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H84.QuestionA",
+          "code": "H84.QuestionA",
+          "display": "Trata-se de Presbiacusia já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?"
+        }
+      ],
+      "text": "Trata-se de Presbiacusia já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H84.Question",
+            "code": "H84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H85.Question",
+          "code": "H85.Question",
+          "display": "Lesão acústica"
+        }
+      ],
+      "text": "Lesão acústica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H85.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H85.QuestionA",
+          "code": "H85.QuestionA",
+          "display": "Trata-se de Lesão Acústica já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?"
+        }
+      ],
+      "text": "Trata-se de Lesão Acústica já avaliada, com necessidade de avaliação do impacto na audição e reabilitação auditiva?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H85.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H85.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H85.Question",
+            "code": "H85.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H86.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H86.Question",
+          "code": "H86.Question",
+          "display": "Surdez"
+        }
+      ],
+      "text": "Surdez",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H86.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H86"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H86.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H86.QuestionA",
+          "code": "H86.QuestionA",
+          "display": "Trata-se de Surdez há avaliada, com necessidade principal de orientação com fonoaudiologia sobre adaptação de linguagem ou intepretação de audiometria de seguimento?"
+        }
+      ],
+      "text": "Trata-se de Surdez há avaliada, com necessidade principal de orientação com fonoaudiologia sobre adaptação de linguagem ou intepretação de audiometria de seguimento?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H86.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223810 FONOAUDIOLOGO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H86.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/H86.Question",
+            "code": "H86.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "H99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/H99.Question",
+          "code": "H99.Question",
+          "display": "Outra doença do ouvido/mastóide"
+        }
+      ],
+      "text": "Outra doença do ouvido/mastóide",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/H99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "H.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "H99"
+          }
+        }
+      ]
+    }
+  ]
+}

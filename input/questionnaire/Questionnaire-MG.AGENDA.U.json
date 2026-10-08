@@ -1,0 +1,1512 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.U",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.U",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_U",
+  "title": "Mangará Agendamento - Capítulo U (Urinário)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo U. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto U.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "U.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo U. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "U01.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U01.Question",
+          "code": "U01.Question",
+          "display": "Disúria/micção dolorosa"
+        }
+      ],
+      "text": "Disúria/micção dolorosa",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U01.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U01"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U01.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U01.QuestionA",
+          "code": "U01.QuestionA",
+          "display": "Trata-se de disúria recorrente associada a Atrofia Vaginal/Vaginite atrófica, Prolapso de Órgãos Pélvicos, irritação vulvar crônica ou outra condição ginecológica?"
+        }
+      ],
+      "text": "Trata-se de disúria recorrente associada a Atrofia Vaginal/Vaginite atrófica, Prolapso de Órgãos Pélvicos, irritação vulvar crônica ou outra condição ginecológica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U01.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U01.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U01.Question",
+            "code": "U01.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U01.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U01.QuestionB",
+          "code": "U01.QuestionB",
+          "display": "Trata-se de disúria crônica/recorrente por Hiperplasia Prostática Benigna (HPB), Estenose de Uretra, cálculo renal, bexiga neurogênica, prostatite crônica ou suspeita de neoplasia urológica (bexiga, próstata, uretra)?"
+        }
+      ],
+      "text": "Trata-se de disúria crônica/recorrente por Hiperplasia Prostática Benigna (HPB), Estenose de Uretra, cálculo renal, bexiga neurogênica, prostatite crônica ou suspeita de neoplasia urológica (bexiga, próstata, uretra)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U01.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U01.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U01.QuestionA",
+            "code": "U01.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U02.Question",
+          "code": "U02.Question",
+          "display": "Micção frequente/urgência urinária/ polaciúria"
+        }
+      ],
+      "text": "Micção frequente/urgência urinária/ polaciúria",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U02.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U02.QuestionA",
+          "code": "U02.QuestionA",
+          "display": "Trata-se de micção frequente/polaciúria secundária a prolapso de orgão pélvica ou outra condição ginecológica sem melhora com tratamento realizado na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de micção frequente/polaciúria secundária a prolapso de orgão pélvica ou outra condição ginecológica sem melhora com tratamento realizado na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U02.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U02.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U02.Question",
+            "code": "U02.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U02.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U02.QuestionB",
+          "code": "U02.QuestionB",
+          "display": "Trata-se de micção frequente/polaciúria secundária a doença de próstata sem melhora com tratamento realizado na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de micção frequente/polaciúria secundária a doença de próstata sem melhora com tratamento realizado na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U02.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U02.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U02.QuestionA",
+            "code": "U02.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U04.Question",
+          "code": "U04.Question",
+          "display": "Incontinência urinária"
+        }
+      ],
+      "text": "Incontinência urinária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U04.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U04.QuestionA",
+          "code": "U04.QuestionA",
+          "display": "Trata-se de incontinência urinária secundária a prolapso de orgão pélvico ou outra condição ginecológica sem melhora com tratamento realizado na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de incontinência urinária secundária a prolapso de orgão pélvico ou outra condição ginecológica sem melhora com tratamento realizado na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U04.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U04.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U04.Question",
+            "code": "U04.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U04.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U04.QuestionB",
+          "code": "U04.QuestionB",
+          "display": "Trata-se de incontinência urinária secundária a doença de próstata ou pós-operatório de cirurgia urológica sem melhora com tratamento realizado na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de incontinência urinária secundária a doença de próstata ou pós-operatório de cirurgia urológica sem melhora com tratamento realizado na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U04.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U04.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U04.QuestionA",
+            "code": "U04.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U04.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U04.QuestionC",
+          "code": "U04.QuestionC",
+          "display": "Incontinência Urinária já avaliada com necessidade principal de fortalecimento de músculos do assoalho pélvico (fisioterapia pélvica)?"
+        }
+      ],
+      "text": "Incontinência Urinária já avaliada com necessidade principal de fortalecimento de músculos do assoalho pélvico (fisioterapia pélvica)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U04.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223605 FISIOTERAPEUTA GERAL."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U04.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U04.QuestionB",
+            "code": "U04.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U05.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U05.Question",
+          "code": "U05.Question",
+          "display": "Outros problemas com a micção"
+        }
+      ],
+      "text": "Outros problemas com a micção",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U05.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U05"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U06.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U06.Question",
+          "code": "U06.Question",
+          "display": "Hematúria"
+        }
+      ],
+      "text": "Hematúria",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U06.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U06"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U07.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U07.Question",
+          "code": "U07.Question",
+          "display": "Outros sinais/sintomas urinários"
+        }
+      ],
+      "text": "Outros sinais/sintomas urinários",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U07.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U07"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U13.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U13.Question",
+          "code": "U13.Question",
+          "display": "Sinais/sintomas da bexiga, outros"
+        }
+      ],
+      "text": "Sinais/sintomas da bexiga, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U13.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U13"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U14.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U14.Question",
+          "code": "U14.Question",
+          "display": "Sinais/sintomas dos rins"
+        }
+      ],
+      "text": "Sinais/sintomas dos rins",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U14.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U14"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U26.Question",
+          "code": "U26.Question",
+          "display": "Medo de câncer no aparelho urinário"
+        }
+      ],
+      "text": "Medo de câncer no aparelho urinário",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U27.Question",
+          "code": "U27.Question",
+          "display": "Medo de outra doença urinária"
+        }
+      ],
+      "text": "Medo de outra doença urinária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U29.Question",
+          "code": "U29.Question",
+          "display": "Sinais/sintomas aparelho urinário, outros"
+        }
+      ],
+      "text": "Sinais/sintomas aparelho urinário, outros",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U70.Question",
+          "code": "U70.Question",
+          "display": "Pielonefrite"
+        }
+      ],
+      "text": "Pielonefrite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U70.QuestionA",
+          "code": "U70.QuestionA",
+          "display": "Apresenta pielonefrite sem critério de internação hospitalar para discussão sobre antibioticoterapia ou falha terapêutica ao esquema antibiótico ambulatorial inicial?"
+        }
+      ],
+      "text": "Apresenta pielonefrite sem critério de internação hospitalar para discussão sobre antibioticoterapia ou falha terapêutica ao esquema antibiótico ambulatorial inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U70.Question",
+            "code": "U70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U70.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U70.QuestionB",
+          "code": "U70.QuestionB",
+          "display": "Apresenta pielonefrite de repetição secundária a alteração anatômica (p.ex.: malformação) ou obstrução do trato urinário (p.ex.: nefrolitíase) para discussão sobre indicação cirúrgica?"
+        }
+      ],
+      "text": "Apresenta pielonefrite de repetição secundária a alteração anatômica (p.ex.: malformação) ou obstrução do trato urinário (p.ex.: nefrolitíase) para discussão sobre indicação cirúrgica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U70.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U70.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U70.QuestionA",
+            "code": "U70.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U71.Question",
+          "code": "U71.Question",
+          "display": "Cistite/outra infecção urinária"
+        }
+      ],
+      "text": "Cistite/outra infecção urinária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U71.QuestionA",
+          "code": "U71.QuestionA",
+          "display": "Infecção do trato urinário inferior com germe multirresistente/falha terapêutica prévia?"
+        }
+      ],
+      "text": "Infecção do trato urinário inferior com germe multirresistente/falha terapêutica prévia?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U71.Question",
+            "code": "U71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U71.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U71.QuestionB",
+          "code": "U71.QuestionB",
+          "display": "Infecção do trato urinário inferior associado à presença de cateter urinário de demora, anomalia anatômica/funcional da via urinária?"
+        }
+      ],
+      "text": "Infecção do trato urinário inferior associado à presença de cateter urinário de demora, anomalia anatômica/funcional da via urinária?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U71.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U71.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U71.QuestionA",
+            "code": "U71.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U71.QuestionC",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U71.QuestionC",
+          "code": "U71.QuestionC",
+          "display": "ITU de repetição (> 3 episódios/ano ou > 2 episódios em 6 meses) em pessoa com vagina sem melhora com tratamento na unidade de saúde"
+        }
+      ],
+      "text": "ITU de repetição (> 3 episódios/ano ou > 2 episódios em 6 meses) em pessoa com vagina sem melhora com tratamento na unidade de saúde",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U71.QuestionC",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225250 MEDICO GINECOLOGISTA E OBSTETRA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U71.QuestionB",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U71.QuestionB",
+            "code": "U71.B.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U72.Question",
+          "code": "U72.Question",
+          "display": "Uretrite"
+        }
+      ],
+      "text": "Uretrite",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U72.QuestionA",
+          "code": "U72.QuestionA",
+          "display": "Uretrite sem resposta ao tratamento de primeira linha realizado na unidade de saúde? Para discussão de primeira linha de tratamento, responda não."
+        }
+      ],
+      "text": "Uretrite sem resposta ao tratamento de primeira linha realizado na unidade de saúde? Para discussão de primeira linha de tratamento, responda não.",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U72.Question",
+            "code": "U72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U75.Question",
+          "code": "U75.Question",
+          "display": "Neoplasia maligna do rim"
+        }
+      ],
+      "text": "Neoplasia maligna do rim",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U75.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U75.QuestionA",
+          "code": "U75.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U75.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U75.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U75.Question",
+            "code": "U75.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U75.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U75.QuestionB",
+          "code": "U75.QuestionB",
+          "display": "Trata-se neoplasia maligna do rim para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do rim para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U75.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U75.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U75.QuestionA",
+            "code": "U75.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U76.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U76.Question",
+          "code": "U76.Question",
+          "display": "Neoplasia benigna do rim"
+        }
+      ],
+      "text": "Neoplasia benigna do rim",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U76.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U76"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U76.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U76.QuestionA",
+          "code": "U76.QuestionA",
+          "display": "Trata-se de quadro suspeito de neoplasia do rim, ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito de neoplasia do rim, ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U76.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U76.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U76.Question",
+            "code": "U76.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U77.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U77.Question",
+          "code": "U77.Question",
+          "display": "Neoplasia maligna do aparelho urinário, outra"
+        }
+      ],
+      "text": "Neoplasia maligna do aparelho urinário, outra",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U77.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U77"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U77.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U77.QuestionA",
+          "code": "U77.QuestionA",
+          "display": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?"
+        }
+      ],
+      "text": "Trata-se de paciente em tratamento oncológico já avaliado e com necessidade de plano alimentar/suporte nutricional?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U77.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U77.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U77.Question",
+            "code": "U77.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U77.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U77.QuestionB",
+          "code": "U77.QuestionB",
+          "display": "Trata-se neoplasia maligna do aparelho urinário para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se neoplasia maligna do aparelho urinário para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U77.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE - DUANE RODRIGUES BATISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U77.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U77.QuestionA",
+            "code": "U77.A.NAO"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U78.Question",
+          "code": "U78.Question",
+          "display": "Neoplasia benigna do aparelho urinário"
+        }
+      ],
+      "text": "Neoplasia benigna do aparelho urinário",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U78.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U78.QuestionA",
+          "code": "U78.QuestionA",
+          "display": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U78.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U78.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U78.Question",
+            "code": "U78.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U79.Question",
+          "code": "U79.Question",
+          "display": "Neoplasia do aparelho urinário NE"
+        }
+      ],
+      "text": "Neoplasia do aparelho urinário NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U79.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U79.QuestionA",
+          "code": "U79.QuestionA",
+          "display": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?"
+        }
+      ],
+      "text": "Trata-se de quadro suspeito, para avaliação inicial ainda sem confirmação diagnóstica?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U79.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U79.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U79.Question",
+            "code": "U79.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U85.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U85.Question",
+          "code": "U85.Question",
+          "display": "Malformação congénita do aparelho urinário"
+        }
+      ],
+      "text": "Malformação congénita do aparelho urinário",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U85.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U85"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U88.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U88.Question",
+          "code": "U88.Question",
+          "display": "Glomerulonefrite/ sindrome nefrótica"
+        }
+      ],
+      "text": "Glomerulonefrite/ sindrome nefrótica",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U88.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U88"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U90.Question",
+          "code": "U90.Question",
+          "display": "Albuminúria/proteinúria ortostática"
+        }
+      ],
+      "text": "Albuminúria/proteinúria ortostática",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U95.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U95.Question",
+          "code": "U95.Question",
+          "display": "Cálculo urinário"
+        }
+      ],
+      "text": "Cálculo urinário",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U95.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U95"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U95.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U95.QuestionA",
+          "code": "U95.QuestionA",
+          "display": "Trata-se de cálculo renal recorrente (+ de 1 episódio), paciente com malformação renal/rim único ou discussão sobre pós-operatório de cirurgia urológica de nefrolitíase?"
+        }
+      ],
+      "text": "Trata-se de cálculo renal recorrente (+ de 1 episódio), paciente com malformação renal/rim único ou discussão sobre pós-operatório de cirurgia urológica de nefrolitíase?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U95.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U95.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U95.Question",
+            "code": "U95.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U98.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U98.Question",
+          "code": "U98.Question",
+          "display": "Análise de urina anormal NE"
+        }
+      ],
+      "text": "Análise de urina anormal NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U98.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U98"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U98.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U98.QuestionA",
+          "code": "U98.QuestionA",
+          "display": "Trata-se de hematúria persistente, perda rápida de função renal, proteinúria nefrótica ou alteração sedimentar persistente associada a doença sistêmica/autoimune?"
+        }
+      ],
+      "text": "Trata-se de hematúria persistente, perda rápida de função renal, proteinúria nefrótica ou alteração sedimentar persistente associada a doença sistêmica/autoimune?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U98.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U98.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U98.Question",
+            "code": "U98.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U99.Question",
+          "code": "U99.Question",
+          "display": "Outras doenças urinárias"
+        }
+      ],
+      "text": "Outras doenças urinárias",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225285 MEDICO UROLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "U99"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U99.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U99.QuestionA",
+          "code": "U99.QuestionA",
+          "display": "Trata-se de um quadro suspeito, sem confirmação diagnóstica, para discussão inicial?"
+        }
+      ],
+      "text": "Trata-se de um quadro suspeito, sem confirmação diagnóstica, para discussão inicial?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U99.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U99.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U99.Question",
+            "code": "U99.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "U99.QuestionB",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/U99.QuestionB",
+          "code": "U99.QuestionB",
+          "display": "Trata-se de Doença Renal Crônica para discussão sobre tratamento e acompanhamento na unidade de saúde?"
+        }
+      ],
+      "text": "Trata-se de Doença Renal Crônica para discussão sobre tratamento e acompanhamento na unidade de saúde?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/U99.QuestionB",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "U99.QuestionA",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/U99.QuestionA",
+            "code": "U99.A.NAO"
+          }
+        }
+      ]
+    }
+  ]
+}

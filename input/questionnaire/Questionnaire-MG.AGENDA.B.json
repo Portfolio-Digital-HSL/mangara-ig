@@ -1,0 +1,1032 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "MG.AGENDA.B",
+  "url": "https://mangara.org.br/fhir/Questionnaire/MG.AGENDA.B",
+  "version": "0.3.0",
+  "name": "MG_AGENDA_B",
+  "title": "Mangará Agendamento - Capítulo B (Sangue, Órgãos Hematopoéticos e Linfáticos)",
+  "status": "draft",
+  "language": "pt-BR",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-10-07",
+  "publisher": "Hospital Sírio-Libanês - Programa Mangará",
+  "description": "Triagem para agendamento de teleinterconsulta a partir do CIAP-2 do capítulo B. O CIAP vem do questionário de Solicitação de Teleinterconsulta (SOL.MT.CIAP).",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "designNote das perguntas: CBO (https://terminologia.saude.gov.br/fhir/CodeSystem/BRCBO) do(s) profissional(is) a agendar. Pergunta de triagem (XNN.Question): desfecho final, quando todas as complementares forem NÃO; '| Cuidado Integrado' e '| Alerta' quando indicados pelos médicos. Perguntas complementares (A, B, C): profissional a agendar se a resposta for SIM. Exibição: triagem só para o CIAP do item oculto B.CIAP; A só se a triagem = SIM; B só se A = NÃO; C só se B = NÃO. Resposta SIM numa complementar encerra a triagem."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "B.CIAP",
+      "text": "CIAP-2 do motivo da solicitação",
+      "type": "choice",
+      "required": true,
+      "readOnly": true,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          "valueBoolean": true
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Item oculto de contexto (não é perguntado). O app preenche com o CIAP-2 respondido em SOL.MT.CIAP do questionário https://ig.mangaradigital.org/apost-ig/Questionnaire/SolTeleinterconsultaMangara e abre este questionário só quando o CIAP é do capítulo B. Ele controla qual bloco de triagem aparece."
+        }
+      ]
+    },
+    {
+      "linkId": "B02.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B02.Question",
+          "code": "B02.Question",
+          "display": "Gânglio linfático aumentado/doloroso"
+        }
+      ],
+      "text": "Gânglio linfático aumentado/doloroso",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B02.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B02"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B04.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B04.Question",
+          "code": "B04.Question",
+          "display": "Sinais/sintomas sangue"
+        }
+      ],
+      "text": "Sinais/sintomas sangue",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B04.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B04"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B25.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B25.Question",
+          "code": "B25.Question",
+          "display": "Medo de VIH/ HIV/SIDA/ AIDS"
+        }
+      ],
+      "text": "Medo de VIH/ HIV/SIDA/ AIDS",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B25.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B25"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B26.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B26.Question",
+          "code": "B26.Question",
+          "display": "Medo de câncer no sangue/linfático"
+        }
+      ],
+      "text": "Medo de câncer no sangue/linfático",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B26.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B26"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B27.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B27.Question",
+          "code": "B27.Question",
+          "display": "Medo de outras doenças do sangue /vasos linfáticos"
+        }
+      ],
+      "text": "Medo de outras doenças do sangue /vasos linfáticos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B27.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B27"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B29.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B29.Question",
+          "code": "B29.Question",
+          "display": "Outros sinais/ sintomas do sangue/ sistema linfático/ baço NE"
+        }
+      ],
+      "text": "Outros sinais/ sintomas do sangue/ sistema linfático/ baço NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B29.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO; CBO 225130 MEDICO DE FAMILIA E COMUNIDADE. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B29"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B70.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B70.Question",
+          "code": "B70.Question",
+          "display": "Linfadenite aguda"
+        }
+      ],
+      "text": "Linfadenite aguda",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B70.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B70"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B70.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B70.QuestionA",
+          "code": "B70.QuestionA",
+          "display": "Apresenta sinais de gravidade, complicações locais (como abscesso flutuante/fistulizado) ou etiologia infecciosa/sistêmica de alta complexidade (ex.: suspeita de infecção oportunista, imunossupressão grave ou refratariedade a tratamento prévio)?"
+        }
+      ],
+      "text": "Apresenta sinais de gravidade, complicações locais (como abscesso flutuante/fistulizado) ou etiologia infecciosa/sistêmica de alta complexidade (ex.: suspeita de infecção oportunista, imunossupressão grave ou refratariedade a tratamento prévio)?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B70.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B70.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B70.Question",
+            "code": "B70.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B71.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B71.Question",
+          "code": "B71.Question",
+          "display": "Linfadenite crónica NE"
+        }
+      ],
+      "text": "Linfadenite crónica NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B71.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B71"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B71.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B71.QuestionA",
+          "code": "B71.QuestionA",
+          "display": "Possui linfadenopatia crônica generalizada ou persistentemente sem diagnóstico, associada a sintomas constitucionais (febre prolongada, sudorese noturna, perda ponderal imotivada) ou infecção crônica/granulomatosa (ex.: Tuberculose, HIV, Fungos)"
+        }
+      ],
+      "text": "Possui linfadenopatia crônica generalizada ou persistentemente sem diagnóstico, associada a sintomas constitucionais (febre prolongada, sudorese noturna, perda ponderal imotivada) ou infecção crônica/granulomatosa (ex.: Tuberculose, HIV, Fungos)",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B71.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B71.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B71.Question",
+            "code": "B71.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B72.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B72.Question",
+          "code": "B72.Question",
+          "display": "Doença de Hodgkin/linfomas"
+        }
+      ],
+      "text": "Doença de Hodgkin/linfomas",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B72.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B72"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B72.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B72.QuestionA",
+          "code": "B72.QuestionA",
+          "display": "Trata-se de Doença de Hodking/linfomas para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se de Doença de Hodking/linfomas para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B72.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B72.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B72.Question",
+            "code": "B72.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B73.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B73.Question",
+          "code": "B73.Question",
+          "display": "Leucemia"
+        }
+      ],
+      "text": "Leucemia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B73.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B73"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B73.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B73.QuestionA",
+          "code": "B73.QuestionA",
+          "display": "Trata-se de Leucemia para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se de Leucemia para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B73.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B73.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B73.Question",
+            "code": "B73.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B74.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B74.Question",
+          "code": "B74.Question",
+          "display": "Outra neoplasia maligna no sangue"
+        }
+      ],
+      "text": "Outra neoplasia maligna no sangue",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B74.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B74"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B74.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B74.QuestionA",
+          "code": "B74.QuestionA",
+          "display": "Trata-se de neoplasia maligna do sangue para discussão sobre cuidados paliativos?"
+        }
+      ],
+      "text": "Trata-se de neoplasia maligna do sangue para discussão sobre cuidados paliativos?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B74.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B74.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B74.Question",
+            "code": "B74.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B75.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B75.Question",
+          "code": "B75.Question",
+          "display": "Neoplasia benigna NE"
+        }
+      ],
+      "text": "Neoplasia benigna NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B75.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B75"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B78.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B78.Question",
+          "code": "B78.Question",
+          "display": "Anemia hemolítica hereditária"
+        }
+      ],
+      "text": "Anemia hemolítica hereditária",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B78.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B78"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B79.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B79.Question",
+          "code": "B79.Question",
+          "display": "Outra malformação congênita do sangue/linfática"
+        }
+      ],
+      "text": "Outra malformação congênita do sangue/linfática",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B79.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B79"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B80.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B80.Question",
+          "code": "B80.Question",
+          "display": "Anemia por deficiência de ferro"
+        }
+      ],
+      "text": "Anemia por deficiência de ferro",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B80.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B80"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B80.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B80.QuestionA",
+          "code": "B80.QuestionA",
+          "display": "Apresenta anemia por deficiência de ferro decorrente de aporte nutricional inadequado, sem sinais de alarme, com necessidade de plano alimentar ou suplementação oral?"
+        }
+      ],
+      "text": "Apresenta anemia por deficiência de ferro decorrente de aporte nutricional inadequado, sem sinais de alarme, com necessidade de plano alimentar ou suplementação oral?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B80.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B80.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B80.Question",
+            "code": "B80.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B81.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B81.Question",
+          "code": "B81.Question",
+          "display": "Anemia perniciosa/deficiência de folatos"
+        }
+      ],
+      "text": "Anemia perniciosa/deficiência de folatos",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B81.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B81"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B81.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B81.QuestionA",
+          "code": "B81.QuestionA",
+          "display": "Apresenta anemia por deficiência de folato decorrente de aporte nutricional inadequado, sem sinais de alarme, com necessidade de plano alimentar ou suplementação oral?"
+        }
+      ],
+      "text": "Apresenta anemia por deficiência de folato decorrente de aporte nutricional inadequado, sem sinais de alarme, com necessidade de plano alimentar ou suplementação oral?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B81.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 223710 NUTRICIONISTA."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B81.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B81.Question",
+            "code": "B81.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B82.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B82.Question",
+          "code": "B82.Question",
+          "display": "Outras anemias NE"
+        }
+      ],
+      "text": "Outras anemias NE",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B82.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE; CBO 225125 MEDICO CLINICO. | Cuidado Integrado | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B82"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B83.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B83.Question",
+          "code": "B83.Question",
+          "display": "Púrpura/defeitos de coagulação"
+        }
+      ],
+      "text": "Púrpura/defeitos de coagulação",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B83.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B83"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B83.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B83.QuestionA",
+          "code": "B83.QuestionA",
+          "display": "Trata-se de dúvida na interpretação inicial de hemograma?"
+        }
+      ],
+      "text": "Trata-se de dúvida na interpretação inicial de hemograma?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B83.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B83.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B83.Question",
+            "code": "B83.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B84.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B84.Question",
+          "code": "B84.Question",
+          "display": "Glóbulos brancos anormais"
+        }
+      ],
+      "text": "Glóbulos brancos anormais",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B84.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B84"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B84.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B84.QuestionA",
+          "code": "B84.QuestionA",
+          "display": "Trata-se de dúvida na interpretação inicial de hemograma?"
+        }
+      ],
+      "text": "Trata-se de dúvida na interpretação inicial de hemograma?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B84.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B84.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B84.Question",
+            "code": "B84.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B87.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B87.Question",
+          "code": "B87.Question",
+          "display": "Esplenomegalia"
+        }
+      ],
+      "text": "Esplenomegalia",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B87.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B87"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B87.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B87.QuestionA",
+          "code": "B87.QuestionA",
+          "display": "Trata-se de dúvida de exame físico ou na interpretação inicial de exame de imagem?"
+        }
+      ],
+      "text": "Trata-se de dúvida de exame físico ou na interpretação inicial de exame de imagem?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B87.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B87.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B87.Question",
+            "code": "B87.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B90.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B90.Question",
+          "code": "B90.Question",
+          "display": "Infecção por VIH/ HIV/SIDA/ AIDS"
+        }
+      ],
+      "text": "Infecção por VIH/ HIV/SIDA/ AIDS",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B90.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225103 MEDICO INFECTOLOGISTA. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B90"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B90.QuestionA",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B90.QuestionA",
+          "code": "B90.QuestionA",
+          "display": "Trata-se de dúvida na interpretação inicial de sorologia? Responder não se for HIV já com diagnóstico estabelecido."
+        }
+      ],
+      "text": "Trata-se de dúvida na interpretação inicial de sorologia? Responder não se for HIV já com diagnóstico estabelecido.",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B90.QuestionA",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225130 MEDICO DE FAMILIA E COMUNIDADE."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B90.Question",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.org.br/fhir/CodeSystem/B90.Question",
+            "code": "B90.SIM"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "B99.Question",
+      "code": [
+        {
+          "system": "https://mangara.org.br/fhir/CodeSystem/B99.Question",
+          "code": "B99.Question",
+          "display": "Outra doença do sangue/linfáticos/baço"
+        }
+      ],
+      "text": "Outra doença do sangue/linfáticos/baço",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.org.br/fhir/ValueSet/B99.Question",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "CBO 225125 MEDICO CLINICO. | Alerta"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "B.CIAP",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCIAP2",
+            "code": "B99"
+          }
+        }
+      ]
+    }
+  ]
+}
