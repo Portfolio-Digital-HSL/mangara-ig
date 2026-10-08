@@ -139,32 +139,14 @@
           "text": "Nome Completo",
           "type": "string",
           "required": true,
-          "readOnly": true,
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
-              "valueExpression": {
-                "language": "text/fhirpath",
-                "expression": "%solicitante.name.first().text"
-              }
-            }
-          ]
+          "readOnly": true
         },
         {
           "linkId": "SOL.PS.CPF",
           "text": "CPF",
           "type": "string",
           "required": true,
-          "readOnly": true,
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
-              "valueExpression": {
-                "language": "text/fhirpath",
-                "expression": "%solicitante.identifier.where(system='https://saude.gov.br/fhir/sid/cpf').value.first()"
-              }
-            }
-          ]
+          "readOnly": true
         },
         {
           "linkId": "SOL.PS.CP",
@@ -208,13 +190,7 @@
           }
         }
       ],
-      "readOnly": true,
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Aparece quando a resposta a /Profissional-não-solicitante é NÃO. Todos os campos vêm preenchidos e só para leitura, a partir do ServiceRequest.requester (launchContext serviceRequest). Nome e CPF têm calculatedExpression sobre o Practitioner. Conselho, número, UF e CBO: o app preenche a partir do Practitioner.qualification / PractitionerRole do solicitante. Se o requester for um PractitionerRole, o app resolve o Practitioner dele."
-        }
-      ]
+      "readOnly": true
     },
     {
       "linkId": "/profissional-solicitante",
@@ -276,12 +252,6 @@
           "type": "string",
           "required": true
         }
-      ],
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
-          "valueMarkdown": "Aparece quando a resposta a /Profissional-não-solicitante é SIM: os campos vêm em branco para o teleconsultor preencher com o profissional que participa no lugar do solicitante (ex.: o médico pediu, entra a enfermeira). O solicitante original continua no ServiceRequest.requester."
-        }
       ]
     },
     {
@@ -302,6 +272,13 @@
           "type": "choice",
           "required": true,
           "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRMotivoTeleconsultoria"
+        },
+        {
+          "linkId": "SOL.MT.CIAP",
+          "text": "Motivo da solicitação (CIAP-2)",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.org.br/fhir/ValueSet/CIAPAgendamentoMangara"
         }
       ]
     },
@@ -427,27 +404,6 @@
   ],
   "extension": [
     {
-      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
-      "extension": [
-        {
-          "url": "name",
-          "valueCoding": {
-            "system": "https://mangara.org.br/fhir/CodeSystem/launchContext",
-            "code": "serviceRequest",
-            "display": "ServiceRequest da teleinterconsulta"
-          }
-        },
-        {
-          "url": "type",
-          "valueCode": "ServiceRequest"
-        },
-        {
-          "url": "description",
-          "valueString": "ServiceRequest da teleinterconsulta; o requester é o profissional solicitante."
-        }
-      ]
-    },
-    {
       "url": "http://hl7.org/fhir/StructureDefinition/variable",
       "valueExpression": {
         "name": "cnes",
@@ -525,22 +481,6 @@
         "name": "dsei",
         "language": "text/fhirpath",
         "expression": "%cadeia.where(identifier.where(system='https://saude.gov.br/fhir/sid/dsei').exists()).first()"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "solicitanteBundle",
-        "language": "application/x-fhir-query",
-        "expression": "Practitioner?_id={{iif(%serviceRequest.requester.reference.startsWith('Practitioner/'), %serviceRequest.requester.reference.replace('Practitioner/', ''), 'sem-requester')}}"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/StructureDefinition/variable",
-      "valueExpression": {
-        "name": "solicitante",
-        "language": "text/fhirpath",
-        "expression": "%solicitanteBundle.entry.resource.ofType(Practitioner).first()"
       }
     }
   ]
