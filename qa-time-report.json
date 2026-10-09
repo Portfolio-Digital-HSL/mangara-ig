@@ -1,0 +1,237 @@
+{
+  "date" : "Fri, 09 Oct, 2026 18:47:55 +0000",
+  "doco" : "For each file: start is seconds after start activity occurred. Length = milliseconds activity took",
+  "files" : [{
+    "name" : "/fsh-generated/resources/ImplementationGuide-org.mangaradigital.fhir.mangara.json",
+    "size" : 2623,
+    "processes" : [{
+      "activity" : "load",
+      "start" : 43,
+      "length" : 9
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 48,
+      "length" : 8
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 48,
+      "length" : 44
+    },
+    {
+      "activity" : "validate",
+      "start" : 49,
+      "length" : 1604
+    },
+    {
+      "activity" : "generate1",
+      "start" : 51,
+      "length" : 44
+    },
+    {
+      "activity" : "generate2",
+      "start" : 53,
+      "length" : 57
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 58,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-duracao-consulta-mangara.json",
+    "size" : 1805,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 43,
+      "length" : 3
+    },
+    {
+      "activity" : "load",
+      "start" : 43,
+      "length" : 8
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 43,
+      "length" : 15
+    },
+    {
+      "activity" : "load-configure",
+      "start" : 48,
+      "length" : 1
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 48,
+      "length" : 778
+    },
+    {
+      "activity" : "validate",
+      "start" : 48,
+      "length" : 453
+    },
+    {
+      "activity" : "generate1",
+      "start" : 51,
+      "length" : 67
+    },
+    {
+      "activity" : "generate2",
+      "start" : 53,
+      "length" : 499
+    },
+    {
+      "activity" : "generate2",
+      "start" : 54,
+      "length" : 1000
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 58,
+      "length" : 1
+    },
+    {
+      "activity" : "scanExamplesForR5",
+      "start" : 82,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-practitioner-role-mangara.json",
+    "size" : 1351,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 43,
+      "length" : 2
+    },
+    {
+      "activity" : "load",
+      "start" : 43,
+      "length" : 4
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 43,
+      "length" : 26
+    },
+    {
+      "activity" : "load-configure",
+      "start" : 48,
+      "length" : 1
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 48,
+      "length" : 34
+    },
+    {
+      "activity" : "validate",
+      "start" : 49,
+      "length" : 165
+    },
+    {
+      "activity" : "checkConformanceResources",
+      "start" : 51,
+      "length" : 1
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 51,
+      "length" : 1
+    },
+    {
+      "activity" : "generate1",
+      "start" : 51,
+      "length" : 142
+    },
+    {
+      "activity" : "generate2",
+      "start" : 54,
+      "length" : 196
+    },
+    {
+      "activity" : "generate2",
+      "start" : 55,
+      "length" : 175
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 58,
+      "length" : 5
+    }]
+  },
+  {
+    "name" : "/input/includes/StructureDefinition-PractitionerRoleMangara-intro.md",
+    "size" : 1551
+  },
+  {
+    "name" : "/fsh-generated/includes/fsh-link-references.md",
+    "size" : 153,
+    "processes" : [{
+      "activity" : "scan",
+      "start" : 48,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/fsh-generated/includes/menu.xml",
+    "size" : 1535,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 54,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/exemplos.md",
+    "size" : 390
+  },
+  {
+    "name" : "/input/pagecontent/escopo-e-casos-de-uso.md",
+    "size" : 411
+  },
+  {
+    "name" : "/input/pagecontent/index.md",
+    "size" : 518
+  },
+  {
+    "name" : "/input/pagecontent/versionamento-e-mudancas.md",
+    "size" : 450
+  },
+  {
+    "name" : "/input/pagecontent/extensoes.md",
+    "size" : 309
+  },
+  {
+    "name" : "/input/pagecontent/sobre-o-guia.md",
+    "size" : 561
+  },
+  {
+    "name" : "/input/pagecontent/conformidade-e-validacao.md",
+    "size" : 424
+  },
+  {
+    "name" : "/input/pagecontent/perfis.md",
+    "size" : 385
+  },
+  {
+    "name" : "/template/config",
+    "size" : 0
+  },
+  {
+    "name" : "/template/config/_config.yml",
+    "size" : 140
+  },
+  {
+    "name" : "/temp/pages/_includes/artifacts.xml",
+    "size" : 2270,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 54,
+      "length" : 1
+    }]
+  }]
+}

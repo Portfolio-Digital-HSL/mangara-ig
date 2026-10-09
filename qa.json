@@ -1,0 +1,20 @@
+{
+  "url" : "https://mangaradigital.org/fhir/mangara/ImplementationGuide/org.mangaradigital.fhir.mangara",
+  "name" : "MangaraIG",
+  "title" : null,
+  "description" : "",
+  "status" : "draft",
+  "package-id" : "org.mangaradigital.fhir.mangara",
+  "ig-ver" : "0.1.0",
+  "date" : "Fri, 09 Oct, 2026 18:47:55 +0000",
+  "dateISO8601" : "2026-10-09T18:47:55+00:00",
+  "errs" : 30,
+  "warnings" : 15,
+  "hints" : 4,
+  "broken-links" : 0,
+  "suppressed-hints" : 0,
+  "suppressed-warnings" : 0,
+  "version" : "4.0.1",
+  "tool" : "6.0.0-snapshot1 (3)",
+  "maxMemory" : 859177320
+}
