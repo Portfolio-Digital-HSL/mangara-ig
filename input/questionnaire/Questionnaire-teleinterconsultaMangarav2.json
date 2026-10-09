@@ -1,0 +1,1479 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "teleinterconsulta-Mangara",
+  "url": "https://ig.mangaradigital.org/apost-ig/Questionnaire/teleinterconsulta-Mangara",
+  "version": "0.3.0",
+  "name": "TeleinterconsultaMangara",
+  "title": "teleinterconsulta-Mangara",
+  "status": "draft",
+  "description": "Registro de teleinterconsulta do Mangará: discussão de caso entre profissionais com a presença do usuário.",
+  "language": "pt-BR",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
+    ]
+  },
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "linkId": "SOL.DS",
+      "text": "Data do registro",
+      "type": "date",
+      "required": true
+    },
+    {
+      "linkId": "/tele-Nao-aconteceu?",
+      "text": "Teleinterconsulta não aconteceu?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136"
+    },
+    {
+      "linkId": "/motivo-cancelamento-teleic",
+      "text": "Motivo do cancelamento da teleinterconsulta",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ReasonAusenciaTele",
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "/Profissional-não-solicitante",
+      "text": "Profissional não é o solicitante?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136",
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "/profissional-solicitante",
+      "text": "Identificação do profissional solicitante",
+      "type": "group",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/Profissional-não-solicitante",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "/profissional-solicitante/nome",
+          "text": "Nome completo",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/cpf",
+          "text": "CPF",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais"
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho-numero",
+          "text": "Número no conselho",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/conselho-uf",
+          "text": "UF do conselho",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "/profissional-solicitante/email",
+          "text": "E-mail",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/telefone",
+          "text": "Telefone (com DD)",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "/profissional-solicitante/ocupacao",
+          "text": "Ocupação (CBO)",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCBO",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [1..1]."
+            }
+          ]
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UC Passo 2: localizar o profissional pelo CPF; se não existir, criar Practitioner (e conta no Keycloak). Encounter.participant.type = solicitante."
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.TIC",
+      "text": "Teleinterconsultor",
+      "type": "group",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "RAC Profissional [1..N], obrigatório. Preenchido do cadastro do usuário logado (%user). Encounter.participant.type = atendimento (responsável = Sim). Teleconsultores secundários geram Encounter próprio com partOf (UC Objetivo)."
+        }
+      ],
+      "readOnly": true,
+      "item": [
+        {
+          "linkId": "TIC.TIC.CPF",
+          "text": "CPF",
+          "type": "string",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%user.identifier.where(system='https://saude.gov.br/fhir/sid/cpf').value.first()"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.TIC.NM",
+          "text": "Nome completo",
+          "type": "string",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%user.name.first().text"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.TIC.CONS",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Define a regra CIAP-2 × CID-10 (REQFUNC3/4). PENDENTE confirmar que o código do CRM em ConselhosProfissionais é 'CRM'."
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.TIC.UF",
+          "text": "UF do conselho",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "TIC.TIC.NUM",
+          "text": "Número do conselho ou RMS",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "TIC.TIC.OCUP",
+          "text": "Ocupação (CBO)",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCBO"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "/paciente-presente",
+      "text": "Paciente presente?",
+      "type": "choice",
+      "required": true,
+      "answerValueSet": "http://terminology.hl7.org/ValueSet/v2-0136",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UC Passo 3. Se Y: confirmar/coletar os dados abaixo e exibir o TCLE (Passos 4 a 6)."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE003A",
+      "text": "CPF",
+      "type": "string",
+      "required": false,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "RAC Identificador Nacional do Indivíduo [1..1]: CPF ou CNS (vêm da solicitação SOL.IP.CPF/SOL.IP.CNS; o front-end garante um dos dois)."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE003",
+      "text": "Nome social",
+      "type": "string",
+      "required": false,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE005",
+      "text": "Data de nascimento",
+      "type": "date",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE006",
+      "text": "Identidade de gênero",
+      "type": "choice",
+      "required": true,
+      "repeats": false,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRIdentidadeGenero",
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE008",
+      "text": "Raça/Cor",
+      "type": "choice",
+      "required": true,
+      "repeats": false,
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRRacaCor",
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE012",
+      "text": "Cidade",
+      "type": "string",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE013",
+      "text": "UF",
+      "type": "string",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "LCVMA1DE011",
+      "text": "CEP",
+      "type": "string",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Buscar cidade e UF pelo CEP."
+        }
+      ]
+    },
+    {
+      "linkId": "Concordancia-TCLE",
+      "text": "Paciente concorda com a realização da teleinterconsulta e com o compartilhamento dos seus dados para este fim?",
+      "type": "string",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "/paciente-presente",
+          "operator": "=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UC Passos 4-6: exibe o TCLE preenchido (nome, CPF, cidade-UF). Aceita → salva Consent (active, patient-privacy, LOINC 59284-0, OPTIN). Recusa → encerra."
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.CAR",
+      "text": "Caracterização do atendimento",
+      "type": "group",
+      "required": true,
+      "item": [
+        {
+          "linkId": "TIC.CAR.DH",
+          "text": "Data e hora do atendimento",
+          "type": "dateTime",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "now()"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [1..1]. Data e hora de início (aceitação do indivíduo); preenchida na abertura da sala."
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.CAR.PROC",
+          "text": "Procedência",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRProcedencia",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "UCRAPS009 Passo 8: 'Demanda referenciada', já vem preenchido e não pode editar → Encounter.hospitalization.admitSource (CS https://terminologia.saude.gov.br/fhir/CodeSystem/BRProcedencia). PENDENTE: o UC traz na tabela do Encounter código 09 'Demanda espontânea' — confirmar o código de 'Demanda referenciada' para o initial."
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "TIC.CAR.CA",
+          "text": "Caráter do atendimento",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCaraterAtendimento",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [1..1]. Fixo 03 Consulta agendada → Encounter.priority."
+            }
+          ],
+          "readOnly": true,
+          "initial": [
+            {
+              "valueCoding": {
+                "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRCaraterAtendimento",
+                "code": "03",
+                "display": "Consulta agendada"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.CAR.MT",
+          "text": "Modalidade de Telessaúde",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRModalidadeTelessaude",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [1..1]. Fixo 'Teleinterconsulta' → Encounter.type. PENDENTE: código de Teleinterconsulta no CS BRModalidadeTelessaude para o initial."
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "TIC.CAR.MA",
+          "text": "Modalidade assistencial",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRModalidadeAssistencial",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [1..1] → Encounter.class. Mangará: 07 Ambulatorial Especializada "
+            }
+          ],
+          "readOnly": true,
+          "initial": [
+            {
+              "valueCoding": {
+                "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRModalidadeAssistencial",
+                "code": "07",
+                "display": "Ambulatorial Especializada"
+              }
+            }
+          ]
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.MOT",
+      "text": "Motivo do atendimento",
+      "type": "group",
+      "required": false,
+      "item": [
+        {
+          "linkId": "TIC.MOT.CIAP",
+          "text": "Motivo (CIAP-2)",
+          "type": "choice",
+          "required": false,
+          "repeats": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [0..N]. Pré-preenchido com o CIAP-2 do agendamento (SOL.MT.CIAP)."
+            }
+          ]
+        },
+        {
+          "linkId": "SOL.MT.DS",
+          "text": "Descrição subjetiva do motivo",
+          "type": "text",
+          "required": false,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "RAC [0..1]. Pode vir da descrição subjetiva do agendamento pergunta SOL.MT.DS."
+            }
+          ]
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "soap-subjetivo",
+      "text": "Subjetivo",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "soap-subjetivo-texto",
+          "text": "Subjetivo",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "soap-objetivo",
+      "text": "Objetivo",
+      "type": "string",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UC Passo 10 → Observation LOINC 61149-1 'Objetivo' (valueString)."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.SV",
+      "text": "Sinais vitais e medidas",
+      "type": "group",
+      "required": false,
+      "item": [
+        {
+          "linkId": "TIC.SV.PAS",
+          "text": "Pressão arterial sistólica (mmHg)",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]",
+                "display": "mmHg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 0
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 1000
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.PAD",
+          "text": "Pressão arterial diastólica (mmHg)",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mm[Hg]",
+                "display": "mmHg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueInteger": 0
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueInteger": 1000
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+              "extension": [
+                {
+                  "url": "key",
+                  "valueId": "tic-pa"
+                },
+                {
+                  "url": "severity",
+                  "valueCode": "error"
+                },
+                {
+                  "url": "expression",
+                  "valueString": "%resource.repeat(item).where(linkId='TIC.SV.PAS').answer.value.exists() = %resource.repeat(item).where(linkId='TIC.SV.PAD').answer.value.exists()"
+                },
+                {
+                  "url": "human",
+                  "valueString": "Informe a sistólica e a diastólica."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.POS",
+          "text": "Posição na aferição da PA",
+          "type": "choice",
+          "answerValueSet": "http://www.saude.gov.br/fhir/r4/ValueSet/BRPosicaoIndividuo",
+          "enableWhen": [
+            {
+              "question": "TIC.SV.PAS",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.LOC",
+          "text": "Local de aferição da PA",
+          "type": "choice",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRLocalAfericao",
+          "enableWhen": [
+            {
+              "question": "TIC.SV.PAS",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.PESO",
+          "text": "Peso (kg)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg",
+                "display": "kg"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.ALT",
+          "text": "Altura (cm)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "cm",
+                "display": "cm"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.IMC",
+          "text": "IMC (kg/m²)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg/m2",
+                "display": "kg/m²"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%resource.repeat(item).where(linkId='TIC.SV.PESO').answer.value.exists() and %resource.repeat(item).where(linkId='TIC.SV.ALT').answer.value.exists(), (%resource.repeat(item).where(linkId='TIC.SV.PESO').answer.value.first() / (%resource.repeat(item).where(linkId='TIC.SV.ALT').answer.value.first() / 100).power(2)).round(1), {})"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Calculado automaticamente (não vai para o RAC)."
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "TIC.SV.PC",
+          "text": "Perímetro cefálico (cm)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "cm",
+                "display": "cm"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/minValue",
+              "valueDecimal": 0.0
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/maxValue",
+              "valueDecimal": 100.0
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.CA",
+          "text": "Circunferência abdominal (cm)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "cm",
+                "display": "cm"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.SV.DT",
+          "text": "Data da coleta",
+          "type": "date",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Obrigatória se houver medida. Bloqueada após o rascunho."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "TIC.SV.PAS",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.SV.PAD",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.SV.PESO",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.SV.ALT",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.SV.PC",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.SV.CA",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ],
+          "enableBehavior": "any"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Origem da medição (peso e altura) não é perguntada: no Mangará é sempre Relatado (VS http://www.saude.gov.br/fhir/r4/ValueSet/BROrigemMedida). Preenchida na geração do RAC."
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.GEST",
+      "text": "Historia Obstétrica",
+      "type": "group",
+      "required": false,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%resource.repeat(item).where(linkId='/tele-Nao-aconteceu?').answer.value.code.first() != 'Y' and %sexo = 'female' and %dn.exists() and %dn <= today() - 10 years and %dn > today() - 50 years"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "RAC Informações adicionais [0..1]. Mostrar quando sexo feminino em idade fértil (10 a 49 anos): sexo de %patient.gender (cadastro/solicitação SOL.IP.Sexo); data de nascimento de LCVMA1DE005 ou %patient.birthDate."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "TIC.GEST.DUM",
+          "text": "Data da última menstruação (DUM)",
+          "type": "date"
+        },
+        {
+          "linkId": "TIC.GEST.IG",
+          "text": "Idade gestacional (semanas)",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "wk",
+                "display": "semanas"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.GEST.G",
+          "text": "Gestas",
+          "type": "integer"
+        },
+        {
+          "linkId": "TIC.GEST.P",
+          "text": "Partos",
+          "type": "integer"
+        },
+        {
+          "linkId": "TIC.GEST.A",
+          "text": "Abortos",
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.ALEIT",
+      "text": "Tipo de aleitamento materno",
+      "type": "choice",
+      "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRTipoAleitamentoMaterno",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%resource.repeat(item).where(linkId='/tele-Nao-aconteceu?').answer.value.code.first() != 'Y' and %dn.exists() and %dn > today() - 2 years"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Mostrar para crianças até 2 anos."
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.SUBST",
+      "text": "Uso de álcool, tabaco e outras substâncias (últimos 3 meses)",
+      "type": "group",
+      "repeats": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "RAC Exposição a substâncias [0..N]."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "TIC.SUBST.TP",
+          "text": "Substância",
+          "type": "choice",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRTipoSubstanciaUso"
+        },
+        {
+          "linkId": "TIC.SUBST.FREQ",
+          "text": "Frequência",
+          "type": "choice",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRFrequenciaUsoSubstancia",
+          "enableWhen": [
+            {
+              "question": "TIC.SUBST.TP",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.DOR",
+      "text": "Escala de dor",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Bloqueado após o rascunho."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "TIC.DOR.LOC",
+          "text": "Localização da dor",
+          "type": "choice",
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/body-site"
+        },
+        {
+          "linkId": "TIC.DOR.INT",
+          "text": "Intensidade da dor",
+          "type": "choice",
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/intensidade_dor"
+        },
+        {
+          "linkId": "TIC.DOR.DT",
+          "text": "Data da coleta",
+          "type": "date",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "TIC.DOR.LOC",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.DOR.INT",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ],
+          "enableBehavior": "any"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "TIC.EXA",
+      "text": "Resultados de exames",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Bloqueado após o rascunho."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "TIC.EXA.HBA1C",
+          "text": "Hemoglobina glicada (%)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "%",
+                "display": "%"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.EXA.GLIC",
+          "text": "Glicemia (mg/dL)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mg/dL",
+                "display": "mg/dL"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TIC.EXA.DT",
+          "text": "Data da coleta",
+          "type": "date",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "TIC.EXA.HBA1C",
+              "operator": "exists",
+              "answerBoolean": true
+            },
+            {
+              "question": "TIC.EXA.GLIC",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ],
+          "enableBehavior": "any"
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "soap-avaliacao",
+      "text": "Avaliação / Problemas",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "soap-avaliacao-ciap2",
+          "text": "CIAP2",
+          "type": "choice",
+          "required": false,
+          "repeats": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCIAP2"
+        },
+        {
+          "linkId": "soap-avaliacao-severidade-ciap2",
+          "text": "Severidade CIAP2",
+          "type": "choice",
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-severity",
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-ciap2",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "soap-avaliacao-statusVerificacao-ciap2",
+          "text": "Status de verificação CIAP2",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-ver-status",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Condition.verificationStatus [1..1] (condition-ver-status)."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-ciap2",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "soap-avaliacao-informacoes-adicionais-ciap2",
+          "text": "Informações adicionais CIAP2",
+          "type": "text",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Condition.note.text [0..1]."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-ciap2",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "soap-avaliacao-cid10",
+          "text": "CID10",
+          "type": "choice",
+          "required": false,
+          "repeats": false,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCID10"
+        },
+        {
+          "linkId": "soap-avaliacao-severidade-cid10",
+          "text": "Severidade CID10",
+          "type": "choice",
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-severity",
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-cid10",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "soap-avaliacao-statusVerificacao-cid10",
+          "text": "Status de verificação CID10",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-ver-status",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Condition.verificationStatus [1..1] (condition-ver-status)."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-cid10",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "soap-avaliacao-informacoes-adicionais-cid10",
+          "text": "Informações adicionais CID10",
+          "type": "text",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Condition.note.text [0..1]."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "soap-avaliacao-cid10",
+              "operator": "exists",
+              "answerBoolean": true
+            }
+          ]
+        }
+      ],
+      "required": true,
+      "repeats": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "RAC Problemas/diagnósticos [1..N]. Cada repetição gera br-core-condition (um para CIAP-2 e outro para CID-10) e Encounter.diagnosis (use = CM). CIAP-2 obrigatório para não médicos (REQFUNC3); CID-10 obrigatório para médicos (REQFUNC4)."
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "plano-cuidados-prescricao-medicamentosa",
+      "text": "Prescrição Medicamentosa",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        {
+          "linkId": "plano-cuidados-prescricao-medicamentosa-medicamento",
+          "text": "Medicamento",
+          "type": "string"
+        },
+        {
+          "linkId": "plano-cuidados-prescricao-medicamentosa-dose",
+          "text": "Dose",
+          "type": "string"
+        },
+        {
+          "linkId": "plano-cuidados-prescricao-medicamentosa-instrucoes",
+          "text": "Instruções adicionais",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "linkId": "plano-cuidados",
+      "text": "Plano de Cuidados",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "plano-cuidados-narrativo",
+          "text": "Narrativo",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "UC Passo 12 → CarePlan.description (status active, intent plan)."
+            }
+          ]
+        },
+        {
+          "linkId": "documentos/upload",
+          "text": "Documentos",
+          "type": "group",
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "documentos-tipo",
+              "text": "Tipo de Documento",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/TipoDocumento_Upload_Mangara"
+            },
+            {
+              "linkId": "documentos-arquivo",
+              "text": "Arquivo",
+              "type": "attachment",
+              "required": true
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "UC Passo 14 → DocumentReference (type LOINC via ConceptMap de TipoDocumento_Upload_Mangara)."
+            }
+          ]
+        },
+        {
+          "linkId": "plano-cuidados-desfecho",
+          "text": "Desfecho",
+          "type": "choice",
+          "repeats": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCondutaTeleinterconsulta",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "UC Passo 16: o primeiro selecionado vai para Encounter.hospitalization.dischargeDisposition; cada selecionado gera Observation (category therapy). VS MS BRCondutaTeleinterconsulta (o UC cita BRCondutaTeleconsultoria/BRMotivoDesfecho)."
+            }
+          ]
+        },
+       
+        {
+          "linkId": "plano-cuidados-observacoes",
+          "text": "Observações",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "UC Passo 18 → ClinicalImpression.note."
+            }
+          ]
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "/tele-Nao-aconteceu?",
+          "operator": "!=",
+          "answerCoding": {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y"
+          }
+        }
+      ]
+    }
+  ],
+  "date": "2026-10-08",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        },
+        {
+          "url": "description",
+          "valueString": "Paciente da teleinterconsulta (sexo e data de nascimento para exibir informações gestacionais e aleitamento)"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        },
+        {
+          "url": "description",
+          "valueString": "Teleinterconsultor logado"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "dn",
+        "language": "text/fhirpath",
+        "expression": "iif(%resource.repeat(item).where(linkId='LCVMA1DE005').answer.value.exists(), %resource.repeat(item).where(linkId='LCVMA1DE005').answer.value.first(), %patient.birthDate)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "sexo",
+        "language": "text/fhirpath",
+        "expression": "%patient.gender"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "Adequado ao caso de uso UCRAPS009 v1.1 (Realizar Teleinterconsulta) e acrescido somente dos itens OBRIGATÓRIOS do RAC (RNDS). Vêm do agendamento/solicitação e são exibidos na tela (não perguntados aqui): estabelecimento solicitante (CNES), profissional solicitante quando é o próprio, dados do paciente da solicitação (SOL.IP.*). 'É o responsável pelo atendimento?' do RAC é derivado de Encounter.participant.type (atendimento = Sim; solicitante = Não)."
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+      "extension": [
+        {
+          "url": "key",
+          "valueId": "tic-diag-medico"
+        },
+        {
+          "url": "severity",
+          "valueCode": "error"
+        },
+        {
+          "url": "expression",
+          "valueString": "%resource.repeat(item).where(linkId='TIC.TIC.CONS').answer.value.code.first() != 'CRM' or %resource.repeat(item).where(linkId='soap-avaliacao-cid10').answer.exists()"
+        },
+        {
+          "url": "human",
+          "valueString": "Teleinterconsultor médico (CRM): informe ao menos um CID-10 (REQFUNC4)."
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+      "extension": [
+        {
+          "url": "key",
+          "valueId": "tic-diag-nao-medico"
+        },
+        {
+          "url": "severity",
+          "valueCode": "error"
+        },
+        {
+          "url": "expression",
+          "valueString": "%resource.repeat(item).where(linkId='TIC.TIC.CONS').answer.value.code.first() = 'CRM' or %resource.repeat(item).where(linkId='soap-avaliacao-ciap2').answer.exists()"
+        },
+        {
+          "url": "human",
+          "valueString": "Teleinterconsultor não médico: informe ao menos um CIAP-2 (REQFUNC3)."
+        }
+      ]
+    }
+  ]
+}
