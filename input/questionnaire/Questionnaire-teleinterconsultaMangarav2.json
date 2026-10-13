@@ -1429,7 +1429,7 @@
           "text": "Agente/substância específica (CBARA)",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRAlergenosCBARA",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRAlergenos",
           "enableWhen": [
             {
               "question": "TIC.ALERG.CAT",
@@ -1461,7 +1461,7 @@
           "text": "Agente/substância específica (medicamento)",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRMedicamento",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRTerminologiaMedicamento",
           "enableWhen": [
             {
               "question": "TIC.ALERG.CAT",
