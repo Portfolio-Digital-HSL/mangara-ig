@@ -1099,7 +1099,7 @@
           "linkId": "TIC.SUBST.FREQ",
           "text": "Frequência",
           "type": "choice",
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRFrequenciaUsoSubstancia",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRFreqUsoSubstancia",
           "enableWhen": [
             {
               "question": "TIC.SUBST.TP",
