@@ -1,0 +1,43 @@
+MangaraIG : Validation Results
+=========================================
+
+err = 0, warn = 15, info = 4, broken links = 0
+IG Publisher Version: 3.0.3
+Generated Mon Nov 09 14:26:30 UTC 2026. FHIR version 4.0.1 for org.mangaradigital.fhir.mangara#0.1.0 (canonical = https://mangaradigital.org/fhir/mangara)
+ Build Errors : 0 / 12 / 0
+ /home/runner/work/mangara-ig/mangara-ig/fsh-generated/resources/ImplementationGuide-org.mangaradigital.fhir.mangara : 0 / 0 / 2
+ /home/runner/work/mangara-ig/mangara-ig/fsh-generated/resources/StructureDefinition-duracao-consulta-mangara : 0 / 2 / 2
+ /home/runner/work/mangara-ig/mangara-ig/fsh-generated/resources/StructureDefinition-practitioner-role-mangara : 0 / 1 / 3
+</table>
+
+== n/a ==
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</a>" expecting "</img>" at line 34 column 177
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 79 column 10
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 80 column 9
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 109 column 8
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 111 column 12
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 112 column 20
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 113 column 16
+WARNING: /home/runner/work/mangara-ig/mangara-ig/output/searchform.html: The html source is not well formed: Found "</div>" expecting "</body>" at line 115 column 12
+WARNING: 1: The HTML fragment 'ip-statements.xhtml' is not included anywhere in the produced implementation guide
+WARNING: 2: An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 3: An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml, dependency-table-nontech.xhtml] is not included anywhere in the produced implementation guide
+WARNING: 4: The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide
+
+
+== fsh-generated/resources/ImplementationGuide-org.mangaradigital.fhir.mangara.json ==
+INFORMATION: Resource: The resource ImplementationGuide/org.mangaradigital.fhir.mangara could usefully have an OID assigned (OIDs are easy to assign - see https://build.fhir.org/ig/FHIR/ig-guidance/oids.html)
+
+
+== fsh-generated/resources/StructureDefinition-duracao-consulta-mangara.json ==
+WARNING: StructureDefinition/duracao-consulta-mangara: StructureDefinition.context[0]: Review the extension type for duracao-consulta-mangara: extensions should not have a context of Element unless it's really intended that they can be used anywhere
+INFORMATION: Resource: The resource StructureDefinition/duracao-consulta-mangara could usefully have an OID assigned (OIDs are easy to assign - see https://build.fhir.org/ig/FHIR/ig-guidance/oids.html)
+WARNING: StructureDefinition.where(url = 'https://mangaradigital.org/fhir/mangara/StructureDefinition/duracao-consulta-mangara'): The Implementation Guide contains no examples for this extension
+
+
+== fsh-generated/resources/StructureDefinition-practitioner-role-mangara.json ==
+INFORMATION: StructureDefinition/practitioner-role-mangara: StructureDefinition.snapshot.element[4].binding.extension[0]: The extension http://hl7.org/fhir/StructureDefinition/elementdefinition-maxValueSet|5.4.0 is deprecated with the note: 'Use additionalBinding extension or element instead'
+INFORMATION: Resource: The resource StructureDefinition/practitioner-role-mangara could usefully have an OID assigned (OIDs are easy to assign - see https://build.fhir.org/ig/FHIR/ig-guidance/oids.html)
+WARNING: StructureDefinition.where(url = 'https://mangaradigital.org/fhir/mangara/StructureDefinition/practitioner-role-mangara'): The Implementation Guide contains no examples for this profile
+
+
