@@ -1,7 +1,7 @@
 {
   "resourceType": "Questionnaire",
   "id": "teleinterconsulta-Mangara",
-  "url": "https://ig.mangaradigital.org/apost-ig/Questionnaire/teleinterconsulta-Mangara",
+  "url": "https://ig.mangaradigital.org/mangara-ig/Questionnaire/teleinterconsulta-Mangara",
   "version": "0.6.0",
   "name": "TeleinterconsultaMangara",
   "title": "teleinterconsulta-Mangara",
