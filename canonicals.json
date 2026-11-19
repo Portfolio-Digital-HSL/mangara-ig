@@ -1,0 +1,21 @@
+[{
+  "id" : "org.mangaradigital.fhir.mangara",
+  "type" : "ImplementationGuide",
+  "url" : "https://mangaradigital.org/fhir/mangara/ImplementationGuide/org.mangaradigital.fhir.mangara",
+  "version" : "0.1.0",
+  "name" : "MangaraIG"
+},
+{
+  "id" : "duracao-consulta-mangara",
+  "type" : "StructureDefinition",
+  "url" : "https://mangaradigital.org/fhir/mangara/StructureDefinition/duracao-consulta-mangara",
+  "version" : "0.1.0",
+  "name" : "DuracaoConsultaMangara"
+},
+{
+  "id" : "practitioner-role-mangara",
+  "type" : "StructureDefinition",
+  "url" : "https://mangaradigital.org/fhir/mangara/StructureDefinition/practitioner-role-mangara",
+  "version" : "0.1.0",
+  "name" : "PractitionerRoleMangara"
+}]

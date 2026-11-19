@@ -1,0 +1,27 @@
+# org.mangaradigital.fhir.mangara#0.1.0: null
+
+## Pages
+
+* [Home](index.md)
+* [Extensoes](extensoes.md)
+* [Perfis](perfis.md)
+* [Sobre O Guia](sobre-o-guia.md)
+* [Exemplos](exemplos.md)
+* [Artifacts Summary](artifacts.md)
+* [Escopo E Casos De Uso](escopo-e-casos-de-uso.md)
+* [Versionamento E Mudancas](versionamento-e-mudancas.md)
+* [Conformidade E Validacao](conformidade-e-validacao.md)
+
+## Resources
+
+### Resource Profiles
+
+* [PractitionerRole Mangara](StructureDefinition-practitioner-role-mangara.md)
+
+### Extensions
+
+* [Duração da consulta Mangara](StructureDefinition-duracao-consulta-mangara.md)
+
+### ImplementationGuides
+
+* [MangaraIG](index.md)
