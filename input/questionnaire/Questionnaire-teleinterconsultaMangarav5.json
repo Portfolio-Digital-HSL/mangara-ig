@@ -1493,6 +1493,7 @@
           "type": "choice",
           "required": true,
           "answerValueSet": "http://hl7.org/fhir/ValueSet/condition-ver-status",
+          
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",

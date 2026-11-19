@@ -1,0 +1,943 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "atendimento-navegacao-Mangara",
+  "url": "https://ig.mangaradigital.org/mangara-ig/Questionnaire/atendimento-navegacao-Mangara",
+  "version": "0.2.3",
+  "name": "AtendimentoNavegacaoMangara",
+  "title": "atendimento-navegacao-Mangara",
+  "status": "draft",
+  "description": "Registro do atendimento de navegação do cuidado pelo profissional navegador: contato realizado (Communication), encerramento ou próximo retorno (Appointment). Mostra nome e telefone do profissional da ponta.",
+  "language": "pt-BR",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
+    ]
+  },
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-11-18",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        },
+        {
+          "url": "description",
+          "valueString": "Paciente da navegação"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        },
+        {
+          "url": "description",
+          "valueString": "Profissional navegador logado"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "encounter"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Encounter"
+        },
+        {
+          "url": "description",
+          "valueString": "Encounter da teleinterconsulta que originou a navegação (Task.encounter)"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "refPonta",
+        "language": "text/fhirpath",
+        "expression": "%encounter.participant.where(type.coding.where(system = 'https://terminologia.saude.gov.br/fhir/CodeSystem/BRResponsabilidadeParticipante' and code = 'solicitante').exists()).individual.reference.first()"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ponta",
+        "language": "application/x-fhir-query",
+        "expression": "{{%refPonta}}"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "UCNAV03/04/06. Preenchido pelo profissional navegador owner da Task de navegação (Task.code = tipo NavegacaoHSL). QuestionnaireResponse: subject = Patient; basedOn = ServiceRequest da navegação (code HSL_Servicos#NAVEGACAO); author = PractitionerRole do profissional navegador; authored = agora. Ao salvar, o Mangará grava num único Bundle transaction: QuestionnaireResponse, Communication, RelatedPerson novo (se houver), Appointment (se retorno), atualização da Task (status/businessStatus/note) e, no encerramento, do ServiceRequest e dos retornos futuros. Na primeira ação, Task.status accepted → in-progress."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "PONTA",
+      "text": "Profissional solicitante da teleinterconsulta/ teleconsultoria",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Somente leitura, para o profissional navegador ligar. Profissional da ponta = Encounter.participant da teleinterconsulta com type = solicitante (VS https://mangara.hsl.org.br/fhir/ValueSet/TipoParticipante; código 'solicitante' do CS BRResponsabilidadeParticipante, do MS). É o profissional que participou da teleIC (pode ser diferente de quem pediu – ver /profissional-solicitante). Não confundir com o solicitante da navegação, que é o teleconsultor do HSL (ServiceRequest.requester)."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "nomeProfissionalPonta",
+          "text": "Nome do Profissional Solicitante",
+          "type": "string",
+          "readOnly": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%ponta.name.first().select(iif(text.exists(), text, given.join(' ') & ' ' & family))"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "telefoneProfissionalPonta",
+          "text": "Celular / telefone",
+          "type": "string",
+          "readOnly": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%ponta.telecom.where(system = 'phone').value.first()"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "CONTATO",
+      "text": "Contato de navegação",
+      "type": "group",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Gera 1 Communication (UCNAV03): status, statusReason, medium (sem category), subject = Patient, sent, recipient, sender = PractitionerRole do profissional navegador logado, basedOn = ServiceRequest da navegação, partOf = Task da navegação, payload[0].contentString = anotacao, payload[1].contentReference = este QuestionnaireResponse."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "dataHoraContato",
+          "text": "Data e hora do contato",
+          "type": "dateTime",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "now()"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+              "extension": [
+                {
+                  "url": "key",
+                  "valueId": "nav-1"
+                },
+                {
+                  "url": "severity",
+                  "valueCode": "error"
+                },
+                {
+                  "url": "expression",
+                  "valueString": "%resource.repeat(item).where(linkId='dataHoraContato').answer.value.all($this <= now())"
+                },
+                {
+                  "url": "human",
+                  "valueString": "A data e hora do contato não pode ser futura."
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Communication.sent. Padrão = agora."
+            }
+          ]
+        },
+        {
+          "linkId": "comQuemFalou",
+          "text": "Com quem falou",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/DestinatarioNavegacao",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Define Communication.recipient. VS e CS DestinatarioNavegacao criados no OCL (v1.0.0). Códigos propostos (→ recurso): paciente (Patient, automático); familiar-cuidador (RelatedPerson); profissional-ponta – profissional da ponta / solicitante da teleinterconsulta (Practitioner do Encounter da teleIC, automático); teleconsultor-hsl – teleconsultor que pediu a navegação (ServiceRequest.requester, automático); equipe-aps – equipe da APS / EMSI / ACS (PractitionerRole); servico-referencia – especialidade, hospital, CAPS (Organization); regulacao (Organization); rede-protecao – CRAS, CREAS, Conselho Tutelar (Organization); vigilancia (Organization); assistencia-farmaceutica (Organization); casai-dsei (Organization); outro (só texto)."
+            }
+          ]
+        },
+        {
+          "linkId": "FAMILIAR",
+          "text": "Familiar ou cuidador",
+          "type": "group",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "familiar-cuidador"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "familiarCadastrado",
+              "text": "Familiar já cadastrado",
+              "type": "reference",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+                  "valueCode": "RelatedPerson"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Lista RelatedPerson?patient=<Patient>&active=true. → Communication.recipient."
+                }
+              ]
+            },
+            {
+              "linkId": "novoFamiliarNome",
+              "text": "Nome do familiar",
+              "type": "string",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "familiarCadastrado",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Cria RelatedPerson.name.text; o novo RelatedPerson vai em Communication.recipient."
+                }
+              ]
+            },
+            {
+              "linkId": "novoFamiliarParentesco",
+              "text": "Parentesco",
+              "type": "choice",
+              "required": true,
+              "answerValueSet": "http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype",
+              "enableWhen": [
+                {
+                  "question": "familiarCadastrado",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "autocomplete"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "→ RelatedPerson.relationship (v3-RoleCode)."
+                }
+              ]
+            },
+            {
+              "linkId": "novoFamiliarTelefone",
+              "text": "Telefone do familiar",
+              "type": "string",
+              "enableWhen": [
+                {
+                  "question": "familiarCadastrado",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "→ RelatedPerson.telecom (system = phone)."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "PROFISSIONAL",
+          "text": "Profissional da equipe de saúde",
+          "type": "group",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "equipe-aps"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "profissionalContato",
+              "text": "Profissional",
+              "type": "reference",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+                  "valueCode": "PractitionerRole"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Busca PractitionerRole por nome ou CNES. → Communication.recipient."
+                }
+              ]
+            },
+            {
+              "linkId": "profissionalContatoNome",
+              "text": "Nome do profissional (se não encontrado)",
+              "type": "string",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "profissionalContato",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Sem recipient estruturado: nome, CPF e CBO vão no início de Communication.payload.contentString."
+                }
+              ]
+            },
+            {
+              "linkId": "profissionalContatoCPF",
+              "text": "CPF do profissional",
+              "type": "string",
+              "maxLength": 11,
+              "enableWhen": [
+                {
+                  "question": "profissionalContato",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/regex",
+                  "valueString": "^[0-9]{11}$"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Somente números (11 dígitos). Opcional: nem sempre o navegador sabe o CPF."
+                }
+              ]
+            },
+            {
+              "linkId": "profissionalContatoCBO",
+              "text": "Ocupação (CBO)",
+              "type": "choice",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "profissionalContato",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "autocomplete"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "VS BROcupacao (CBO)."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "SERVICO",
+          "text": "Serviço ou unidade",
+          "type": "group",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "servico-referencia"
+              }
+            },
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "regulacao"
+              }
+            },
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "rede-protecao"
+              }
+            },
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "vigilancia"
+              }
+            },
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "assistencia-farmaceutica"
+              }
+            },
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "casai-dsei"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "servicoContato",
+              "text": "Serviço ou unidade",
+              "type": "reference",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-referenceResource",
+                  "valueCode": "Organization"
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Busca Organization por nome ou CNES. → Communication.recipient."
+                }
+              ]
+            },
+            {
+              "linkId": "servicoContatoDescricao",
+              "text": "Nome do serviço (se não encontrado)",
+              "type": "string",
+              "required": true,
+              "enableWhen": [
+                {
+                  "question": "servicoContato",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ],
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+                  "valueMarkdown": "Sem recipient estruturado: vai no início de Communication.payload.contentString."
+                }
+              ]
+            }
+          ],
+          "enableBehavior": "any"
+        },
+        {
+          "linkId": "outroDestinatario",
+          "text": "Com quem falou (descrever)",
+          "type": "string",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "comQuemFalou",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/DestinatarioNavegacao",
+                "code": "outro"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Sem recipient estruturado: vai no início de Communication.payload.contentString."
+            }
+          ]
+        },
+        {
+          "linkId": "meioContato",
+          "text": "Meio",
+          "type": "choice",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Communication.medium. VS https://mangara.hsl.org.br/fhir/ValueSet/ModoParticipacao = PHONE, VIDEOCONF, APPWRIT, SMSWRIT do CS http://terminology.hl7.org/CodeSystem/v3-ParticipationMode (displays em português)."
+            }
+          ],
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ModoParticipacao"
+        },
+        {
+          "linkId": "conseguiuContato",
+          "text": "Conseguiu contato?",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/SimNao",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "SIM → Communication.status = completed; NAO → not-done. Se havia Appointment de navegação booked para hoje: SIM → fulfilled; NAO → noshow."
+            }
+          ]
+        },
+        {
+          "linkId": "motivoInsucessoContato",
+          "text": "Motivo de não ter conseguido contato",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/MotivoInsucessoContato",
+          "enableWhen": [
+            {
+              "question": "conseguiuContato",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "NAO"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Communication.statusReason. VS e CS MotivoInsucessoContato A CRIAR no OCL (proposta: nao-atende, numero-invalido, sem-telefone, recusa, paciente-nao-localizada, outro)."
+            }
+          ]
+        },
+        {
+          "linkId": "anotacaoContato",
+          "text": "Anotação",
+          "type": "text",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Communication.payload[0].contentString."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "ENCERRAMENTO",
+      "text": "Encerramento",
+      "type": "group",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UCNAV06. Se encerrarNavegacao = SIM: Task.status = completed (concluida) ou failed (sem-sucesso), Task.businessStatus = resposta de resultadoNavegacao, Task.executionPeriod.end = agora, Task.statusReason = motivoInsucessoNavegacao (se sem-sucesso), Task.note = resumoEncerramento; ServiceRequest.status = completed ou revoked; Appointments de navegação booked e futuros → cancelled."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "encerrarNavegacao",
+          "text": "Encerrar a navegação?",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/SimNao",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "resultadoNavegacao",
+          "text": "Resultado da navegação",
+          "type": "choice",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "encerrarNavegacao",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/TaskBusinessStatusMangara",
+                "code": "concluida",
+                "display": "Concluída"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/TaskBusinessStatusMangara",
+                "code": "sem-sucesso",
+                "display": "Sem sucesso"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Task.businessStatus (CS TaskBusinessStatusMangara)."
+            }
+          ]
+        },
+        {
+          "linkId": "motivoInsucessoNavegacao",
+          "text": "Motivo do insucesso",
+          "type": "choice",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "resultadoNavegacao",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/TaskBusinessStatusMangara",
+                "code": "sem-sucesso"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Task.statusReason.coding (mesmo CS MotivoInsucessoContato usado em Communication.statusReason; A CRIAR no OCL). Se 'outro', descrever em resumoEncerramento."
+            }
+          ],
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/MotivoInsucessoContato"
+        },
+        {
+          "linkId": "resumoEncerramento",
+          "text": "Resumo do encerramento",
+          "type": "text",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "encerrarNavegacao",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Task.note.text (authorReference = profissional navegador; time = agora)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "RETORNO",
+      "text": "Próximo retorno",
+      "type": "group",
+      "required": true,
+      "enableWhen": [
+        {
+          "question": "encerrarNavegacao",
+          "operator": "=",
+          "answerCoding": {
+            "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+            "code": "NAO"
+          }
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "UCNAV04. Se marcarRetorno = SIM: cria Appointment (status booked; serviceType = HSL_Servicos#NAVEGACAO; appointmentType = v2-0276#FOLLOWUP; basedOn = ServiceRequest da navegação; supportingInformation = Task; participant = Patient + PractitionerRole do profissional navegador; sem Slot) e Task.businessStatus = aguardando-retorno. Se já houver retorno booked no caso, o antigo vai para cancelled (Remarcado). Se marcarRetorno = NAO: Task.businessStatus = em-navegacao."
+        }
+      ],
+      "item": [
+        {
+          "linkId": "marcarRetorno",
+          "text": "Marcar retorno?",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/SimNao",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "dataHoraRetorno",
+          "text": "Data e hora do retorno",
+          "type": "dateTime",
+          "required": true,
+          "enableWhen": [
+            {
+              "question": "marcarRetorno",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-constraint",
+              "extension": [
+                {
+                  "url": "key",
+                  "valueId": "nav-2"
+                },
+                {
+                  "url": "severity",
+                  "valueCode": "error"
+                },
+                {
+                  "url": "expression",
+                  "valueString": "%resource.repeat(item).where(linkId='dataHoraRetorno').answer.value.all($this > now())"
+                },
+                {
+                  "url": "human",
+                  "valueString": "A data e hora do retorno deve ser futura."
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Appointment.start."
+            }
+          ]
+        },
+        {
+          "linkId": "duracaoRetorno",
+          "text": "Duração prevista",
+          "type": "integer",
+          "enableWhen": [
+            {
+              "question": "marcarRetorno",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "initial": [
+            {
+              "valueInteger": 15
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "min",
+                "display": "minutos"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Appointment.minutesDuration; Appointment.end = start + duração."
+            }
+          ]
+        },
+        {
+          "linkId": "oQueFazerRetorno",
+          "text": "O que fazer no retorno",
+          "type": "string",
+          "enableWhen": [
+            {
+              "question": "marcarRetorno",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Appointment.comment (lembrete para o profissional navegador)."
+            }
+          ]
+        },
+        {
+          "linkId": "orientacaoPaciente",
+          "text": "Orientação para a paciente",
+          "type": "string",
+          "enableWhen": [
+            {
+              "question": "marcarRetorno",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://mangara.hsl.org.br/fhir/CodeSystem/SimNaoNaoSei",
+                "code": "SIM"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "→ Appointment.patientInstruction."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
