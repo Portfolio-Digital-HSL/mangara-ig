@@ -1495,7 +1495,7 @@
           "linkId": "TIC.SV.POS",
           "text": "Posição na aferição da PA",
           "type": "choice",
-          "answerValueSet": "http://www.saude.gov.br/fhir/r4/ValueSet/BRPosicaoIndividuo",
+          "answerValueSet": "http://www.terminologia.saude.gov.br/fhir/r4/ValueSet/BRPosicaoIndividuo",
           "enableWhen": [
             {
               "question": "TIC.SV.PAS",
