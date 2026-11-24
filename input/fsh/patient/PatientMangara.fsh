@@ -8,7 +8,9 @@ Description: "Paciente atendido no Mangará Digital. Especializa o BR Core Patie
 
 // Identificadores: CPF ou CNS (br-core-pat-2 do BR Core). Os slices são do BR Core;
 // aqui só se acrescenta o formato do valor.
-* identifier MS
+* identifier 1..* MS
+* identifier ^short = "CPF ou CNS (ao menos um)"
+* identifier ^comment = "Ao menos um identificador, que deve ser o CPF ou o CNS (invariante `br-core-pat-2` do BR Core)."
 * identifier[cpf] MS
 * identifier[cpf].value obeys mangara-pat-cpf-formato
 * identifier[cns] MS
