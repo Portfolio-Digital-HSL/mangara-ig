@@ -712,7 +712,7 @@
           "text": "Ocupação (CBO)",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCBO",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao",
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",
