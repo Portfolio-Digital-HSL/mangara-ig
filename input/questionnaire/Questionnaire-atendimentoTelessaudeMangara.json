@@ -712,7 +712,7 @@
           "text": "Ocupação (CBO)",
           "type": "choice",
           "required": true,
-          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BROcupacao",
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCBO",
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/designNote",
@@ -1495,7 +1495,7 @@
           "linkId": "TIC.SV.POS",
           "text": "Posição na aferição da PA",
           "type": "choice",
-          "answerValueSet": "http://www.terminologia.saude.gov.br/fhir/r4/ValueSet/BRPosicaoIndividuo",
+          "answerValueSet": "http://www.saude.gov.br/fhir/r4/ValueSet/BRPosicaoIndividuo",
           "enableWhen": [
             {
               "question": "TIC.SV.PAS",

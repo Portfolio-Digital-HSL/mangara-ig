@@ -4,7 +4,11 @@ Esta seção descreve as extensões customizadas do guia.
 
 ## Extensões disponíveis
 
-- `DuracaoConsultaMangara`
+| Extensão | Contexto | Situação |
+|---|---|---|
+| [Duração da consulta Mangara](StructureDefinition-duracao-consulta-mangara.html) | PractitionerRole | Ativa |
+
+O perfil [Paciente Mangará](StructureDefinition-patient-mangara.html) não define extensões próprias: usa as do BR Core e do IPS Brasil.
 
 ## Para cada extensão, documentar
 

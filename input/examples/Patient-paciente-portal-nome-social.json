@@ -1,0 +1,104 @@
+{
+  "resourceType": "Patient",
+  "id": "paciente-portal-nome-social",
+  "meta": {
+    "profile": [
+      "https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Paciente com nome civil e nome social, raça/cor e identidade de gênero.</p></div>"
+  },
+  "extension": [
+    {
+      "url": "https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor",
+            "code": "03",
+            "display": "Parda"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-genderIdentity",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero",
+            "code": "mulher-cisgenero",
+            "display": "Mulher cisgênero"
+          }
+        ],
+        "text": "Mulher cisgênero"
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "TAX"
+          }
+        ]
+      },
+      "system": "https://saude.gov.br/fhir/sid/cpf",
+      "value": "04024680820"
+    },
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "HC"
+          }
+        ]
+      },
+      "system": "https://saude.gov.br/fhir/sid/cns",
+      "value": "744660600468802"
+    }
+  ],
+  "name": [
+    {
+      "use": "official",
+      "text": "Ana Clara Ribeiro Santos",
+      "given": [
+        "Ana",
+        "Clara"
+      ]
+    },
+    {
+      "use": "usual",
+      "text": "Clara Ribeiro"
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "85999990000"
+    },
+    {
+      "system": "email",
+      "value": "paciente1@exemplo.com.br"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-05-25",
+  "address": [
+    {
+      "city": "Baturité",
+      "state": "CE",
+      "postalCode": "62000000"
+    }
+  ],
+  "managingOrganization": {
+    "display": "UNIDADE BASICA DE SAUDE DE ACUDINHO"
+  }
+}

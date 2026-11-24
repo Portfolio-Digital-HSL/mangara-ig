@@ -3,3 +3,7 @@
 # Add warning and/or information messages here after you've confirmed that they aren't really a problem
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
+# O BR Core vincula a extensão br-core-address-aldeia ao ValueSet BRAldeia, que não está em
+# nenhum pacote publicado do Ministério da Saúde (só no servidor tx.mangaradigital.org).
+# O link gerado na tabela do perfil não tem como ser resolvido.
+The link 'https://terminologia.saude.gov.br/fhir/ValueSet/BRAldeia' for "https://terminologia.saude.gov.br/fhir/ValueSet/BRAldeia" cannot be resolved
