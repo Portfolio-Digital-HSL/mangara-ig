@@ -1,0 +1,197 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "impressao-clinica-teleconsultor-Mangara",
+  "url": "https://ig.mangaradigital.org/mangara-ig/Questionnaire/impressao-clinica-teleconsultor-Mangara",
+  "version": "0.1.0",
+  "name": "ImpressaoClinicaTeleconsultorMangara",
+  "title": "Impressão clínica de teleconsultor participante – Mangará",
+  "status": "draft",
+  "description": "Preenchido por cada teleconsultor que entra no atendimento de telessaúde além do responsável: registra apenas a sua impressão clínica.",
+  "language": "pt-BR",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
+    ]
+  },
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2026-11-18",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        },
+        {
+          "url": "description",
+          "valueString": "Paciente do atendimento"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        },
+        {
+          "url": "description",
+          "valueString": "Teleconsultor participante logado"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "encounter"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Encounter"
+        },
+        {
+          "url": "description",
+          "valueString": "Encounter do atendimento de telessaúde (questionário atendimento-telessaude-Mangara)"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+      "valueMarkdown": "Cada teleconsultor participante preenche o seu, no mesmo atendimento; pode haver vários. Ao salvar, num Bundle transaction: (1) ClinicalImpression: status = completed; subject = Patient; encounter = Encounter do atendimento (%encounter); assessor = PractitionerRole do teleconsultor logado; date = TCS.DH; summary = TCS.IC; supportingInfo = este QuestionnaireResponse. (2) Encounter do atendimento: acrescenta participant com type = https://mangara.hsl.org.br/fhir/CodeSystem/TipoParticipante#TECSEC ('Teleconsultor secundário, participante atendimento') e individual = PractitionerRole do teleconsultor; se ele já for participant, não duplica. Não cria Encounter próprio. Permitido enquanto o Encounter do atendimento não estiver finished (ou conforme regra de edição do Mangará). PENDENTE confirmar o canonical do CS TipoParticipante do HSL."
+    }
+  ],
+  "item": [
+    {
+      "linkId": "TCS.PROF",
+      "text": "Teleconsultor",
+      "type": "group",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "Preenchido do cadastro do usuário logado (%user), somente leitura. Encounter.participant.type = TECSEC."
+        }
+      ],
+      "readOnly": true,
+      "item": [
+        {
+          "linkId": "TCS.PROF.CPF",
+          "text": "CPF",
+          "type": "string",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%user.identifier.where(system='https://saude.gov.br/fhir/sid/cpf').value.first()"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TCS.PROF.NM",
+          "text": "Nome completo",
+          "type": "string",
+          "required": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%user.name.first().text"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "TCS.PROF.CONS",
+          "text": "Conselho Profissional",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/ConselhosProfissionais",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+              "valueMarkdown": "Define a regra CIAP-2 × CID-10 (REQFUNC3/4). PENDENTE confirmar que o código do CRM em ConselhosProfissionais é 'CRM'."
+            }
+          ]
+        },
+        {
+          "linkId": "TCS.PROF.UF",
+          "text": "UF do conselho",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRUnidadeFederativa"
+        },
+        {
+          "linkId": "TCS.PROF.NUM",
+          "text": "Número do conselho ou RMS",
+          "type": "string",
+          "required": true
+        },
+        {
+          "linkId": "TCS.PROF.OCUP",
+          "text": "Ocupação (CBO)",
+          "type": "choice",
+          "required": true,
+          "answerValueSet": "https://terminologia.saude.gov.br/fhir/ValueSet/BRCBO"
+        }
+      ]
+    },
+    {
+      "linkId": "TCS.DH",
+      "text": "Data e hora",
+      "type": "dateTime",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "now()"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "→ ClinicalImpression.date."
+        }
+      ]
+    },
+    {
+      "linkId": "TCS.IC",
+      "text": "Impressão clínica",
+      "type": "text",
+      "required": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/designNote",
+          "valueMarkdown": "→ ClinicalImpression.summary."
+        }
+      ]
+    }
+  ]
+}
