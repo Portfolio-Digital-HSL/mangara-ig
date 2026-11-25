@@ -16,6 +16,14 @@ Description: "Paciente atendido no Mangará Digital. Especializa o BR Core Patie
 * identifier[cns] MS
 * identifier[cns].value obeys mangara-pat-cns-formato
 
+// Documentos de estrangeiro: fatias do BR Core, complementares ao CPF/CNS.
+* identifier[registroEstrangeiro] MS
+* identifier[registroEstrangeiro] ^short = "RNE/CRNM do estrangeiro (complementar ao CPF/CNS)"
+* identifier[registroEstrangeiro] ^comment = "Registro Nacional de Estrangeiro ou Carteira de Registro Nacional Migratório, para estrangeiros com residência no Brasil. `system = https://saude.gov.br/fhir/sid/rne`, `use = official` e `type = v2-0203#RNE`. Não substitui o CPF ou o CNS, que continuam obrigatórios."
+* identifier[passaporte] MS
+* identifier[passaporte] ^short = "Passaporte do estrangeiro (complementar ao CPF/CNS)"
+* identifier[passaporte] ^comment = "Número do passaporte, para estrangeiros sem RNE/CRNM. `system = http://hl7.org/fhir/sid/passport-BRA`, `use = official` e `type = v2-0203#PPN`, conforme o BR Core. Não substitui o CPF ou o CNS, que continuam obrigatórios."
+
 // Sexo: obrigatório (já 1..1 no BR Core). Sexo ao nascer é opcional.
 * gender MS
 * extension[sexoNascimento] MS

@@ -6,7 +6,7 @@ Este perfil define como um paciente atendido no Mangará Digital é representado
 
 | Elemento | Regra |
 |---|---|
-| `identifier` | CPF ou CNS obrigatório (ao menos um), conforme a invariante `br-core-pat-2` do BR Core. CPF com 11 dígitos, sem máscara e com zeros à esquerda, `use = official` e `type = v2-0203#TAX`. CNS com 15 dígitos, `use = official` e `type = v2-0203#HC`. Outros identificadores não são previstos. |
+| `identifier` | CPF ou CNS obrigatório (ao menos um), conforme a invariante `br-core-pat-2` do BR Core. CPF com 11 dígitos, sem máscara e com zeros à esquerda, `use = official` e `type = v2-0203#TAX`. CNS com 15 dígitos, `use = official` e `type = v2-0203#HC`. O estrangeiro pode ter também o RNE/CRNM (`https://saude.gov.br/fhir/sid/rne`, `type = v2-0203#RNE`) e o passaporte (`http://hl7.org/fhir/sid/passport-BRA`, `type = v2-0203#PPN`), ambos com `use = official`. Esses documentos são complementares: não substituem o CPF ou o CNS. Outros identificadores não são previstos. |
 | `gender` | Obrigatório. |
 | Sexo ao nascer | Opcional, na extensão `sexo-nascimento-br-ips`. |
 | Identidade de gênero | Extensão `identidade-genero-br-ips` do BR Core. Na instância, a URL é `http://hl7.org/fhir/StructureDefinition/patient-genderIdentity`. O código vem do CodeSystem nacional `https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero`, com `display` e `text` iguais ao display oficial (invariante `mangara-pat-identidade-genero`). |
@@ -31,7 +31,8 @@ Este perfil define como um paciente atendido no Mangará Digital é representado
 
 ### Conformidade com o BR Core
 
-Duas divergências dos pacotes nacionais afetam a validação deste perfil:
+Três divergências dos pacotes nacionais afetam a validação deste perfil:
 
 - O BR Core 1.7.1 vincula a identidade de gênero (binding *required*) ao ValueSet `BRIdentidadeGenero` 1.1.0, que lista códigos SNOMED CT. Este perfil adota os códigos do CodeSystem nacional `BRIdentidadeGenero` listados acima. Instâncias com identidade de gênero acusam erro de validação contra o BR Core até que o ValueSet nacional inclua esses códigos.
 - O ValueSet `BRSexoNascimento` declara os displays "Feminino" e "Masculino" para os códigos de `administrative-gender`, cujos displays oficiais são "Female" e "Male". Os exemplos usam os displays do ValueSet nacional e acusam esse erro.
+- A fatia `registroEstrangeiro` do BR Core fixa o tipo `http://terminology.hl7.org/CodeSystem/v2-0203#RNE`, mas o código `RNE` não existe nesse CodeSystem nem no ValueSet `BRTipoDocumentoIndividuo`, ao qual o próprio BR Core vincula o tipo. Instâncias com RNE/CRNM seguem o BR Core e acusam erro de validação até a correção do pacote nacional.

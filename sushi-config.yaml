@@ -248,3 +248,7 @@ resources:
     name: "Paciente desativado por duplicidade"
     description: "Registro duplicado desativado (active = false) com link replaced-by para o cadastro que permanece."
     exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-estrangeiro:
+    name: "Paciente estrangeiro"
+    description: "Paciente estrangeiro residente no Brasil, identificado pelo CNS, com RNE/CRNM e passaporte como documentos complementares."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
