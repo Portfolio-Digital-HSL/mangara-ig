@@ -1,0 +1,143 @@
+@prefix fhir: <http://hl7.org/fhir/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# - resource -------------------------------------------------------------------
+
+<https://mangaradigital.org/fhir/mangara/Patient/paciente-cpf-cns> a fhir:Patient ;
+  fhir:nodeRole fhir:treeRoot ;
+  fhir:Resource.id [ fhir:value "paciente-cpf-cns"] ;
+  fhir:Resource.meta [
+     fhir:Meta.profile [
+       fhir:value "https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara" ;
+       fhir:index 0 ;
+       fhir:link <https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara>
+     ]
+  ] ;
+  fhir:DomainResource.text [
+     fhir:Narrative.status [ fhir:value "generated" ] ;
+     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Paciente identificado por CPF e CNS, com sexo ao nascer, identidade de gênero, raça/cor e a mãe como contato.</p></div>"
+  ] ;
+  fhir:DomainResource.extension [
+     fhir:index 0 ;
+     fhir:Extension.url [ fhir:value "https://ips.saude.gov.br/fhir/StructureDefinition/sexo-nascimento-br-ips" ] ;
+     fhir:Extension.valueCodeableConcept [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://hl7.org/fhir/administrative-gender" ] ;
+         fhir:Coding.code [ fhir:value "male" ] ;
+         fhir:Coding.display [ fhir:value "Masculino" ]
+       ]
+     ]
+  ], [
+     fhir:index 1 ;
+     fhir:Extension.url [ fhir:value "http://hl7.org/fhir/StructureDefinition/patient-genderIdentity" ] ;
+     fhir:Extension.valueCodeableConcept [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero" ] ;
+         fhir:Coding.code [ fhir:value "homem-cisgenero" ] ;
+         fhir:Coding.display [ fhir:value "Homem cisgênero" ]
+       ] ;
+       fhir:CodeableConcept.text [ fhir:value "Homem cisgênero" ]
+     ]
+  ], [
+     fhir:index 2 ;
+     fhir:Extension.url [ fhir:value "https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips" ] ;
+     fhir:Extension.valueCodeableConcept [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor" ] ;
+         fhir:Coding.code [ fhir:value "03" ] ;
+         fhir:Coding.display [ fhir:value "Parda" ]
+       ]
+     ]
+  ] ;
+  fhir:Patient.identifier [
+     fhir:index 0 ;
+     fhir:Identifier.use [ fhir:value "official" ] ;
+     fhir:Identifier.type [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v2-0203" ] ;
+         fhir:Coding.code [ fhir:value "TAX" ]
+       ]
+     ] ;
+     fhir:Identifier.system [ fhir:value "https://saude.gov.br/fhir/sid/cpf" ] ;
+     fhir:Identifier.value [ fhir:value "88644040820" ]
+  ], [
+     fhir:index 1 ;
+     fhir:Identifier.use [ fhir:value "official" ] ;
+     fhir:Identifier.type [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v2-0203" ] ;
+         fhir:Coding.code [ fhir:value "HC" ]
+       ]
+     ] ;
+     fhir:Identifier.system [ fhir:value "https://saude.gov.br/fhir/sid/cns" ] ;
+     fhir:Identifier.value [ fhir:value "784060400242066" ]
+  ] ;
+  fhir:Patient.name [
+     fhir:index 0 ;
+     fhir:HumanName.use [ fhir:value "official" ] ;
+     fhir:HumanName.text [ fhir:value "João Pedro Almeida Costa" ] ;
+     fhir:HumanName.given [
+       fhir:value "João" ;
+       fhir:index 0
+     ], [
+       fhir:value "Pedro" ;
+       fhir:index 1
+     ]
+  ] ;
+  fhir:Patient.telecom [
+     fhir:index 0 ;
+     fhir:ContactPoint.system [ fhir:value "phone" ] ;
+     fhir:ContactPoint.value [ fhir:value "85999990000" ]
+  ], [
+     fhir:index 1 ;
+     fhir:ContactPoint.system [ fhir:value "email" ] ;
+     fhir:ContactPoint.value [ fhir:value "paciente2@exemplo.com.br" ]
+  ] ;
+  fhir:Patient.gender [ fhir:value "male"] ;
+  fhir:Patient.birthDate [ fhir:value "2015-05-17"^^xsd:date] ;
+  fhir:Patient.address [
+     fhir:index 0 ;
+     fhir:Address.use [ fhir:value "home" ] ;
+     fhir:Address.type [ fhir:value "physical" ] ;
+     fhir:Address.city [ fhir:value "Maranguape" ] ;
+     fhir:Address.state [ fhir:value "CE" ] ;
+     fhir:Address.postalCode [ fhir:value "61000000" ] ;
+     fhir:Address.country [ fhir:value "BR" ]
+  ] ;
+  fhir:Patient.contact [
+     fhir:index 0 ;
+     fhir:Patient.contact.relationship [
+       fhir:index 0 ;
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v3-RoleCode" ] ;
+         fhir:Coding.code [ fhir:value "MTH" ] ;
+         fhir:Coding.display [ fhir:value "mother" ]
+       ]
+     ] ;
+     fhir:Patient.contact.name [
+       fhir:HumanName.text [ fhir:value "Rita Almeida Costa" ]
+     ] ;
+     fhir:Patient.contact.address [
+       fhir:Address.city [ fhir:value "Maranguape" ] ;
+       fhir:Address.country [ fhir:value "BR" ]
+     ]
+  ] ;
+  fhir:Patient.managingOrganization [
+     fhir:Reference.display [ fhir:value "UBS LUIZ EVERARDO DE ABREU CORDEIRO" ]
+  ] .
+
+# - ontology header ------------------------------------------------------------
+
+<https://mangaradigital.org/fhir/mangara/Patient/paciente-cpf-cns.ttl> a owl:Ontology ;
+  owl:imports fhir:fhir.ttl .
+
+# -------------------------------------------------------------------------------------
+

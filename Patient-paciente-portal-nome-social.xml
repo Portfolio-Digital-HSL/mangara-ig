@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-portal-nome-social"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Paciente com nome civil e nome social, raça/cor e identidade de gênero.</p></div>
+  </text>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor"/>
+        <code value="03"/>
+        <display value="Parda"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero"/>
+        <code value="mulher-cisgenero"/>
+        <display value="Mulher cisgênero"/>
+      </coding>
+      <text value="Mulher cisgênero"/>
+    </valueCodeableConcept>
+  </extension>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="TAX"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cpf"/>
+    <value value="04024680820"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="744660600468802"/>
+  </identifier>
+  <name>
+    <use value="official"/>
+    <text value="Ana Clara Ribeiro Santos"/>
+    <given value="Ana"/>
+    <given value="Clara"/>
+  </name>
+  <name>
+    <use value="usual"/>
+    <text value="Clara Ribeiro"/>
+  </name>
+  <telecom>
+    <system value="phone"/>
+    <value value="85999990000"/>
+  </telecom>
+  <telecom>
+    <system value="email"/>
+    <value value="paciente1@exemplo.com.br"/>
+  </telecom>
+  <gender value="female"/>
+  <birthDate value="1988-05-25"/>
+  <address>
+    <city value="Baturité"/>
+    <state value="CE"/>
+    <postalCode value="62000000"/>
+  </address>
+  <managingOrganization>
+    <display value="UNIDADE BASICA DE SAUDE DE ACUDINHO"/>
+  </managingOrganization>
+</Patient>

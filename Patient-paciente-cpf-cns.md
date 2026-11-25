@@ -1,0 +1,119 @@
+# Paciente com CPF e CNS - v0.1.0
+
+* [**Table of Contents**](toc.md)
+* [**Artifacts Summary**](artifacts.md)
+* **Paciente com CPF e CNS**
+
+## Example Patient: Paciente com CPF e CNS
+
+Paciente identificado por CPF e CNS, com sexo ao nascer, identidade de gênero, raça/cor e a mãe como contato.
+
+
+
+## Resource Content
+
+```json
+{
+  "resourceType" : "Patient",
+  "id" : "paciente-cpf-cns",
+  "meta" : {
+    "profile" : ["https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"]
+  },
+  "extension" : [{
+    "url" : "https://ips.saude.gov.br/fhir/StructureDefinition/sexo-nascimento-br-ips",
+    "valueCodeableConcept" : {
+      "coding" : [{
+        "system" : "http://hl7.org/fhir/administrative-gender",
+        "code" : "male",
+        "display" : "Masculino"
+      }]
+    }
+  },
+  {
+    "url" : "http://hl7.org/fhir/StructureDefinition/patient-genderIdentity",
+    "valueCodeableConcept" : {
+      "coding" : [{
+        "system" : "https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero",
+        "code" : "homem-cisgenero",
+        "display" : "Homem cisgênero"
+      }],
+      "text" : "Homem cisgênero"
+    }
+  },
+  {
+    "url" : "https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips",
+    "valueCodeableConcept" : {
+      "coding" : [{
+        "system" : "https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor",
+        "code" : "03",
+        "display" : "Parda"
+      }]
+    }
+  }],
+  "identifier" : [{
+    "use" : "official",
+    "type" : {
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+        "code" : "TAX"
+      }]
+    },
+    "system" : "https://saude.gov.br/fhir/sid/cpf",
+    "value" : "88644040820"
+  },
+  {
+    "use" : "official",
+    "type" : {
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+        "code" : "HC"
+      }]
+    },
+    "system" : "https://saude.gov.br/fhir/sid/cns",
+    "value" : "784060400242066"
+  }],
+  "name" : [{
+    "use" : "official",
+    "text" : "João Pedro Almeida Costa",
+    "given" : ["João", "Pedro"]
+  }],
+  "telecom" : [{
+    "system" : "phone",
+    "value" : "85999990000"
+  },
+  {
+    "system" : "email",
+    "value" : "paciente2@exemplo.com.br"
+  }],
+  "gender" : "male",
+  "birthDate" : "2015-05-17",
+  "address" : [{
+    "use" : "home",
+    "type" : "physical",
+    "city" : "Maranguape",
+    "state" : "CE",
+    "postalCode" : "61000000",
+    "country" : "BR"
+  }],
+  "contact" : [{
+    "relationship" : [{
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+        "code" : "MTH",
+        "display" : "mother"
+      }]
+    }],
+    "name" : {
+      "text" : "Rita Almeida Costa"
+    },
+    "address" : {
+      "city" : "Maranguape",
+      "country" : "BR"
+    }
+  }],
+  "managingOrganization" : {
+    "display" : "UBS LUIZ EVERARDO DE ABREU CORDEIRO"
+  }
+}
+
+```

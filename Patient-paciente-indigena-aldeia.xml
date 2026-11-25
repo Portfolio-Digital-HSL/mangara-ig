@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-indigena-aldeia"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Paciente indígena, com povo indígena e aldeia codificados.</p></div>
+  </text>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/sexo-nascimento-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="http://hl7.org/fhir/administrative-gender"/>
+        <code value="female"/>
+        <display value="Feminino"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/povo-indigena-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BREtniaIndigena"/>
+        <code value="0060"/>
+        <display value="GUARANI NANDEVA (AVAKATUETE, CHIRIPA, NHANDEWA, AV"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor"/>
+        <code value="05"/>
+        <display value="Indígena"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero"/>
+        <code value="mulher-cisgenero"/>
+        <display value="Mulher cisgênero"/>
+      </coding>
+      <text value="Mulher cisgênero"/>
+    </valueCodeableConcept>
+  </extension>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="TAX"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cpf"/>
+    <value value="08860804876"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="708226464028020"/>
+  </identifier>
+  <name>
+    <use value="official"/>
+    <text value="Maria Eduarda Lima Ferreira"/>
+    <given value="Maria"/>
+    <given value="Eduarda"/>
+  </name>
+  <name>
+    <use value="usual"/>
+    <text value="Duda Lima"/>
+  </name>
+  <telecom>
+    <system value="phone"/>
+    <value value="48999990000"/>
+  </telecom>
+  <telecom>
+    <system value="email"/>
+    <value value="paciente3@exemplo.com.br"/>
+  </telecom>
+  <gender value="female"/>
+  <birthDate value="1982-05-09"/>
+  <address>
+    <extension url="https://br-core.saude.gov.br/fhir/StructureDefinition/br-core-address-aldeia">
+      <valueCodeableConcept>
+        <coding>
+          <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRAldeia"/>
+          <code value="51174"/>
+          <display value="YYNN MOROTY WHERÁ (M¿BIGUAÇU)"/>
+        </coding>
+        <text value="YYNN MOROTY WHERÁ (M¿BIGUAÇU)"/>
+      </valueCodeableConcept>
+    </extension>
+    <use value="home"/>
+    <type value="physical"/>
+    <city value="Biguaçu"/>
+    <state value="SC"/>
+    <postalCode value="88000000"/>
+    <country value="BR"/>
+  </address>
+  <managingOrganization>
+    <display value="POLO BASE DE FLORIANOPOLIS"/>
+  </managingOrganization>
+</Patient>

@@ -1,0 +1,73 @@
+# Paciente estrangeiro - v0.1.0
+
+* [**Table of Contents**](toc.md)
+* [**Artifacts Summary**](artifacts.md)
+* **Paciente estrangeiro**
+
+## Example Patient: Paciente estrangeiro
+
+Paciente estrangeiro residente no Brasil, identificado pelo CNS, com RNE/CRNM e passaporte.
+
+
+
+## Resource Content
+
+```json
+{
+  "resourceType" : "Patient",
+  "id" : "paciente-estrangeiro",
+  "meta" : {
+    "profile" : ["https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"]
+  },
+  "identifier" : [{
+    "use" : "official",
+    "type" : {
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+        "code" : "HC"
+      }]
+    },
+    "system" : "https://saude.gov.br/fhir/sid/cns",
+    "value" : "704026880044082"
+  },
+  {
+    "use" : "official",
+    "type" : {
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+        "code" : "RNE"
+      }]
+    },
+    "system" : "https://saude.gov.br/fhir/sid/rne",
+    "value" : "V1234567"
+  },
+  {
+    "use" : "official",
+    "type" : {
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+        "code" : "PPN"
+      }]
+    },
+    "system" : "http://hl7.org/fhir/sid/passport-BRA",
+    "value" : "AB123456"
+  }],
+  "active" : true,
+  "name" : [{
+    "use" : "official",
+    "text" : "Carlos Andrés Pérez Rojas",
+    "family" : "Rojas",
+    "given" : ["Carlos", "Andrés", "Pérez"]
+  }],
+  "gender" : "male",
+  "birthDate" : "1990-03-14",
+  "address" : [{
+    "line" : ["Rua Exemplo, 200"],
+    "city" : "Boa Vista",
+    "state" : "RR",
+    "postalCode" : "69300000",
+    "country" : "BR"
+  }]
+}
+
+```

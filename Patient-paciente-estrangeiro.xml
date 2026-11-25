@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-estrangeiro"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Paciente estrangeiro residente no Brasil, identificado pelo CNS, com RNE/CRNM e passaporte.</p></div>
+  </text>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="704026880044082"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="RNE"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/rne"/>
+    <value value="V1234567"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="PPN"/>
+      </coding>
+    </type>
+    <system value="http://hl7.org/fhir/sid/passport-BRA"/>
+    <value value="AB123456"/>
+  </identifier>
+  <active value="true"/>
+  <name>
+    <use value="official"/>
+    <text value="Carlos Andrés Pérez Rojas"/>
+    <family value="Rojas"/>
+    <given value="Carlos"/>
+    <given value="Andrés"/>
+    <given value="Pérez"/>
+  </name>
+  <gender value="male"/>
+  <birthDate value="1990-03-14"/>
+  <address>
+    <line value="Rua Exemplo, 200"/>
+    <city value="Boa Vista"/>
+    <state value="RR"/>
+    <postalCode value="69300000"/>
+    <country value="BR"/>
+  </address>
+</Patient>

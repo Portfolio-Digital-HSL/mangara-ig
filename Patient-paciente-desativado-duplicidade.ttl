@@ -1,0 +1,112 @@
+@prefix fhir: <http://hl7.org/fhir/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# - resource -------------------------------------------------------------------
+
+<https://mangaradigital.org/fhir/mangara/Patient/paciente-desativado-duplicidade> a fhir:Patient ;
+  fhir:nodeRole fhir:treeRoot ;
+  fhir:Resource.id [ fhir:value "paciente-desativado-duplicidade"] ;
+  fhir:Resource.meta [
+     fhir:Meta.profile [
+       fhir:value "https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara" ;
+       fhir:index 0 ;
+       fhir:link <https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara>
+     ]
+  ] ;
+  fhir:DomainResource.text [
+     fhir:Narrative.status [ fhir:value "generated" ] ;
+     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Cadastro desativado por duplicidade, com link para o cadastro que permanece.</p></div>"
+  ] ;
+  fhir:Patient.identifier [
+     fhir:index 0 ;
+     fhir:Identifier.use [ fhir:value "official" ] ;
+     fhir:Identifier.type [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v2-0203" ] ;
+         fhir:Coding.code [ fhir:value "HC" ]
+       ]
+     ] ;
+     fhir:Identifier.system [ fhir:value "https://saude.gov.br/fhir/sid/cns" ] ;
+     fhir:Identifier.value [ fhir:value "784060400242066" ]
+  ], [
+     fhir:index 1 ;
+     fhir:Identifier.use [ fhir:value "official" ] ;
+     fhir:Identifier.type [
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v2-0203" ] ;
+         fhir:Coding.code [ fhir:value "TAX" ]
+       ]
+     ] ;
+     fhir:Identifier.system [ fhir:value "https://saude.gov.br/fhir/sid/cpf" ] ;
+     fhir:Identifier.value [ fhir:value "88644040820" ]
+  ] ;
+  fhir:Patient.active [ fhir:value "false"^^xsd:boolean] ;
+  fhir:Patient.name [
+     fhir:index 0 ;
+     fhir:HumanName.use [ fhir:value "official" ] ;
+     fhir:HumanName.text [ fhir:value "Raimundo Nonato Silva Pereira" ] ;
+     fhir:HumanName.family [
+       fhir:Element.extension [
+         fhir:index 0 ;
+         fhir:Extension.url [ fhir:value "http://hl7.org/fhir/StructureDefinition/data-absent-reason" ] ;
+         fhir:Extension.valueCode [ fhir:value "unknown" ]
+       ]
+     ] ;
+     fhir:HumanName.given [
+       fhir:value "Raimundo" ;
+       fhir:index 0
+     ], [
+       fhir:value "Nonato" ;
+       fhir:index 1
+     ]
+  ] ;
+  fhir:Patient.gender [ fhir:value "female"] ;
+  fhir:Patient.birthDate [ fhir:value "1996-09-01"^^xsd:date] ;
+  fhir:Patient.address [
+     fhir:index 0 ;
+     fhir:Address.use [ fhir:value "home" ] ;
+     fhir:Address.type [ fhir:value "physical" ] ;
+     fhir:Address.state [ fhir:value "AM" ] ;
+     fhir:Address.country [ fhir:value "BR" ]
+  ] ;
+  fhir:Patient.contact [
+     fhir:index 0 ;
+     fhir:Patient.contact.relationship [
+       fhir:index 0 ;
+       fhir:CodeableConcept.coding [
+         fhir:index 0 ;
+         fhir:Coding.system [ fhir:value "http://terminology.hl7.org/CodeSystem/v3-RoleCode" ] ;
+         fhir:Coding.code [ fhir:value "MTH" ] ;
+         fhir:Coding.display [ fhir:value "mother" ]
+       ]
+     ] ;
+     fhir:Patient.contact.name [
+       fhir:HumanName.text [ fhir:value "Raimunda Silva Pereira" ]
+     ]
+  ] ;
+  fhir:Patient.managingOrganization [
+     fhir:Reference.identifier [
+       fhir:Identifier.system [ fhir:value "https://saude.gov.br/fhir/sid/cnes" ] ;
+       fhir:Identifier.value [ fhir:value "5591171" ]
+     ]
+  ] ;
+  fhir:Patient.link [
+     fhir:index 0 ;
+     fhir:Patient.link.other [
+       fhir:link <https://mangaradigital.org/fhir/mangara/Patient/paciente-cpf-cns> ;
+       fhir:Reference.reference [ fhir:value "Patient/paciente-cpf-cns" ]
+     ] ;
+     fhir:Patient.link.type [ fhir:value "replaced-by" ]
+  ] .
+
+# - ontology header ------------------------------------------------------------
+
+<https://mangaradigital.org/fhir/mangara/Patient/paciente-desativado-duplicidade.ttl> a owl:Ontology ;
+  owl:imports fhir:fhir.ttl .
+
+# -------------------------------------------------------------------------------------
+

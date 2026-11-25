@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-desativado-duplicidade"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Cadastro desativado por duplicidade, com link para o cadastro que permanece.</p></div>
+  </text>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="784060400242066"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="TAX"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cpf"/>
+    <value value="88644040820"/>
+  </identifier>
+  <active value="false"/>
+  <name>
+    <use value="official"/>
+    <text value="Raimundo Nonato Silva Pereira"/>
+    <family>
+      <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+        <valueCode value="unknown"/>
+      </extension>
+    </family>
+    <given value="Raimundo"/>
+    <given value="Nonato"/>
+  </name>
+  <gender value="female"/>
+  <birthDate value="1996-09-01"/>
+  <address>
+    <use value="home"/>
+    <type value="physical"/>
+    <state value="AM"/>
+    <country value="BR"/>
+  </address>
+  <contact>
+    <relationship>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+        <code value="MTH"/>
+        <display value="mother"/>
+      </coding>
+    </relationship>
+    <name>
+      <text value="Raimunda Silva Pereira"/>
+    </name>
+  </contact>
+  <managingOrganization>
+    <identifier>
+      <system value="https://saude.gov.br/fhir/sid/cnes"/>
+      <value value="5591171"/>
+    </identifier>
+  </managingOrganization>
+  <link>
+    <other>
+      <reference value="Patient/paciente-cpf-cns"/>
+    </other>
+    <type value="replaced-by"/>
+  </link>
+</Patient>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-cpf-cns"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Paciente identificado por CPF e CNS, com sexo ao nascer, identidade de gênero, raça/cor e a mãe como contato.</p></div>
+  </text>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/sexo-nascimento-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="http://hl7.org/fhir/administrative-gender"/>
+        <code value="male"/>
+        <display value="Masculino"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRIdentidadeGenero"/>
+        <code value="homem-cisgenero"/>
+        <display value="Homem cisgênero"/>
+      </coding>
+      <text value="Homem cisgênero"/>
+    </valueCodeableConcept>
+  </extension>
+  <extension url="https://ips.saude.gov.br/fhir/StructureDefinition/raca-br-ips">
+    <valueCodeableConcept>
+      <coding>
+        <system value="https://terminologia.saude.gov.br/fhir/CodeSystem/BRRacaCor"/>
+        <code value="03"/>
+        <display value="Parda"/>
+      </coding>
+    </valueCodeableConcept>
+  </extension>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="TAX"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cpf"/>
+    <value value="88644040820"/>
+  </identifier>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="784060400242066"/>
+  </identifier>
+  <name>
+    <use value="official"/>
+    <text value="João Pedro Almeida Costa"/>
+    <given value="João"/>
+    <given value="Pedro"/>
+  </name>
+  <telecom>
+    <system value="phone"/>
+    <value value="85999990000"/>
+  </telecom>
+  <telecom>
+    <system value="email"/>
+    <value value="paciente2@exemplo.com.br"/>
+  </telecom>
+  <gender value="male"/>
+  <birthDate value="2015-05-17"/>
+  <address>
+    <use value="home"/>
+    <type value="physical"/>
+    <city value="Maranguape"/>
+    <state value="CE"/>
+    <postalCode value="61000000"/>
+    <country value="BR"/>
+  </address>
+  <contact>
+    <relationship>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+        <code value="MTH"/>
+        <display value="mother"/>
+      </coding>
+    </relationship>
+    <name>
+      <text value="Rita Almeida Costa"/>
+    </name>
+    <address>
+      <city value="Maranguape"/>
+      <country value="BR"/>
+    </address>
+  </contact>
+  <managingOrganization>
+    <display value="UBS LUIZ EVERARDO DE ABREU CORDEIRO"/>
+  </managingOrganization>
+</Patient>

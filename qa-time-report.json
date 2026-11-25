@@ -1,0 +1,484 @@
+{
+  "date" : "Wed, 25 Nov, 2026 13:20:48 +0000",
+  "doco" : "For each file: start is seconds after start activity occurred. Length = milliseconds activity took",
+  "files" : [{
+    "name" : "/fsh-generated/resources/ImplementationGuide-org.mangaradigital.fhir.mangara.json",
+    "size" : 6053,
+    "processes" : [{
+      "activity" : "load",
+      "start" : 57,
+      "length" : 14
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 62,
+      "length" : 9
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 62,
+      "length" : 362
+    },
+    {
+      "activity" : "validate",
+      "start" : 64,
+      "length" : 10169
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 75,
+      "length" : 1
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 31
+    },
+    {
+      "activity" : "generate2",
+      "start" : 84,
+      "length" : 54
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 102,
+      "length" : 2
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-duracao-consulta-mangara.json",
+    "size" : 1805,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 4
+    },
+    {
+      "activity" : "load",
+      "start" : 57,
+      "length" : 8
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 57,
+      "length" : 19
+    },
+    {
+      "activity" : "load-configure",
+      "start" : 62,
+      "length" : 2
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 62,
+      "length" : 1
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 62,
+      "length" : 564
+    },
+    {
+      "activity" : "validate",
+      "start" : 63,
+      "length" : 775
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 14
+    },
+    {
+      "activity" : "generate2",
+      "start" : 84,
+      "length" : 591
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 1285
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 102,
+      "length" : 5
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-patient-mangara.json",
+    "size" : 10512,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 4
+    },
+    {
+      "activity" : "load",
+      "start" : 57,
+      "length" : 11
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 57,
+      "length" : 113
+    },
+    {
+      "activity" : "load-configure",
+      "start" : 62,
+      "length" : 1
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 63,
+      "length" : 99
+    },
+    {
+      "activity" : "validate",
+      "start" : 63,
+      "length" : 852
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 75,
+      "length" : 3
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 103
+    },
+    {
+      "activity" : "generate2",
+      "start" : 85,
+      "length" : 1649
+    },
+    {
+      "activity" : "generate2",
+      "start" : 88,
+      "length" : 561
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 102,
+      "length" : 19
+    },
+    {
+      "activity" : "scanProfilesForR5",
+      "start" : 118,
+      "length" : 1
+    },
+    {
+      "activity" : "scanExamplesForR5",
+      "start" : 118,
+      "length" : 3
+    }]
+  },
+  {
+    "name" : "fsh-generated/resources/StructureDefinition-practitioner-role-mangara.json",
+    "size" : 1351,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 3
+    },
+    {
+      "activity" : "load",
+      "start" : 57,
+      "length" : 7
+    },
+    {
+      "activity" : "generateSnapshots",
+      "start" : 57,
+      "length" : 26
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 63,
+      "length" : 17
+    },
+    {
+      "activity" : "validate",
+      "start" : 64,
+      "length" : 115
+    },
+    {
+      "activity" : "checkConformanceResources",
+      "start" : 75,
+      "length" : 1
+    },
+    {
+      "activity" : "scanForUsageStats",
+      "start" : 75,
+      "length" : 1
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 16
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 218
+    },
+    {
+      "activity" : "generate2",
+      "start" : 89,
+      "length" : 80
+    },
+    {
+      "activity" : "generateValidationPack",
+      "start" : 102,
+      "length" : 3
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-cpf-cns.json",
+    "size" : 3167,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 4
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 62,
+      "length" : 1
+    },
+    {
+      "activity" : "validate",
+      "start" : 75,
+      "length" : 6099
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 2
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 14
+    },
+    {
+      "activity" : "generateExampleZip",
+      "start" : 102,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-desativado-duplicidade.json",
+    "size" : 2184,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 3
+    },
+    {
+      "activity" : "validate",
+      "start" : 81,
+      "length" : 25
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 2
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 6
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-estrangeiro.json",
+    "size" : 1760,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 3
+    },
+    {
+      "activity" : "generateNarratives",
+      "start" : 63,
+      "length" : 1
+    },
+    {
+      "activity" : "validate",
+      "start" : 81,
+      "length" : 16
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 1
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 4
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-indigena-aldeia.json",
+    "size" : 3650,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 2
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 62,
+      "length" : 1
+    },
+    {
+      "activity" : "validate",
+      "start" : 81,
+      "length" : 984
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 2
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 4
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-portal-nome-social.json",
+    "size" : 2379,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 3
+    },
+    {
+      "activity" : "checkR4R4B",
+      "start" : 62,
+      "length" : 1
+    },
+    {
+      "activity" : "validate",
+      "start" : 82,
+      "length" : 9
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 2
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 4
+    }]
+  },
+  {
+    "name" : "input/examples/Patient-paciente-somente-cns.json",
+    "size" : 911,
+    "processes" : [{
+      "activity" : "loadResources",
+      "start" : 57,
+      "length" : 2
+    },
+    {
+      "activity" : "validate",
+      "start" : 82,
+      "length" : 4
+    },
+    {
+      "activity" : "generate1",
+      "start" : 82,
+      "length" : 1
+    },
+    {
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 3
+    }]
+  },
+  {
+    "name" : "/input/includes/StructureDefinition-PractitionerRoleMangara-intro.md",
+    "size" : 1551
+  },
+  {
+    "name" : "/fsh-generated/includes/fsh-link-references.md",
+    "size" : 596
+  },
+  {
+    "name" : "/fsh-generated/includes/menu.xml",
+    "size" : 1535
+  },
+  {
+    "name" : "/input/pagecontent/versionamento-e-mudancas.md",
+    "size" : 450,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/exemplos.md",
+    "size" : 1384
+  },
+  {
+    "name" : "/input/pagecontent/escopo-e-casos-de-uso.md",
+    "size" : 411,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/extensoes.md",
+    "size" : 590
+  },
+  {
+    "name" : "/input/pagecontent/conformidade-e-validacao.md",
+    "size" : 424
+  },
+  {
+    "name" : "/input/pagecontent/sobre-o-guia.md",
+    "size" : 561
+  },
+  {
+    "name" : "/input/pagecontent/StructureDefinition-patient-mangara-intro.md",
+    "size" : 3902
+  },
+  {
+    "name" : "/input/pagecontent/perfis.md",
+    "size" : 651,
+    "processes" : [{
+      "activity" : "scan",
+      "start" : 62,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/input/pagecontent/index.md",
+    "size" : 518,
+    "processes" : [{
+      "activity" : "generate2",
+      "start" : 87,
+      "length" : 1
+    }]
+  },
+  {
+    "name" : "/template/config",
+    "size" : 0
+  },
+  {
+    "name" : "/template/config/_config.yml",
+    "size" : 140
+  },
+  {
+    "name" : "/temp/pages/_includes/artifacts.xml",
+    "size" : 5749
+  }]
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Patient xmlns="http://hl7.org/fhir">
+  <id value="paciente-somente-cns"/>
+  <meta>
+    <profile value="https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"/>
+  </meta>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><p>Paciente identificado apenas pelo CNS.</p></div>
+  </text>
+  <identifier>
+    <use value="official"/>
+    <type>
+      <coding>
+        <system value="http://terminology.hl7.org/CodeSystem/v2-0203"/>
+        <code value="HC"/>
+      </coding>
+    </type>
+    <system value="https://saude.gov.br/fhir/sid/cns"/>
+    <value value="704026880044082"/>
+  </identifier>
+  <active value="true"/>
+  <name>
+    <text value="Francisca Helena Moura Araújo"/>
+  </name>
+  <gender value="female"/>
+  <birthDate value="1988-09-25"/>
+  <address>
+    <line value="Rua Exemplo, 100"/>
+    <state value="AM"/>
+  </address>
+</Patient>
