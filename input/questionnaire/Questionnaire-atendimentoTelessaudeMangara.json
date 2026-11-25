@@ -1832,7 +1832,7 @@
           "linkId": "TIC.DOR.LOC",
           "text": "Localização da dor",
           "type": "choice",
-          "answerValueSet": "http://hl7.org/fhir/ValueSet/body-site"
+          "answerValueSet": "https://mangara.hsl.org.br/fhir/ValueSet/locais_dor_Mangara"
         },
         {
           "linkId": "TIC.DOR.DT",
