@@ -13,10 +13,18 @@ version: 0.1.0
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2026+
 releaseLabel: ci-build
+
+# Pacotes do Ministério da Saúde. Não estão em registro público: ficam no cache
+# local (~/.fhir/packages). O BR Core 1.7.1 pede a terminologia 1.2.0, ainda
+# não publicada; usa-se a 1.1.0.
+dependencies:
+  br.gov.saude.br-core.fhir: 1.7.1
+  br.gov.saude.ips.fhir: 1.0.0
+  br.gov.saude.terminologia.fhir: 1.1.0
 # license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
 # jurisdiction: urn:iso:std:iso:3166#US "United States of America" # https://www.hl7.org/fhir/valueset-jurisdiction.html
 publisher:
-  name: Hospital S�rio Liban�s
+  name: Hospital Sírio-Libanês
   url: https://www.hsl.org.br
   # email: test@example.org
 
@@ -217,3 +225,30 @@ instanceOptions:
   # if InstanceOf references a profile:
   #
   # setId: always # always | standalone-only
+
+# Nome e descrição dos exemplos em JSON (input/examples), que não passam pelo FSH.
+resources:
+  Patient/paciente-portal-nome-social:
+    name: "Paciente com nome social"
+    description: "Paciente com nome civil e nome social (use = usual), raça/cor e identidade de gênero."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-cpf-cns:
+    name: "Paciente com CPF e CNS"
+    description: "Paciente identificado por CPF e CNS, com sexo ao nascer, identidade de gênero, raça/cor e a mãe em contact."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-indigena-aldeia:
+    name: "Paciente indígena com aldeia"
+    description: "Paciente indígena com etnia (povo-indigena-br-ips) e aldeia (br-core-address-aldeia) codificadas."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-somente-cns:
+    name: "Paciente identificado só pelo CNS"
+    description: "Paciente sem CPF, identificado apenas pelo CNS."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-desativado-duplicidade:
+    name: "Paciente desativado por duplicidade"
+    description: "Registro duplicado desativado (active = false) com link replaced-by para o cadastro que permanece."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara
+  Patient/paciente-estrangeiro:
+    name: "Paciente estrangeiro"
+    description: "Paciente estrangeiro residente no Brasil, identificado pelo CNS, com RNE/CRNM e passaporte como documentos complementares."
+    exampleCanonical: https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara

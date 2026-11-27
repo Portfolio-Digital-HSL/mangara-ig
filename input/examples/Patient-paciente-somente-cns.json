@@ -1,0 +1,44 @@
+{
+  "resourceType": "Patient",
+  "id": "paciente-somente-cns",
+  "meta": {
+    "profile": [
+      "https://mangaradigital.org/fhir/mangara/StructureDefinition/patient-mangara"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Paciente identificado apenas pelo CNS.</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "https://saude.gov.br/fhir/sid/cns",
+      "value": "704026880044082",
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "HC"
+          }
+        ]
+      }
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "text": "Francisca Helena Moura Araújo"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1988-09-25",
+  "address": [
+    {
+      "line": [
+        "Rua Exemplo, 100"
+      ],
+      "state": "AM"
+    }
+  ]
+}

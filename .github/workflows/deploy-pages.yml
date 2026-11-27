@@ -40,6 +40,9 @@ jobs:
           npm install -g npm@10.8.1
           npm install -g fsh-sushi@3.17.0
 
+      - name: Install Ministério da Saúde FHIR packages
+        run: bash ./pacotes-fhir/instalar.sh
+
       - name: Download IG Publisher
         run: |
           mkdir -p ./input-cache
